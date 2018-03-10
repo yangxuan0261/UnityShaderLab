@@ -8,10 +8,16 @@ public class PostRenderNoise : MonoBehaviour
  
     void Awake()
     {
-        _material = new Material(Shader.Find("Custom/PostRenderNoise"));
-        _material.SetTexture("_SecondaryTex", Resources.Load("Textures/Hatch") as Texture);
+        // _material = new Material(Shader.Find("Custom/PostRenderNoise"));
+        // _material.SetTexture("_SecondaryTex", Resources.Load("Textures/Hatch") as Texture);
     }
  
+	void Start() {
+		if (_material == null) {
+			Debug.LogError("--- _material is null");
+		}
+	}
+
     public void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         _material.SetFloat("_OffsetX", Random.Range(0f, 1.1f));
