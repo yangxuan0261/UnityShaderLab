@@ -14,10 +14,13 @@ SubShader {
  
  Pass { 
 		
+		ZTest LEqual
+		// ZWrite Off
      Stencil
      {
          Ref [_Stencil]
          Comp Equal
+         
      }
 	 
  
@@ -30,7 +33,7 @@ SubShader {
          float4 vertex : POSITION;
          float2 texcoord : TEXCOORD0;
      };
- 
+
      struct v2f {
          float4 vertex : SV_POSITION;
          half2 texcoord : TEXCOORD0;

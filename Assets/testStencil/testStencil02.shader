@@ -18,6 +18,7 @@ SubShader {
          Ref [_Stencil]
          Comp Always
          Pass Replace
+        ZFail Replace
          
      }
  
