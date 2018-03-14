@@ -5,7 +5,7 @@
 // - no lightmap support
 // - no per-material color
 
-Shader "ITS/testBlend/Unlit-Transparent02" {
+Shader "ITS/test/Unlit-Transparent02" {
 Properties {
 	_TintColor("Tint Color", Color) = (1, 1, 1, 1)
 	_MainTex ("Base (RGB) Trans (A)", 2D) = "white" {}
