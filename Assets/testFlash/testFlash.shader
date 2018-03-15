@@ -39,7 +39,7 @@ Shader "ITS/test/FlashEffect"
 		o.pos = UnityObjectToClipPos(v.vertex);
 		o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
 		//顶点转化到世界空间
-		o.worldPos = mul(unity_ObjectToWorld, v.vertex);
+		o.worldPos = v.vertex; // 使用模型空间的坐标 // mul(unity_ObjectToWorld, v.vertex);
 		// o.worldNormal = UnityObjectToWorldNormal(v.normal);
 		// o.worldLight = UnityObjectToWorldDir(_WorldSpaceLightPos0.xyz);
 		return o;
@@ -51,8 +51,8 @@ Shader "ITS/test/FlashEffect"
 		// half3 light = normalize(i.worldLight);
 		// fixed diff = max(0, dot(normal, light));
 		fixed4 albedo = tex2D(_MainTex, i.uv);
-		//通过时间偏移世界坐标对flashTex进行采样
-		half2 flashuv = i.worldPos.xy * _FlashFactor.zw + _FlashFactor.xy * _Time.y;
+		//通过时间偏移模型坐标对flashTex进行采样
+		half2 flashuv = i.worldPos.yx * _FlashFactor.zw - _FlashFactor.xy * _Time.y;
 		fixed4 flash = tex2D(_FlashTex, flashuv) * _FlashColor * _FlashStrength;
 		fixed4 c;
 		//将flash图与原图叠加
