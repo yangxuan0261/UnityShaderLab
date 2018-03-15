@@ -45,7 +45,7 @@ Shader "ITS/test/DissolveEffectX"
 		// fixed diff = max(0, dot(normal, light));
 		fixed4 albedo = tex2D(_MainTex, i.uv);
 		//不满足条件的discard
-		clip(i.objPos.xyz - _DissolveVector.xyz);
+		clip(i.objPos.xyz - _DissolveVector.xyz); // TODO: 模型坐标系不同，但y轴是一直的
 		fixed4 c;
 		// c.rgb = diff * albedo;
 		c.rgb =  albedo;
