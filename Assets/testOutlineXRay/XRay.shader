@@ -32,29 +32,54 @@ Shader "ITS/test/XRayEffect"
 				float4 pos : SV_POSITION;
 				float3 normal : normal;
 				float3 viewDir : TEXCOORD0;
+				float4 clr : COLOR;
 			};
 
+			// // 方式一: 在片段点中计算，性能较 方式二 差点
+			// v2f vert (appdata_base v)
+			// {
+			// 	v2f o;
+			// 	o.pos = UnityObjectToClipPos(v.vertex);
+			// 	o.viewDir = ObjSpaceViewDir(v.vertex); //对象空间顶点 到 摄像机 的方向
+			// 	o.normal = v.normal;
+			// 	return o;
+			// }
+
+			// fixed4 frag(v2f i) : SV_Target
+			// {
+			// 	float3 normal = normalize(i.normal);
+			// 	float3 viewDir = normalize(i.viewDir);
+			// 	float rim = 1 - dot(normal, viewDir); //夹角越小，点乘x 越小，1-x 强度越大
+			// 	return _XRayColor * rim;
+			// }
+
+		
+			// 方式二: 在顶点中计算好，性能会好一点
 			v2f vert (appdata_base v)
 			{
 				v2f o;
 				o.pos = UnityObjectToClipPos(v.vertex);
 				o.viewDir = ObjSpaceViewDir(v.vertex); //对象空间顶点 到 摄像机 的方向
 				o.normal = v.normal;
+
+				float3 normal = normalize(v.normal);
+				float3 viewDir = normalize(o.viewDir);
+				float rim = 1 - dot(normal, viewDir); //夹角越小，点乘x 越小，1-x 强度越大
+				o.clr =	_XRayColor * rim;
 				return o;
 			}
 
 			fixed4 frag(v2f i) : SV_Target
 			{
-				float3 normal = normalize(i.normal);
-				float3 viewDir = normalize(i.viewDir);
-				float rim = 1 - dot(normal, viewDir);
-				return _XRayColor * rim;
+	
+				return i.clr;
 			}
+
 			#pragma vertex vert
 			#pragma fragment frag
 			ENDCG
 		}
-		
+
 		//正常渲染的Pass
 		Pass
 		{
