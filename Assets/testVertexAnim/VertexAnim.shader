@@ -40,7 +40,7 @@
 			v2f vert (appdata v)
 			{
 				v2f o;
-				float offsetY=sin(v.vertex.x + _Time.y * _Sp);
+				float offsetY=sin(v.vertex.x * 0.5 + _Time.y * _Sp); // 乘以0.5偏移会更加平滑
 				o.vertex.xyz=float3(v.vertex.x,v.vertex.y+offsetY,v.vertex.z);
 				o.vertex = UnityObjectToClipPos(o.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
