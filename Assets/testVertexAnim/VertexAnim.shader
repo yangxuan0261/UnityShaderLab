@@ -1,4 +1,4 @@
-﻿Shader "Unlit/NewUnlitShader"
+﻿Shader "ITS/test/VertexAnim"
 {
 	Properties
 	{
