@@ -10,6 +10,7 @@ Shader "ITS/test/XRayEffect"
 	{
 		_MainTex("Base 2D", 2D) = "white"{}
 		_XRayColor("XRay Color", Color) = (1,1,1,1)
+		_Rang("Rang", Range(0.0, 1.0)) = 0.0
 	}
 
 	SubShader
@@ -27,6 +28,7 @@ Shader "ITS/test/XRayEffect"
 			CGPROGRAM
 			#include "Lighting.cginc"
 			fixed4 _XRayColor;
+			float _Rang;
 			struct v2f
 			{
 				float4 pos : SV_POSITION;
@@ -64,7 +66,9 @@ Shader "ITS/test/XRayEffect"
 
 				float3 normal = normalize(v.normal);
 				float3 viewDir = normalize(o.viewDir);
-				float rim = 1 - dot(normal, viewDir); //夹角越小，点乘x 越小，1-x 强度越大
+				float rim = 1 - dot(normal, viewDir)*(1 - _Rang); //夹角越小，点乘x 越小，1-x 强度越大 // 增加强度控制，让 dot 的值变小
+
+
 				o.clr =	_XRayColor * rim;
 				return o;
 			}
