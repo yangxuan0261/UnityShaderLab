@@ -14,7 +14,7 @@ Properties {
 SubShader {
 	Tags {"Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"}
 	LOD 100
-	
+
 	//最终颜色 = SrcColor * SrcFactor + DstColor * DstFactor
 
 	ZWrite Off
