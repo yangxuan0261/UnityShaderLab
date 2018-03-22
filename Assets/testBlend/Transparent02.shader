@@ -16,7 +16,10 @@ SubShader {
 	LOD 100
 	
 	ZWrite Off
-	Blend DstColor Zero 
+	// Blend DstColor Zero 
+	Blend DstColor Zero
+	// Blend SrcAlpha OneMinusSrcAlpha 
+	
 	
 	Pass {  
 		CGPROGRAM

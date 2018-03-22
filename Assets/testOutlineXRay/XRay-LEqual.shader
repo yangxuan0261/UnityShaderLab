@@ -45,7 +45,7 @@ Shader "ITS/test/XRayEffect"
 			// {
 			// 	v2f o;
 			// 	o.pos = UnityObjectToClipPos(v.vertex);
-			// 	o.viewDir = ObjSpaceViewDir(v.vertex); //对象空间顶点 到 摄像机 的方向
+			// 	o.viewDir = ObjSpaceViewDir(v.vertex); //对象空间 的 顶点 到 摄像机 的方向
 			// 	o.normal = v.normal;
 			// 	return o;
 			// }
@@ -64,7 +64,7 @@ Shader "ITS/test/XRayEffect"
 			{
 				v2f o;
 				o.pos = UnityObjectToClipPos(v.vertex);
-				o.viewDir = ObjSpaceViewDir(v.vertex); //对象空间顶点 到 摄像机 的方向
+				o.viewDir = ObjSpaceViewDir(v.vertex); //对象空间 的 顶点 到 摄像机 的方向
 				o.normal = v.normal;
 
 				float3 normal = normalize(v.normal);

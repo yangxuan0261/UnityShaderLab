@@ -5,7 +5,7 @@
 // - no lightmap support
 // - no per-material color
 
-Shader "ITS/test/Unlit-Transparent01" {
+Shader "ITS/test/Unlit-Transparent02" {
 Properties {
 	_TintColor("Tint Color", Color) = (1, 1, 1, 1)
 	_MainTex ("Base (RGB) Trans (A)", 2D) = "white" {}
@@ -15,10 +15,26 @@ SubShader {
 	Tags {"Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"}
 	LOD 100
 	
+	//最终颜色 = SrcColor * SrcFactor + DstColor * DstFactor
+
 	ZWrite Off
-	Blend SrcAlpha OneMinusSrcAlpha 
-	// Blend One Zero 
+	// Blend SrcAlpha OneMinusSrcAlpha //正常模式(透明度混合) 
+	// Blend OneMinusDstColor One //柔和相加(soft Additive) 
+	// Blend DstColor Zero //正片叠底 (Multiply)相乘 
+	// Blend DstColor SrcColor //两倍相乘 (2X Multiply)
+	// Blend OneMinusDstColor One //滤色 
+	// Blend One One //线性变淡 
+
+	// BlendOp Min //变暗
+	// Blend One One
 	
+	// BlendOp Max //变亮
+	// Blend One One
+
+	// Blend SrcColor Zero //
+	Blend DstColor Zero //
+
+
 	Pass {  
 		CGPROGRAM
 			#pragma vertex vert
