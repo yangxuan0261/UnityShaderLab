@@ -4,7 +4,6 @@ Shader "Custom/Light"
 {
 	Properties
 	{
-		_MainColor ("主颜色", Color) = (0.5, 0.5, 0.5, 1)
 		_NormalTex ("法线贴图", 2D) = "white" {}
 
 		_Specular ("高光颜色", Color) = (1, 1, 1, 1)
@@ -15,6 +14,7 @@ Shader "Custom/Light"
 
 		_MaskTex ("光遮罩图", 2D) = "white" {}
 		_MoveDir ("边缘光移动方向", Range(-1, 1)) = 1
+		_MainTex ("Base 2d", 2D) = "white" {}
 	}
 	SubShader
 	{
@@ -44,7 +44,6 @@ Shader "Custom/Light"
 				float3 viewDir : TEXCOORD2;
 			};
 
-			fixed4 _MainColor;
 			sampler2D _NormalTex;
 
 			fixed4 _Specular;
@@ -54,6 +53,7 @@ Shader "Custom/Light"
 			half _RimPower;
 
 			sampler2D _MaskTex;
+			sampler2D _MainTex;
 			fixed _MoveDir;
 
 			v2f vert (appdata v)
@@ -64,10 +64,11 @@ Shader "Custom/Light"
 				
 				TANGENT_SPACE_ROTATION;
 
-				//rotation是使模型空间转为切线空间的矩阵
+				//rotation 是由 顶点法线和切线 计算除 副切线 后，组成的 切线空间的矩阵
+				//转换 光线和观察方向 从 世界空间 到 模型空间（ObjSpaceLightDir） 再到 切线空间
 				o.lightDir = mul(rotation, ObjSpaceLightDir(v.vertex)).xyz;
 				o.viewDir = mul(rotation, ObjSpaceViewDir(v.vertex)).xyz;
-
+				//不在这里归一化是为了会不影响 插值结果，所以在 frag 中归一化
 				return o;
 			}
 			
@@ -76,11 +77,15 @@ Shader "Custom/Light"
 				fixed3 tangentLightDir = normalize(i.lightDir);
 				fixed3 tangentViewDir = normalize(i.viewDir);
 				
+				//采样 法线贴图，并转换 像素值 为 法线值 （normal = pixel * 2 -1）
 				fixed4 packedNormal = tex2D(_NormalTex, i.uv);
 				fixed3 tangentNormal = UnpackNormal(packedNormal);
 
+				fixed4 tex = tex2D(_MainTex, i.uv);
+				fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * tex.rgb;
+
 				//漫反射
-				fixed3 diffuse = _LightColor0.rgb * _MainColor.rgb * saturate(dot(tangentNormal, tangentViewDir));
+				fixed3 diffuse = _LightColor0.rgb * tex.rgb * saturate(dot(tangentNormal, tangentLightDir));
 				//Blinn-Phong高光光照模型，相对于普通的Phong高光模型，会更加光
 				fixed3 halfDir = normalize(tangentLightDir + tangentViewDir);
 				fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(saturate(dot(tangentNormal, halfDir)), _Gloss);
@@ -90,8 +95,7 @@ Shader "Custom/Light"
 				fixed3 rim = _RimColor.rgb * pow(dotProduct, 1 / _RimPower);
 
 				fixed4 maskCol = tex2D(_MaskTex, i.uv + float2(0, _Time.y * _MoveDir));
-				 
-				return fixed4(diffuse + specular + rim * maskCol.rgb, 1);
+				return fixed4(ambient + diffuse + specular + rim * maskCol.rgb, 1);
 			}
 			ENDCG
 		}
