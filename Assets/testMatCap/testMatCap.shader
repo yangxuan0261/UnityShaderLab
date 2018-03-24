@@ -98,7 +98,8 @@ Shader "ITS/test/Bumped_Textured_Multiply"
 	worldNorm.y = dot(i.tSpace1.xyz, normals);
 	worldNorm.z = dot(i.tSpace2.xyz, normals);
 	worldNorm = mul((float3x3)UNITY_MATRIX_V, worldNorm);
-	uv = worldNorm.xy * 0.5 + 0.5;
+	// uv = worldNorm.xy * 0.5 + 0.5;
+	uv = (worldNorm.xy + 1) / 2;
 #else
 	half2 capCoord = half2(dot(i.c0, normals), dot(i.c1, normals));
 	uv = capCoord*0.5 + 0.5;
