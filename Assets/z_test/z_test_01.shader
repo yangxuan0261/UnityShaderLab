@@ -21,7 +21,7 @@
 			// ZTest LEqual
 			// ZWrite On
 			// AlphaTest 
-			Blend SrcAlpha OneMinusSrcAlpha
+			// Blend SrcAlpha OneMinusSrcAlpha
 
 			CGPROGRAM
 			#pragma vertex vert
@@ -49,12 +49,12 @@
 			v2f vert (appdata v)
 			{
 				v2f o;
-				o.vertex = UnityObjectToClipPos(v.vertex);
+				// o.vertex = UnityObjectToClipPos(v.vertex);
 
-				// float4 worldPos = mul(unity_ObjectToWorld, v.vertex);
-				// // float4 worldPos = mul(v.vertex, unity_WorldToObject);
-				// float4 viewPos = mul(UNITY_MATRIX_V, worldPos);
-				// o.vertex = mul(UNITY_MATRIX_P, viewPos);
+				float4 worldPos = mul(unity_ObjectToWorld, v.vertex);
+				// float4 worldPos = mul(v.vertex, unity_WorldToObject);
+				float4 viewPos = mul(UNITY_MATRIX_V, worldPos);
+				o.vertex = mul(UNITY_MATRIX_P, viewPos);
 
 				// o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
 				o.uv = v.texcoord;

@@ -41,18 +41,21 @@ Shader "Custom/Unlit-Texture-Occlusion-Outline2" {
 
 	v2f vert_outline(appdata_t v)
 	{
-		v2f o = (v2f)0;
-		//o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
-		//float3 norm = mul((float3x3)UNITY_MATRIX_IT_MV, v.normal);
-		//float2 offset = TransformViewToProjection(norm.xy); //float2 offset =  mul((float2x2)UNITY_MATRIX_P, norm.xy);
-		//o.vertex.xy += offset * o.vertex.z * _Outline;
-
+		v2f o;
+		// 方式一，观察空间 下往法线偏移顶点
 		float4 viewPos = mul(UNITY_MATRIX_MV, v.vertex);
-		float3 viewNorm = mul((float3x3)UNITY_MATRIX_IT_MV, v.normal);
+		//float3 viewNorm = mul((float3x3)UNITY_MATRIX_IT_MV, v.normal);
+		float3 viewNorm = mul(v.normal, (float3x3)UNITY_MATRIX_T_MV);
 		float3 offset = normalize(viewNorm) * _Outline;
 		viewPos.xyz += offset;
 		o.vertex = mul(UNITY_MATRIX_P, viewPos);
 
+		//方式二，世界空间 下往法线偏移顶点
+		//float4 worldPos = mul(unity_ObjectToWorld, v.vertex);
+		//float3 worldNormal = UnityObjectToWorldNormal(v.normal);
+		//float3 offset = normalize(worldNormal) * _Outline;
+		//worldPos.xyz += offset;
+		//o.vertex = mul(UNITY_MATRIX_VP, worldPos);
 		return o;
 	}
 

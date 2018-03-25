@@ -69,7 +69,7 @@ Material:
     - _Gloss: 8
     - _Glossiness: 0.5
     - _Mode: 0
-    - _MoveDir: 0
+    - _MoveDir: 0.5
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RimPower: 1
