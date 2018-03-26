@@ -55,10 +55,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
-    - _ColorFactor: 0.06
+    - _ColorFactor: 0.04
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DissolveThreshold: -1.03
+    - _DissolveThreshold: -0.93
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
