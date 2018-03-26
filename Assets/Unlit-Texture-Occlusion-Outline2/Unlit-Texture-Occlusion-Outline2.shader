@@ -35,7 +35,6 @@ Shader "Custom/Unlit-Texture-Occlusion-Outline2" {
 		v2f o;
 		o.vertex = UnityObjectToClipPos(v.vertex);
 		o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
-
 		return o;
 	}
 
@@ -64,78 +63,49 @@ Shader "Custom/Unlit-Texture-Occlusion-Outline2" {
 	SubShader{
 		Tags{ "Queue" = "Transparent" "RenderType" = "Opaque" }
 
+		Pass{
+			ZTest LEqual
+			Stencil
+			{
+				Ref 1
+				Comp Always
+				Pass Replace
+				ZFail Replace
+			}
 
-	Pass{
-		Stencil
-		{
-			Ref 1
-			Comp Always
-			Pass Replace
-			ZFail Replace
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag
+
+			fixed4 frag(v2f i) : SV_Target
+			{
+				fixed4 col = tex2D(_MainTex, i.texcoord);
+				return col;
+			}
+
+			ENDCG
 		}
 
-		ZTest LEqual
-		CGPROGRAM
-		#pragma vertex vert
-		#pragma fragment frag
+		Pass{
+			ZTest Greater
+			ZWrite Off
+			//Blend DstAlpha OneMinusDstAlpha
+			Stencil{
+				Ref 1
+				Comp NotEqual
 
+			}
 
-		fixed4 frag(v2f i) : SV_Target
-		{
-			fixed4 col = tex2D(_MainTex, i.texcoord);
-			return col;
+			CGPROGRAM
+			#pragma vertex vert_outline
+			#pragma fragment frag
+			half4 frag(v2f i) : COLOR
+			{
+				return _OutlineColor;
+			}
+			ENDCG
 		}
-
-		ENDCG
 	}
-
-	//Pass{
-	//	ZTest Greater
-	//	ZWrite Off
-	//	Blend SrcAlpha OneMinusSrcAlpha
-
-	//	Stencil
-	//	{
-	//		Ref 1
-	//		Comp Always
-	//		Pass Replace
-	//	}
-
-	//	CGPROGRAM
-	//	#pragma vertex vert
-	//	#pragma fragment frag
-
-	//	fixed4 frag(v2f i) : SV_Target
-	//	{
-	//		return fixed4(0,0,0,0);
-	//		//fixed4 col = tex2D(_MainTex, i.texcoord);
-	//		//return col;
-	//	}
-
-	//	ENDCG
-	//}
-
-
-	Pass{
-		ZTest Greater
-		ZWrite Off
-		//Blend DstAlpha OneMinusDstAlpha
-
-		Stencil{
-			Ref 1
-			Comp NotEqual
-
-		}
-		CGPROGRAM
-		#pragma vertex vert_outline
-		#pragma fragment frag
-		half4 frag(v2f i) :COLOR
-		{
-			return _OutlineColor;
-		}
-		ENDCG
-	}
-}
 
 }
 
