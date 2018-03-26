@@ -45,12 +45,7 @@ Shader "ITS/test/DissolveColor"
 	{
 		float factor = i.objPos.x - _DissolveThreshold;
 		clip(factor); 
-		//Diffuse + Ambient光照计算
-		fixed3 worldNormal = normalize(i.worldNormal);
-		fixed3 worldLightDir = normalize(_WorldSpaceLightPos0.xyz);
-		fixed3 lambert = saturate(dot(worldNormal, worldLightDir));
-		fixed3 albedo = lambert * _Diffuse.xyz * _LightColor0.xyz + UNITY_LIGHTMODEL_AMBIENT.xyz;
-		fixed3 color = tex2D(_MainTex, i.uv).rgb * albedo;
+		fixed3 color = tex2D(_MainTex, i.uv).rgb;
 		//等价于下面注释代码的操作
 		fixed lerpFactor = saturate(sign(_ColorFactor - factor));
 		return lerpFactor * _DissolveColor + (1 - lerpFactor) * fixed4(color, 1);
@@ -69,7 +64,7 @@ Shader "ITS/test/DissolveColor"
 		Pass
 		{
 			//不让模型穿帮，关掉了背面裁剪
-			Cull Off
+			// Cull Off
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag	
