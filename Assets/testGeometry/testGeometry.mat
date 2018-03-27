@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: testDissolveColor
-  m_Shader: {fileID: 4800000, guid: e62a2fe5b012f22469ad328e5e6478cb, type: 3}
+  m_Name: testGeometry
+  m_Shader: {fileID: 4800000, guid: 6827a2fd179be134296c90da765df82b, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -55,10 +55,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
-    - _ColorFactor: 0.04
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DissolveThreshold: -0.69
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -74,7 +72,4 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Diffuse: {r: 1, g: 1, b: 1, a: 1}
-    - _DissolveColor: {r: 0.986207, g: 1, b: 0, a: 0}
-    - _DissolveVector: {r: -1.07, g: -0.37, b: -0.79, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
