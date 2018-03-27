@@ -20,8 +20,11 @@ Shader "ITS/test/GeomShader"
 			#pragma fragment frag
 			#pragma geometry geom
 
+			//ps: opengles2.0 不能使用 几何着色器
+
 			#include "UnityCG.cginc"
 			#include "Lighting.cginc"
+
 
 			struct appdata
 			{
