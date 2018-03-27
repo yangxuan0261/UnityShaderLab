@@ -5,11 +5,12 @@ Shader "ITS/test/GeomShader"
 	Properties
 	{
 		_MainTex("Texture", 2D) = "white" {}
+		_Offset("vert offset", Float) = 0.0
 	}
 	SubShader
 	{
 		Tags{ "RenderType" = "Opaque" "LightMode" = "ForwardBase"}
-		
+		Cull Off
 		LOD 100
 
 		Pass
@@ -38,6 +39,7 @@ Shader "ITS/test/GeomShader"
 			};
 
 			sampler2D _MainTex;
+			float _Offset;
 
 			v2f vert(appdata v)
 			{
@@ -53,11 +55,13 @@ Shader "ITS/test/GeomShader"
 			void geom(triangle v2f input[3], inout TriangleStream<v2f> OutputStream)
 			{
 				v2f test = (v2f)0;//这里直接重构v2f这个结构体，也可以定义v2g，g2f两个结构体来完成这个传递过程
-				float3 normal = normalize(cross(input[1].worldPosition.xyz - input[0].worldPosition.xyz, input[2].worldPosition.xyz - input[0].worldPosition.xyz));
+				float3 normal = normalize(cross(input[1].worldPosition.xyz - input[0].worldPosition.xyz, input[2].worldPosition.xyz - input[0].worldPosition.xyz)); // 算出图元的法线
+
 				for (int i = 0; i < 3; i++)
 				{
 					test.normal = normal;  //顶点变	为这个三角图元的法线方向
-					test.vertex = input[i].vertex; //+ float4(normal, 0) * 1;
+					// test.vertex = input[i].vertex + float4(input[i].normal, 0) * _Offset;
+					test.vertex = input[i].vertex + float4(normal, 0) * _Offset;
 					test.uv = input[i].uv;
 					OutputStream.Append(test);
 				}
@@ -70,7 +74,8 @@ Shader "ITS/test/GeomShader"
 				float3 lightDir = -_WorldSpaceLightPos0.xyz; 
 				fixed3 diffuse = _LightColor0.rgb * albedo.rgb * saturate(dot(i.normal, normalize(lightDir)));
 
-				return fixed4(ambient + diffuse, 1.0);
+				// return fixed4(ambient + diffuse, 1.0);
+				return albedo;
 			}
 			ENDCG
 		}
