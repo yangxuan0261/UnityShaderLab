@@ -1,6 +1,6 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader "Test/Unlit-Texture-Mask" {
+Shader "Test/testStencil/Unlit-Texture-Mask" {
 Properties {
  _MainTex ("Base (RGB)", 2D) = "white" {}
  _Color ("Color", Color) = (1, 1, 1, 1)
