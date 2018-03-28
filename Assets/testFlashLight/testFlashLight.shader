@@ -118,6 +118,9 @@ Shader "ITS/test/testFlashLight"
 	       		float4 TtoW0 :TEXCOORD1;
                 float4 TtoW1 :TEXCOORD2;
                 float4 TtoW2 :TEXCOORD3;
+
+				float3 lightDir : TEXCOORD4;
+				float3 viewDir : TEXCOORD5;
 			};
 
 			v2f2 vert2 (appdata2 v)
@@ -128,7 +131,6 @@ Shader "ITS/test/testFlashLight"
 
 				float3 worldPos = mul(unity_ObjectToWorld,v.vertex).xyz;
 
-
 				// 构建 法线 从 切线空间 到 世界空间 的 变换矩阵（三个向量）
 				fixed3 worldNormal = UnityObjectToWorldNormal(v.normal);
 				fixed3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
@@ -137,6 +139,9 @@ Shader "ITS/test/testFlashLight"
 				o.TtoW0 = float4(worldTangent.x, worldBinormal.x, worldNormal.x, worldPos.x);
                 o.TtoW1 = float4(worldTangent.y, worldBinormal.y, worldNormal.y, worldPos.y);
                 o.TtoW2 = float4(worldTangent.z, worldBinormal.z, worldNormal.z, worldPos.z); // 顺便把 世界坐标 也存在这里
+
+				o.lightDir = UnityWorldSpaceLightDir(worldPos);
+				o.viewDir = UnityWorldSpaceViewDir(worldPos);
 				return o;
 			}
 
@@ -145,8 +150,8 @@ Shader "ITS/test/testFlashLight"
 				//获得世界空间中的坐标
 				float3 worldPos = float3(i.TtoW0.w, i.TtoW1.w, i.TtoW2.w);
 				//计算光照和视角方向在世界坐标系中
-                fixed3 worldLightDir = normalize(UnityWorldSpaceLightDir(worldPos));
-                fixed3 worldViewDir = normalize(UnityWorldSpaceViewDir(worldPos));
+                fixed3 worldLightDir = normalize(i.lightDir);
+                fixed3 worldViewDir = normalize(i.viewDir);
 
 				fixed4 packedNormal = tex2D(_NormalTex, i.uv);
 				fixed4 tex = tex2D(_MainTex, i.uv);
@@ -157,7 +162,7 @@ Shader "ITS/test/testFlashLight"
 				// 转换 法线向量 从 切线空间 到 世界空间， 等价于 下面注释部分
 				fixed3 worldNormal = normalize(half3(dot(i.TtoW0.xyz, tangentNormal), dot(i.TtoW1.xyz, tangentNormal), dot(i.TtoW2.xyz, tangentNormal)));
 
-				/* // 构建转换矩阵
+				/* // 构建 转换矩阵
 				float3x3 worldNormalMatrix = float3x3(i.TtoW0.xyz, i.TtoW1.xyz, i.TtoW2.xyz);
 				fixed3 worldNormal = normalize(mul(worldNormalMatrix, tangentNormal));
 				*/
