@@ -4,7 +4,7 @@
 //by：puppet_master
 //2017.6.20
 
-Shader "ITS/test/XRayEffect"
+Shader "ITS/test/XRayEffectLEqual"
 {
 	Properties
 	{

@@ -10,7 +10,7 @@ Shader "ITS/test/GeomShader"
 	SubShader
 	{
 		Tags{ "RenderType" = "Opaque" "LightMode" = "ForwardBase"}
-		Cull Off
+		// Cull Off
 		LOD 100
 
 		Pass
@@ -59,6 +59,8 @@ Shader "ITS/test/GeomShader"
 			{
 				v2f test = (v2f)0;//这里直接重构v2f这个结构体，也可以定义v2g，g2f两个结构体来完成这个传递过程
 				float3 normal = normalize(cross(input[1].worldPosition.xyz - input[0].worldPosition.xyz, input[2].worldPosition.xyz - input[0].worldPosition.xyz)); // 算出图元的法线
+
+				// float3 normal = normalize(input[0].normal + input[1].normal + input[2].normal); // 算出图元的法线
 
 				for (int i = 0; i < 3; i++)
 				{

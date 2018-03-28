@@ -25,7 +25,7 @@ Shader "ITS/test/aaaa_XRay"
         {
             v2f o;
             o.pos = UnityObjectToClipPos(v.vertex);
-            o.viewDir = ObjSpaceViewDir(v.vertex);
+            o.viewDir = ObjSpaceViewDir(v.vertex); // 在 模型空间 上计算夹角
             o.normal = v.normal;
 
             float3 normal = normalize(v.normal);
@@ -64,11 +64,12 @@ Shader "ITS/test/aaaa_XRay"
         }
         ENDCG
 
-        Pass
+        Pass // xRay 绘制
         {
+		    Tags{ "RenderType"="Transparent" "Queue"="Transparent"}
             Blend SrcAlpha One
-            ZWrite Off
             ZTest Greater
+            ZWrite Off
             Cull Back
 
             CGPROGRAM
@@ -77,8 +78,10 @@ Shader "ITS/test/aaaa_XRay"
             ENDCG
         }
 
-        Pass
+        Pass // 正常绘制
         {
+		    Tags{ "RenderType"="Opaque" }
+            ZTest LEqual
             ZWrite On
 
             CGPROGRAM

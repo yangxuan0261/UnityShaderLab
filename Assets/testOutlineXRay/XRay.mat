@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: XRay
-  m_Shader: {fileID: 4800000, guid: cb307f8c3b0cdbd4eab35ce87cd35f43, type: 3}
+  m_Shader: {fileID: 4800000, guid: b6c8702b542feae46a30e08b837a6653, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -65,7 +65,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Rang: 0.5
+    - _Rang: 0.07
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

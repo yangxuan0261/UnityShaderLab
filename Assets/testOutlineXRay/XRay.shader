@@ -88,6 +88,7 @@ Shader "ITS/test/XRayEffect"
 		Pass
 		{
 			ZWrite On
+			ZTest LEqual
 			CGPROGRAM
 			#include "Lighting.cginc"
 			sampler2D _MainTex;
