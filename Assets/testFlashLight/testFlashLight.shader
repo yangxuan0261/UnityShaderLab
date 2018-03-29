@@ -101,7 +101,7 @@ Shader "ITS/test/testFlashLight"
 				// return fixed4(ambient + diffuse, 1);
 			}
 
-			// // 方式二，世界空间下计算
+			// 方式二，世界空间下计算
 			struct appdata2
 			{
 				float4 vertex : POSITION;
@@ -130,6 +130,8 @@ Shader "ITS/test/testFlashLight"
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
 				float3 worldPos = mul(unity_ObjectToWorld,v.vertex).xyz;
+				o.lightDir = UnityWorldSpaceLightDir(worldPos);
+				o.viewDir = UnityWorldSpaceViewDir(worldPos);
 
 				// 构建 法线 从 切线空间 到 世界空间 的 变换矩阵（三个向量）
 				fixed3 worldNormal = UnityObjectToWorldNormal(v.normal);
@@ -139,9 +141,6 @@ Shader "ITS/test/testFlashLight"
 				o.TtoW0 = float4(worldTangent.x, worldBinormal.x, worldNormal.x, worldPos.x);
                 o.TtoW1 = float4(worldTangent.y, worldBinormal.y, worldNormal.y, worldPos.y);
                 o.TtoW2 = float4(worldTangent.z, worldBinormal.z, worldNormal.z, worldPos.z); // 顺便把 世界坐标 也存在这里
-
-				o.lightDir = UnityWorldSpaceLightDir(worldPos);
-				o.viewDir = UnityWorldSpaceViewDir(worldPos);
 				return o;
 			}
 
