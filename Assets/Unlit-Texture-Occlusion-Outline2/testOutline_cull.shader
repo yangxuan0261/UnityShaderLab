@@ -1,11 +1,8 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-// Unlit shader. Simplest possible textured shader.
-// - no lighting
-// - no lightmap support
-// - no per-material color
+// 这种方式的描边不适合做遮挡部分描边，且不遮挡部分的效果也没有 模板测试 那种方式好
 
-Shader "ITS/test/testOutline" {
+Shader "ITS/test/testOutline_cull" {
 	Properties{
 		_MainTex("Base (RGB)", 2D) = "white" {}
 		_OutlineColor("Outline Color", Color) = (1,1,0,1)
@@ -65,13 +62,7 @@ Shader "ITS/test/testOutline" {
 
 		Pass{
 			ZTest LEqual
-			Stencil
-			{
-				Ref 1
-				Comp Always
-				Pass Replace
-				ZFail Replace
-			}
+			Cull Back
 
 			CGPROGRAM
 			#pragma vertex vert
@@ -87,14 +78,10 @@ Shader "ITS/test/testOutline" {
 		}
 
 		Pass{
-			ZTest Greater
+			// ZTest Greater
 			ZWrite Off
-			//Blend DstAlpha OneMinusDstAlpha
-			Stencil{
-				Ref 1
-				Comp NotEqual
-
-			}
+			Cull Front
+			Offset 100,0
 
 			CGPROGRAM
 			#pragma vertex vert_outline
@@ -106,6 +93,5 @@ Shader "ITS/test/testOutline" {
 			ENDCG
 		}
 	}
-
 }
 
