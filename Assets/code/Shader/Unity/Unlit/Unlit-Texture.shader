@@ -14,6 +14,7 @@ Properties {
 SubShader {
 	Tags { "Queue"="Geometry" "RenderType"="Opaque" }
 	LOD 100
+	ZWrite On ZTest LEqual
 	
 	Pass {  
 		CGPROGRAM
@@ -58,5 +59,7 @@ SubShader {
 		ENDCG
 	}
 }
+    FallBack "Diffuse"  
+
 
 }

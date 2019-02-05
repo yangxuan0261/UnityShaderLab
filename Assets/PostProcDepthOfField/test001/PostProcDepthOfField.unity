@@ -1689,7 +1689,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1109566196}
   m_LocalRotation: {x: -0, y: 0.91315836, z: -0, w: -0.40760502}
-  m_LocalPosition: {x: 1.58, y: -0.8, z: 2.53}
+  m_LocalPosition: {x: 10.24, y: -0.8, z: 7.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1409839780}
@@ -3391,8 +3391,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: f216c5908707b854ba988e861e33065f, type: 3}
-  focalDistance: 10.1
-  nearBlurScale: 58.8
-  farBlurScale: 469
+  focalDistance: 1.2
+  nearBlurScale: 75.6
+  farBlurScale: 621
   downSample: 1
-  samplerScale: 3
+  samplerScale: 1
