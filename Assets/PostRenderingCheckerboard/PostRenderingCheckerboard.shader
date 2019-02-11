@@ -1,4 +1,4 @@
-﻿Shader "Custom/PostRenderingCheckerboard"
+Shader "Custom/PostRenderingCheckerboard"
 {
     Properties
     {

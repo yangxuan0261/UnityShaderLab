@@ -1,4 +1,4 @@
-﻿//全屏幕扭曲Shader
+//全屏幕扭曲Shader
 //by：puppet_master
 //2017.4.28
 

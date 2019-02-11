@@ -204,7 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 08789dc2e04459c478059185cea747e8, type: 3}
   blurFactor: 0.0697
-  lerpFactor: 2
+  lerpFactor: 1.1
   downSampleFactor: 1
   blurCenter: {x: 0.5, y: 0.5}
 --- !u!1001 &1031992148
@@ -216,7 +216,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4098207366300770, guid: 6967547c08ff6354198f6450b2ea18ed, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.62
+      value: 3.47
       objectReference: {fileID: 0}
     - target: {fileID: 4098207366300770, guid: 6967547c08ff6354198f6450b2ea18ed, type: 2}
       propertyPath: m_LocalPosition.y
