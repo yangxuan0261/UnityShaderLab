@@ -73,8 +73,8 @@ Shader "Unity Shaders Book/Chapter 13/MotionBlurWithDepthTexture"
 			//使用速度值对邻域像素进行采样，相加后取平均值得到一个模糊效果，使用_BlurSize控制采样距离
 			float2 uv = i.uv;
 			float4 c = tex2D(_MainTex, uv);
-			uv += velocity * _BlurSize;
-			for (int it = 1; it < 3; it++, uv += velocity * _BlurSize) {
+			for (int it = 1; it < 3; it++) {
+				uv += velocity * _BlurSize;
 				float4 currentColor = tex2D(_MainTex, uv);
 				c += currentColor;
 			}
