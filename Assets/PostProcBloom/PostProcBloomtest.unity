@@ -845,7 +845,7 @@ MonoBehaviour:
   shader: {fileID: 4800000, guid: ae56ad6f6971c304896e29f3f7bedc16, type: 3}
   downSample: 1
   samplerScale: 10
-  colorThreshold: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  colorThreshold: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
   bloomColor: {r: 0.09451616, g: 1, b: 0, a: 1}
   bloomFactor: 1
 --- !u!1 &708435206
