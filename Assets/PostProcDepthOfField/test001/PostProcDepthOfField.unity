@@ -3391,7 +3391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: f216c5908707b854ba988e861e33065f, type: 3}
-  focalDistance: 12.6
+  focalDistance: 20
   nearBlurScale: 0
   farBlurScale: 1000
   downSample: 1
