@@ -12,33 +12,31 @@ CGPROGRAM
  
  //仍然要声明一下 _CameraDepthTexture 这个变量，虽然Unity这个变量是unity内部赋值
 sampler2D _CameraDepthTexture;
+float4 _MainTex_TexelSize;
  
 struct v2f {
    float4 pos : SV_POSITION;
-   float4 scrPos:TEXCOORD1;
+   float2 uv : TEXCOORD0;
 };
  
 //Vertex Shader
 v2f vert (appdata_base v){
    v2f o;
    o.pos = UnityObjectToClipPos (v.vertex);
-   o.scrPos=ComputeScreenPos(o.pos);
-   //for some reason, the y position of the depthtexture comes out inverted
-   //o.scrPos.y = 1 - o.scrPos.y;
+   o.uv = v.texcoord.xy;
+#if UNITY_UV_STARTS_AT_TOP
+if (_MainTex_TexelSize.y < 0)
+   o.uv.y = 1 - o.uv.y;
+#endif	
    return o;
 }
  
 //Fragment Shader
-half4 frag (v2f i) : COLOR{
-   float depthValue = Linear01Depth (tex2Dproj(_CameraDepthTexture,UNITY_PROJ_COORD(i.scrPos)).r);
-   half4 depth;
- 
-   depth.r = depthValue;
-   depth.g = depthValue;
-   depth.b = depthValue;
- 
-   depth.a = 1;
-   return depth;
+fixed4 frag (v2f i) : SV_Target
+{
+    float depth = UNITY_SAMPLE_DEPTH(tex2D(_CameraDepthTexture, i.uv));
+    float linear01Depth = Linear01Depth(depth);
+    return linear01Depth;
 }
 ENDCG
 }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 // 参考文章: https://blog.csdn.net/puppet_master/article/details/52819874
