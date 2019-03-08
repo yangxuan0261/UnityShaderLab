@@ -3373,7 +3373,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2139608406}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44c06efef85bd8e40927bd45058ec884, type: 3}
   m_Name: 
@@ -3385,13 +3385,13 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2139608406}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5180ffe043cfca24a8f99f5b8318cebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: f216c5908707b854ba988e861e33065f, type: 3}
-  focalDistance: 24.2
+  focalDistance: 10.1
   nearBlurScale: 0
   farBlurScale: 1000
   downSample: 1
