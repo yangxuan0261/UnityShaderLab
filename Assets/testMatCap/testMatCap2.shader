@@ -42,17 +42,42 @@ Shader "ITS/test/Bumped_Textured_Multiply2"
 				v2f vert (appdata_base v)
 				{
 					v2f o;
-					o.pos = UnityObjectToClipPos (v.vertex);
+					// 方式一
+					// o.pos = UnityObjectToClipPos (v.vertex);
+
+					// 方式二
+					// float4 worldPos = mul(unity_ObjectToWorld, v.vertex);
+					// o.pos = mul(UNITY_MATRIX_VP, worldPos);
+
+					// 方式三
+					float4 worldPos = mul(unity_ObjectToWorld, v.vertex);
+					o.pos.x = mul(UNITY_MATRIX_VP[0], worldPos);
+					o.pos.y = mul(UNITY_MATRIX_VP[1], worldPos);
+					o.pos.z = mul(UNITY_MATRIX_VP[2], worldPos);
+					o.pos.w = mul(UNITY_MATRIX_VP[3], worldPos);
+
 					o.uv.xy = TRANSFORM_TEX(v.texcoord, _MainTex);
 					half2 capCoord;
 					
-					// float3 worldNorm = normalize(unity_WorldToObject[0].xyz * v.normal.x + unity_WorldToObject[1].xyz * v.normal.y + unity_WorldToObject[2].xyz * v.normal.z);
-					float3 worldNorm = UnityObjectToWorldNormal(v.normal).xyz;
-					worldNorm = mul((float3x3)UNITY_MATRIX_V, worldNorm); // 将法线转到观察空间下, 因为matcap贴图是摄像机看到的贴图
-					o.uv.zw = worldNorm.xy * 0.5 + 0.5; // 转换法线值为贴图值
-					
-					UNITY_TRANSFER_FOG(o, o.pos);
 
+
+					// 变换 法线 从 模型空间 -> 观察空间
+					// 方式一
+					float3 worldNorm = UnityObjectToWorldNormal(v.normal).xyz;
+					float3 viewNormal = mul((float3x3)UNITY_MATRIX_V, worldNorm); // 将法线转到观察空间下, 因为matcap贴图是摄像机看到的贴图
+					o.uv.zw = viewNormal.xy; // 转换法线值为贴图值
+
+
+
+					// 方式二
+					// float3 viewNormal = mul((float3x3)UNITY_MATRIX_IT_MV, v.normal.xyz);
+					// o.uv.zw = viewNormal.xy;
+
+					// 方式三
+					// o.uv.z = mul(UNITY_MATRIX_IT_MV[0], v.normal);
+					// o.uv.w = mul(UNITY_MATRIX_IT_MV[1], v.normal);
+
+					UNITY_TRANSFER_FOG(o, o.pos);
 
 					return o;
 				}
@@ -66,7 +91,9 @@ Shader "ITS/test/Bumped_Textured_Multiply2"
 					fixed4 tex = tex2D(_MainTex, i.uv.xy);
 					tex.rgba = tex.rgba * _Color;
 
-					fixed4 mc = tex2D(_MatCap_0, i.uv.zw) * tex * 2.0;
+					float2 mUv = i.uv.zw  * 0.5 + 0.5; // 转换法线值为贴图值
+					// fixed4 mc = tex2D(_MatCap_0, mUv);
+					fixed4 mc = tex2D(_MatCap_0, mUv) * tex; // 这里使用叠加的方式必然会使原图更加暗色, 可以点参数来提高亮度
 					
 					// #if ENABLE_GRAY
 					// float gray = dot( mc.rgb, float3(0.299, 0.587, 0.114 ));
