@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/exclusion"
+Shader "MyBlend/exclusion"
 {
 	Properties
 	{

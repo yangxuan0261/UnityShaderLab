@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/hard_mix"
+Shader "MyBlend/hard_mix"
 {
 	Properties
 	{

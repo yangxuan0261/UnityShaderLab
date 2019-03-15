@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/linear_dodge"
+Shader "MyBlend/linear_dodge"
 {
 	Properties
 	{

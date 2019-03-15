@@ -1,4 +1,4 @@
-﻿Shader "ITS/test/testStencilByMaskChar" {
+Shader "ITS/test/testStencilByMaskChar" {
 	Properties {
 		_MainTex ("Base (RGB)", 2D) = "white" {}
 		_MainColor ("Color", Color) = (1, 1, 1, 1)

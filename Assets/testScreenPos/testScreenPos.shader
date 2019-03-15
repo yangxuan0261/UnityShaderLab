@@ -1,4 +1,4 @@
-﻿Shader "ITS/test/testScreenPos"
+Shader "ITS/test/testScreenPos"
 {
 	Properties
 	{

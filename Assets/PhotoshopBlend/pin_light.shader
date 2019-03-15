@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/pin_light"
+Shader "MyBlend/pin_light"
 {
 	Properties
 	{

@@ -1,4 +1,4 @@
-﻿// 文章出处 : https://zhuanlan.zhihu.com/p/25844886
+// 文章出处 : https://zhuanlan.zhihu.com/p/25844886
 // git 仓库 : https://github.com/SilangQuan/Illustrative-Rendering-with-Unity
 
 Shader "Custom/Illustrative-Rendering" {

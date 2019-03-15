@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/overlay"
+Shader "MyBlend/overlay"
 {
 	Properties
 	{

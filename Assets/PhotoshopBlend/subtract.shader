@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/subtract"
+Shader "MyBlend/subtract"
 {
 	Properties
 	{

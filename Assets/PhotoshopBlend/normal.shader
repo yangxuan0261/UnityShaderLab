@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/normal"
+Shader "MyBlend/normal"
 {
 	Properties
 	{

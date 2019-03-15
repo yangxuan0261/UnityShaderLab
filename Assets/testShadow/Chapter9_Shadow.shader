@@ -1,4 +1,4 @@
-﻿// 参考: https://zhuanlan.zhihu.com/p/31805436
+// 参考: https://zhuanlan.zhihu.com/p/31805436
 
 Shader "Custom/Chapter9_Shadow" {
 	Properties{

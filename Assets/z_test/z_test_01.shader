@@ -1,4 +1,4 @@
-﻿Shader "Unlit/z_test_01"
+Shader "Unlit/z_test_01"
 {
 	Properties
 	{

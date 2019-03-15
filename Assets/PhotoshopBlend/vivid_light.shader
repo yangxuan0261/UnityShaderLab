@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/vivid_light"
+Shader "MyBlend/vivid_light"
 {
 	Properties
 	{

@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/linear_burn"
+Shader "MyBlend/linear_burn"
 {
 	Properties
 	{

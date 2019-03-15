@@ -1,4 +1,4 @@
-﻿Shader "Custom/TF2" {
+Shader "Custom/TF2" {
 	Properties{
 		_MainTex("Base (RGB)", 2D) = "white" {}
 		_RampTex("Ramp Tex (RGB)", 2D) = "white" {}

@@ -1,4 +1,4 @@
-﻿Shader "ITS/test/VertexAnim"
+Shader "ITS/test/VertexAnim"
 {
 	Properties
 	{

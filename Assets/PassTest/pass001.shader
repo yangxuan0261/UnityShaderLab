@@ -1,4 +1,4 @@
-﻿Shader "AAA/pass/Pass" {  
+Shader "AAA/pass/Pass" {  
     Properties {  
     }  
     SubShader {     

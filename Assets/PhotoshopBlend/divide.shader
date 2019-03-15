@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/divide"
+Shader "MyBlend/divide"
 {
 	Properties
 	{

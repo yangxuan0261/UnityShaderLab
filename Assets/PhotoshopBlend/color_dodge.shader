@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/color_dodge"
+Shader "MyBlend/color_dodge"
 {
 	Properties
 	{

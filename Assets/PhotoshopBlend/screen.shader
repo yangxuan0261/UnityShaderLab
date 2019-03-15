@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/screen"
+Shader "MyBlend/screen"
 {
 	Properties
 	{

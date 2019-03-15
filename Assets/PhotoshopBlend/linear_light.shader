@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/linear_light"
+Shader "MyBlend/linear_light"
 {
 	Properties
 	{

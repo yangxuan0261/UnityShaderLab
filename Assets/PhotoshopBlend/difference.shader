@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/difference"
+Shader "MyBlend/difference"
 {
 	Properties
 	{

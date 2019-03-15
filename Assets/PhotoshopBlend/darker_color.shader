@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/darker_color"
+Shader "MyBlend/darker_color"
 {
 	Properties
 	{

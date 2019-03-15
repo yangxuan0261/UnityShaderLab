@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/soft_light"
+Shader "MyBlend/soft_light"
 {
 	Properties
 	{

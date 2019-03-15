@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/lighten"
+Shader "MyBlend/lighten"
 {
 	Properties
 	{

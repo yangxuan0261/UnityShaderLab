@@ -1,4 +1,4 @@
-﻿// 参考 Unity Shader-Command Buffer的使用（景深与描边效果重置版） - https://blog.csdn.net/puppet_master/article/details/72669977
+// 参考 Unity Shader-Command Buffer的使用（景深与描边效果重置版） - https://blog.csdn.net/puppet_master/article/details/72669977
  
 using System.Collections;
 using System.Collections.Generic;

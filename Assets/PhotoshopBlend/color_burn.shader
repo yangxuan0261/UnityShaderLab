@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/color_burn"
+Shader "MyBlend/color_burn"
 {
 	Properties
 	{

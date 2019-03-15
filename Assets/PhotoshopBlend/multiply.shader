@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/multiply"
+Shader "MyBlend/multiply"
 {
 	Properties
 	{

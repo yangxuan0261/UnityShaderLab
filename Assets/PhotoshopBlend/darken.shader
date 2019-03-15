@@ -1,4 +1,4 @@
-﻿Shader "MyBlend/darken"
+Shader "MyBlend/darken"
 {
 	Properties
 	{

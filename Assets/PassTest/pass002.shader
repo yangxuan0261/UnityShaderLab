@@ -1,4 +1,4 @@
-﻿Shader "AAA/pass/Grab" {  
+Shader "AAA/pass/Grab" {  
     Properties {  
     }  
     SubShader {  

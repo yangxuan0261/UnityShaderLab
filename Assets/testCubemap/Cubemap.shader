@@ -1,4 +1,4 @@
-﻿Shader "Custom/Cubemap"
+Shader "Custom/Cubemap"
 {
 	Properties
 	{
