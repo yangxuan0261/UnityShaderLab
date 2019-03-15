@@ -1,4 +1,4 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
 Shader "ITS/test/testFlashLight"
 {
@@ -158,13 +158,17 @@ Shader "ITS/test/testFlashLight"
 				// 法线图 解包 后 的 切线空间的法线向量
 				fixed3 tangentNormal = UnpackNormal(packedNormal);
 
+				// 方式一
 				// 转换 法线向量 从 切线空间 到 世界空间， 等价于 下面注释部分
-				fixed3 worldNormal = normalize(half3(dot(i.TtoW0.xyz, tangentNormal), dot(i.TtoW1.xyz, tangentNormal), dot(i.TtoW2.xyz, tangentNormal)));
+				// fixed3 worldNormal = normalize(half3(dot(i.TtoW0.xyz, tangentNormal), dot(i.TtoW1.xyz, tangentNormal), dot(i.TtoW2.xyz, tangentNormal)));
 
-				/* // 构建 转换矩阵
-				float3x3 worldNormalMatrix = float3x3(i.TtoW0.xyz, i.TtoW1.xyz, i.TtoW2.xyz);
-				fixed3 worldNormal = normalize(mul(worldNormalMatrix, tangentNormal));
-				*/
+				// 方式二
+				fixed3 worldNormal = normalize(half3(mul(i.TtoW0.xyz, tangentNormal), mul(i.TtoW1.xyz, tangentNormal), mul(i.TtoW2.xyz, tangentNormal)));
+
+				// 方式三
+				// 构建 转换矩阵
+				// float3x3 worldNormalMatrix = float3x3(i.TtoW0.xyz, i.TtoW1.xyz, i.TtoW2.xyz);
+				// fixed3 worldNormal = normalize(mul(worldNormalMatrix, tangentNormal));
 
 				fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * tex.rgb;
 
