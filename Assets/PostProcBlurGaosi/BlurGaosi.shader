@@ -40,11 +40,13 @@ Shader "Custom/BlurGaosi"
 		//uv坐标
 		o.uv = v.texcoord.xy;
  
-		//计算一个偏移值，offset可能是（0，1，0，0）也可能是（1，0，0，0）这样就表示了横向或者竖向取像素周围的点
+		//计算一个偏移值，offset可能是（0，1，0，0）也可能是（1，0，0，0）这样就表示了 竖向 或者 横向 取像素周围的点
 		_offsets *= _MainTex_TexelSize.xyxy;
 		
-		//由于uv可以存储4个值，所以一个uv保存两个vector坐标，_offsets.xyxy * float4(1,1,-1,-1)可能表示(0,1,0-1)，表示像素上下两个
-		//坐标，也可能是(1,0,-1,0)，表示像素左右两个像素点的坐标，下面*2.0，*3.0同理
+		//由于uv可以存储4个值，所以一个uv保存两个vector2坐标，
+		// 如果是 竖向模糊 _offsets =（0，1，0，0）, 则 _offsets.xyxy * float4(1,1,-1,-1) = (0,1,0,-1)，表示像素上下两个像素点的坐标，
+		//  同理, 横向模糊 _offsets =（1，0，0，0）, 则 _offsets.xyxy * float4(1,1,-1,-1) = (1,0,-1,0)，表示像素左右两个像素点的坐标，
+		// 下面 *2.0，*3.0 同理, 只是把范围扩大了, 所以 frag_blur 中权值也相对较小.
 		o.uv01 = v.texcoord.xyxy + _offsets.xyxy * float4(1, 1, -1, -1);
 		o.uv23 = v.texcoord.xyxy + _offsets.xyxy * float4(1, 1, -1, -1) * 2.0;
 		o.uv45 = v.texcoord.xyxy + _offsets.xyxy * float4(1, 1, -1, -1) * 3.0;
