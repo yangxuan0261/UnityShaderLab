@@ -323,7 +323,7 @@ MonoBehaviour:
   samplerScale: 1.37
   downSample: 0
   iteration: 0
-  outLineColor: {r: 0, g: 1, b: 0, a: 1}
+  outLineColor: {r: 0.048891068, g: 1, b: 0, a: 1}
   outLineStrength: 5.9
   targetObject: {fileID: 1690909533}
 --- !u!1 &535582192
@@ -443,6 +443,10 @@ Prefab:
     - target: {fileID: 4834064159561034, guid: 86bd019ced875e847abfa3f224707f09, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180.00002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1973605089131980, guid: 86bd019ced875e847abfa3f224707f09, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86bd019ced875e847abfa3f224707f09, type: 2}
