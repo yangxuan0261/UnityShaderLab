@@ -397,6 +397,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &490791012 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: c75f39e5c62e2ff42bcac40962794ab0,
+    type: 3}
+  m_PrefabInternal: {fileID: 1762299575}
 --- !u!1 &558742188
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,7 +505,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400106, guid: c75f39e5c62e2ff42bcac40962794ab0, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 13700000, guid: c75f39e5c62e2ff42bcac40962794ab0, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -611,7 +616,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 915883518}
   m_LocalRotation: {x: -6.9849193e-10, y: -0, z: 0.0000000018626451, w: 1}
-  m_LocalPosition: {x: -0.941, y: -2, z: 0.328}
+  m_LocalPosition: {x: -0.578, y: -2.167, z: 0.18}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 81277482}
@@ -627,7 +632,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 3.36
+  m_Intensity: 3.38
   m_Range: 1.11
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -693,7 +698,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 10
+  m_Intensity: 8.23
   m_Range: 1.35
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -786,6 +791,11 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!95 &1446245916 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: c75f39e5c62e2ff42bcac40962794ab0,
+    type: 3}
+  m_PrefabInternal: {fileID: 797287323}
 --- !u!1 &1492900579
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,6 +931,7 @@ GameObject:
   - component: {fileID: 1930435700}
   - component: {fileID: 1930435699}
   - component: {fileID: 1930435698}
+  - component: {fileID: 1930435701}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -988,6 +999,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 19.288, y: 175.246, z: 0}
+--- !u!114 &1930435701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1930435697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37935cf83ae3ef34e9e08073a31548e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newAct: 16
+  _animtor1: {fileID: 1446245916}
+  _animtor2: {fileID: 490791012}
 --- !u!1 &2138566904
 GameObject:
   m_ObjectHideFlags: 0
