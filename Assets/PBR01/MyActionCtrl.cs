@@ -1,44 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MyActionCtrl : MonoBehaviour {
-
-	private string[] _actions = {
-		"attack0",
-		"attack1",
-		"block0",
-		"block1",
-		"blow0",
-		"blow1",
-		"blow2",
-		"blow3",
-		"blow4",
-		"blow5",
-		"blow6",
-		"counter_att",
-		"die",
-		"fall0",
-		"fall1",
-		"fall2",
-		"idle0",
-		"idle1",
-		"idle2",
-		"injured0",
-		"injured1",
-		"move",
-		"passive0",
-		"passive1",
-		"passive2",
-		"quickstanding0",
-		"quickstanding1",
-		"quickstanding2",
-		"skill0",
-		"skill1",
-		"skill2",
-		"victory",
-		"walk",
-	};
 
 	public enum EAct {
 		attack0 = 0,
@@ -75,6 +40,8 @@ public class MyActionCtrl : MonoBehaviour {
 		victory,
 		walk,
 	}
+
+	public static readonly string[] _actions = Enum.GetNames(typeof(EAct));
 
 	private EAct oldAct = EAct.idle0;
 	public EAct newAct = EAct.idle0;
