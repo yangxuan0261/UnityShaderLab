@@ -1,7 +1,7 @@
 // 文章出处 : https://zhuanlan.zhihu.com/p/25844886
 // git 仓库 : https://github.com/SilangQuan/Illustrative-Rendering-with-Unity
 
-Shader "Custom/Illustrative-Rendering" {
+Shader "Custom/NPR" {
 	Properties{
 		_MainTex("Base (RGB)", 2D) = "white" {}
 		_RampTex("Ramp Tex (RGB)", 2D) = "white" {}
