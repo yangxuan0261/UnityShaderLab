@@ -9,6 +9,7 @@ Material:
   m_Name: CharacterStandard_PBR
   m_Shader: {fileID: 4800000, guid: b1bbc55470f019a408533f85a80a8659, type: 3}
   m_ShaderKeywords: _DISSOLVE_ON _FANCY_STUFF _FLOW_LIGHT_ON _NORMAL_MAP _REFLECTION_ON
+    _USE_ROUGHNESS
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -83,8 +84,8 @@ Material:
     - _DoubleSided: 2
     - _DstBlend: 0
     - _FlashIntensity: 0
-    - _FlowDirectionX: 10
-    - _FlowDirectionY: 10
+    - _FlowDirectionX: 0
+    - _FlowDirectionY: 0
     - _FlowDistortionIntensity: 0.5
     - _GlossMapScale: 1
     - _Glossiness: 0.5
