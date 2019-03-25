@@ -332,6 +332,7 @@ Shader "test/CharacterStandard_PBR"
 		// 没用Unity自带的阴影,只是用来来渲染_CameraDepthsTexture.
 		Pass
 		{
+			Name "ShadowCaster"
 			Tags{ "LightMode" = "ShadowCaster" }
  
 			Fog { Mode Off }

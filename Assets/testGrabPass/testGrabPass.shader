@@ -46,7 +46,7 @@ Shader "ITS/test/testGrabPass"
 
 			fixed4 frag(v2f i) : SV_Target
 			{
-				//根据抓屏位置采样Grab贴图,tex2Dproj等同于tex2D(grabPos.xy / grabPos.w)
+				//根据抓屏位置采样Grab贴图,tex2Dproj等同于tex2D(_GrabTempTex, grabPos.xy / grabPos.w)
 				fixed4 color = tex2Dproj(_GrabTempTex, i.grabPos);
 				return 1 - color;
 			}
