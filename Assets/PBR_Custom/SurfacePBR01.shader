@@ -11,6 +11,8 @@ Shader "Custom/SurfacePBR01" {
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
+		// Cull Off # 双面渲染
+
 		LOD 200
 
 		CGPROGRAM

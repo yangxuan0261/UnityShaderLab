@@ -1,6 +1,6 @@
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader "ITS/test/DissolveNoise" 
+Shader "test/DissolveNoise" 
 {
 	Properties {
 		_MainTex ("Main tex", 2D) = "white" {}

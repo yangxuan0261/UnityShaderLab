@@ -1,24 +1,19 @@
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-// Unlit shader. Simplest possible textured shader.
-// - no lighting
-// - no lightmap support
-// - no per-material color
 
-Shader "ITS/test/Unlit-Texture-Dissolve" {
-Properties {
-	_MainTex ("Base (RGB)", 2D) = "white" {}
-	_Noise ("Noise (RGB)", 2D) = "white" {}
-	_MainColor ("Color", Color) = (1, 1, 1, 1)
-	_BurnAmout ("Burn Amount", Range(0.0, 1.0)) = 0.0
-}
+Shader "test/Unlit-Texture-Dissolve" {
+	Properties {
+		_MainTex ("Base (RGB)", 2D) = "white" {}
+		_Noise ("Noise (RGB)", 2D) = "white" {}
+		_MainColor ("Color", Color) = (1, 1, 1, 1)
+		_BurnAmout ("Burn Amount", Range(0.0, 1.0)) = 0.0
+	}
 
-SubShader {
-	Tags { "RenderType"="Opaque" }
-	LOD 100
-	
-	Pass {  
-		CGPROGRAM
+	SubShader {
+		Tags { "RenderType"="Opaque" }
+		LOD 100
+		
+		Pass {  
+			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
 			#pragma multi_compile_fog
@@ -59,16 +54,27 @@ SubShader {
 			fixed4 frag (v2f i) : SV_Target
 			{
 				fixed4 val = tex2D(_Noise, i.uvNoise);
-				clip(val.r - _BurnAmout); // 
+
+				fixed diff = val.r - _BurnAmout;
+				fixed4 clr = fixed4(1, 1, 0, 1);
+	
+				
+				// clip(val.r - _BurnAmout); // 
 
 				fixed4 col = tex2D(_MainTex, i.texcoord);
+				if (diff < 0) {
+					discard;
+				} else if (diff < 0.05 ) {
+					col = clr;
+				} 
+			
 				col *= _MainColor;
 				UNITY_APPLY_FOG(i.fogCoord, col);
 				UNITY_OPAQUE_ALPHA(col.a);
 				return col;
 			}
-		ENDCG
+			ENDCG
+		}
 	}
-}
 
 }
