@@ -59,6 +59,11 @@ Shader "test/StandardExt"
 		Tags { "RenderType"="Opaque" "PerformanceChecks"="False" }
 		LOD 300
 		
+		CGINCLUDE
+			sampler2D _NoiseTex;
+			float _BurnAmout;
+		ENDCG
+
 		// ------------------------------------------------------------------
 		//  Base forward pass (directional light, emission, lightmaps, ...)
 		Pass
@@ -88,21 +93,23 @@ Shader "test/StandardExt"
 			#pragma multi_compile_fog
 			#pragma multi_compile_instancing
 
-			sampler2D _NoiseTex;
-			float _BurnAmout;
+			
 
 			#pragma vertex vertBase
 			#pragma fragment fragBase_ext
 			#include "UnityStandardCoreForward.cginc"
 
+
+			
 			half4 fragBase_ext (VertexOutputForwardBase i) : SV_Target {
+
 				fixed3 burn = tex2D(_NoiseTex, i.tex.xy).rgb;
 				fixed diff = burn.r - _BurnAmout;
 				
 				// clip(burn.r - _BurnAmout);
 				if (diff < 0) {
 					discard;
-				} else if (diff < 0.05 ) {
+				} else if (diff < 0.05 ) { // 消失边缘加个颜色
 					return fixed4(1, 1, 0, 1);
 				}
 				return fragBase(i);
@@ -138,12 +145,13 @@ Shader "test/StandardExt"
 			#pragma multi_compile_fwdadd_fullshadows
 			#pragma multi_compile_fog
 
-			sampler2D _NoiseTex;
-			float _BurnAmout;
+			
 
 			#pragma vertex vertAdd
 			#pragma fragment fragAddExt
 			#include "UnityStandardCoreForward.cginc"
+
+
 
 			half4 fragAddExt (VertexOutputForwardAdd i) : SV_Target {
 				fixed3 burn = tex2D(_NoiseTex, i.tex.xy).rgb;
@@ -161,32 +169,96 @@ Shader "test/StandardExt"
 			ENDCG
 		}
 		// ------------------------------------------------------------------
-		//  Shadow rendering pass
-		Pass {
+		//  Shadow rendering pass 内置的 阴影投射
+		// Pass {
+		// 	Name "ShadowCaster"
+		// 	Tags { "LightMode" = "ShadowCaster" }
+
+		// 	ZWrite On ZTest LEqual
+
+		// 	CGPROGRAM
+		// 	#pragma target 3.0
+
+		// 	// -------------------------------------
+
+
+		// 	#pragma shader_feature _ _ALPHATEST_ON _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
+		// 	#pragma shader_feature _METALLICGLOSSMAP
+		// 	#pragma shader_feature _PARALLAXMAP
+		// 	#pragma multi_compile_shadowcaster
+		// 	#pragma multi_compile_instancing
+
+		// 	#pragma vertex vertShadowCaster
+		// 	#pragma fragment fragShadowCaster
+
+		// 	sampler2D _NoiseTex;
+		// 	float _BurnAmout;
+
+
+		// 	half4 fragShadowCasterExt(VertexOutputShadowCaster i) : SV_Target {
+		// 		fixed3 burn = tex2D(_NoiseTex, i.tex.xy).rgb;
+		// 		fixed diff = burn.r - _BurnAmout;
+				
+		// 		clip(burn.r - _BurnAmout);
+		// 		if (diff < 0) {
+		// 			discard;
+		// 			} else if (diff < 0.05 ) { // 消失边缘加个颜色
+		// 			return fixed4(1, 1, 0, 1);
+		// 		}
+		// 		return half4(0, 0, 0, 1);
+		// 	}
+
+		// 	#include "UnityStandardShadow.cginc"
+
+		// 	ENDCG
+		// }
+		
+		Pass
+		{
 			Name "ShadowCaster"
-			Tags { "LightMode" = "ShadowCaster" }
-
-			ZWrite On ZTest LEqual
-
+			Tags{ "LightMode" = "ShadowCaster" }
+ 
+			Fog { Mode Off }
+			ZWrite On
+			Offset 1, 1
+			Cull[_DoubleSided]
+ 
 			CGPROGRAM
 			#pragma target 3.0
-
-			// -------------------------------------
-
-
-			#pragma shader_feature _ _ALPHATEST_ON _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
-			#pragma shader_feature _METALLICGLOSSMAP
-			#pragma shader_feature _PARALLAXMAP
+ 
+			#pragma vertex vert
+			#pragma fragment frag
 			#pragma multi_compile_shadowcaster
-			#pragma multi_compile_instancing
-
-			#pragma vertex vertShadowCaster
-			#pragma fragment fragShadowCaster
-
-			#include "UnityStandardShadow.cginc"
-
+			#pragma fragmentoption ARB_precision_hint_fastest
+ 
+			#pragma shader_feature _ALPHA_TEST_ON
+ 
+			#include "UnityCG.cginc"
+ 
+			struct v2f
+			{
+				V2F_SHADOW_CASTER;
+				fixed2 uv0 : TEXCOORD1;
+			};
+ 
+			v2f vert(appdata_base v)
+			{
+				v2f o;
+				TRANSFER_SHADOW_CASTER(o)
+				o.uv0 = v.texcoord.xy;
+				return o;
+			}
+ 
+			fixed4 frag(v2f i) : COLOR
+			{
+				fixed3 burn = tex2D(_NoiseTex, i.uv0).rgb;
+				clip(burn.r - _BurnAmout);
+				SHADOW_CASTER_FRAGMENT(i)
+			}
+ 
 			ENDCG
 		}
+
 		// ------------------------------------------------------------------
 		//  Deferred pass
 		Pass
