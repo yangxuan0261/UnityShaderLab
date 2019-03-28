@@ -58,13 +58,12 @@ Shader "test/Unlit-Texture-Dissolve" {
 				fixed diff = val.r - _BurnAmout;
 				fixed4 clr = fixed4(1, 1, 0, 1);
 	
-				
 				// clip(val.r - _BurnAmout); // 
 
 				fixed4 col = tex2D(_MainTex, i.texcoord);
 				if (diff < 0) {
 					discard;
-				} else if (diff < 0.05 ) {
+				} else if (diff < 0.05 ) { // 消失边缘加个颜色
 					col = clr;
 				} 
 			

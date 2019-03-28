@@ -1,4 +1,4 @@
-Shader "MyTest/TestShaderGUI"
+Shader "test/TestShaderGUI"
 {
     Properties
     {
@@ -25,9 +25,9 @@ Shader "MyTest/TestShaderGUI"
         
         sampler2D _MainTex;
 
-#if _BLENDMAP
-        sampler2D _BlendTex;
-#endif
+        #if _BLENDMAP
+            sampler2D _BlendTex;
+        #endif
 
         struct Input
         {
@@ -40,14 +40,14 @@ Shader "MyTest/TestShaderGUI"
             o.Albedo = c.rgb;
             o.Alpha = c.a;
 
-#if CS_BOOL
-            o.Albedo.gb *= 0.5;
-#endif
+            #if CS_BOOL
+                o.Albedo.gb *= 0.5;
+            #endif
 
-#if _BLENDMAP
-        half4 bc = tex2D(_BlendTex, IN.uv_MainTex);
-        o.Albedo.rgb *= bc.rgb;
-#endif
+            #if _BLENDMAP
+                half4 bc = tex2D(_BlendTex, IN.uv_MainTex);
+                o.Albedo.rgb *= bc.rgb;
+            #endif
 
         }
 
