@@ -1,44 +1,33 @@
-using UnityEngine;
-using UnityEditor;
 using System;
+using UnityEditor;
+using UnityEngine;
 
-public class NPRShaderGUI : ShaderGUI
-{
-    public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] properties)
-    {
-        base.OnGUI(materialEditor, properties); // 显示默认面板
+public class NPRShaderGUI : ShaderGUI {
+	public override void OnGUI (MaterialEditor materialEditor, MaterialProperty[] properties) {
+		base.OnGUI (materialEditor, properties); // 显示默认面板
 
-        Material targetMat = materialEditor.target as Material;
+		Material targetMat = materialEditor.target as Material;
 
-		// // test1, shader 中增加一个 Toggle, 来决定编辑器是否显示 _Color2 属性
-		// MaterialProperty _UseTwoColors = ShaderGUI.FindProperty("_UseTwoColors", properties);
-		// if (_UseTwoColors.floatValue == 1)
-		// {
-		// 	MaterialProperty _Color2 = ShaderGUI.FindProperty("_Color2", properties);
-		// 	materialEditor.ShaderProperty(_Color2, _Color2.displayName);
-		// }
-
-		// test2, 检测贴图是否有被用到, 来决定是否启用 _BLENDMAP 宏
-		MaterialProperty cubeMap = ShaderGUI.FindProperty("_Cubemap", properties);
+		// cubemap
+		MaterialProperty cubeMap = ShaderGUI.FindProperty ("_Cubemap", properties);
 		bool blendEnabled = cubeMap.textureValue != null;
 		if (blendEnabled) {
-      		targetMat.EnableKeyword("_CUBEMAP_ON");
+			targetMat.EnableKeyword ("_CUBEMAP_ON");
+		} else {
+			targetMat.DisableKeyword ("_CUBEMAP_ON");
 		}
-		else {
-			targetMat.DisableKeyword("_CUBEMAP_ON");
-		}
-		
-		// // test3, 编辑器扩展一个 Toggle, 来决定是否启用 CS_BOOL 宏
-        // bool CS_BOOL = Array.IndexOf(targetMat.shaderKeywords, "CS_BOOL") != -1;
-        // EditorGUI.BeginChangeCheck();
-        // CS_BOOL = EditorGUILayout.Toggle("CS_BOOL", CS_BOOL);
 
-        // if (EditorGUI.EndChangeCheck())
-        // {
-        //     if (CS_BOOL)
-        //         targetMat.EnableKeyword("CS_BOOL");
-        //     else
-        //         targetMat.DisableKeyword("CS_BOOL");
-        // }
-    }
+		// receive shadow
+		bool isRecvShadow = Array.IndexOf (targetMat.shaderKeywords, "_SHADOW_ON") != -1;
+		EditorGUI.BeginChangeCheck ();
+		isRecvShadow = EditorGUILayout.Toggle ("RecevieShadow", isRecvShadow);
+
+		if (EditorGUI.EndChangeCheck ()) {
+			if (isRecvShadow)
+				targetMat.EnableKeyword ("_SHADOW_ON");
+			else
+				targetMat.DisableKeyword ("_SHADOW_ON");
+		}
+
+	}
 }

@@ -5,10 +5,11 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: hxb_cloth
   m_Shader: {fileID: 4800000, guid: 49a1d73644f6bb64999229fe93cdcae5, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: _SHADOW_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -72,6 +73,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _FresnelScale: 1
     - _Gloss: 37
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -80,6 +82,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _RimPower: 5
     - _ShadowIntensity: 1
     - _SmoothnessTextureChannel: 0
     - _SpecIntensity: 0.156

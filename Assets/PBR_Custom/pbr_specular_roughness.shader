@@ -59,7 +59,7 @@ Shader "PBR specular roughness workflow"
 				normal.z = sqrt(1 - saturate(dot(normal.xy, normal.xy)));
 				return normal;
 			}
-						
+			
 			half VisibilitySmith(half NdotL, half NdotV, half roughness)
 			{
 				half a = roughness;

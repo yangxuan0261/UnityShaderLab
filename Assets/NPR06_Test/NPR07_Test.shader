@@ -8,20 +8,22 @@ Shader "test/NPR07_Test" {
 		_SpecularColor("Specular",Color) = (1,1,1,1)
 		_RampTex("Ramp", 2D) = "white" {}
 		_Gloss("Gloss", Range(8.0,256)) = 20
-		_SpecIntensity("_SpecIntensity", Range(0, 1)) = 1
+		_SpecIntensity("SpecIntensity", Range(0, 1)) = 1
+		_FresnelScale("FresnelScale", Range(0, 1)) = 1
+		_RimPower("RimPower", Range(0, 10)) = 1
 		_ShadowIntensity("ShadowIntensity", Range(0, 5)) = 1
 		_Cubemap("CubeMap", Cube) = ""{}
 		_CubeAmount("CubeAmount", Range(0, 5)) = 1
 	}
 
 	SubShader {
-
-
 		CGINCLUDE
 		#include "Lighting.cginc"
 		//计算阴影所用的宏包含在AutoLight.cginc文件中
-		#include "AutoLight.cginc" 
+		#include "AutoLight.cginc"
+
 		#pragma shader_feature _CUBEMAP_ON
+		#pragma shader_feature _SHADOW_ON
 		
 		sampler2D _MainTex;
 		sampler2D _RampTex;
@@ -31,8 +33,10 @@ Shader "test/NPR07_Test" {
 		fixed4 _Color;
 		fixed4 _SpecularColor;
 		float _Gloss;
-		fixed _ShadowIntensity;
-		fixed _SpecIntensity;
+		float _ShadowIntensity;
+		float _SpecIntensity;
+		float _FresnelScale;
+		float _RimPower;
 		float _CubeAmount;
 
 		struct a2v {
@@ -82,26 +86,35 @@ Shader "test/NPR07_Test" {
 			float3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
 			float3 worldViewDir = normalize(UnityWorldSpaceViewDir(i.worldPos));
 
-			fixed3 tangentNormal = UnpackNormal(tex2D(_NormalTex, i.uv));
+			float3 tangentNormal = UnpackNormal(tex2D(_NormalTex, i.uv));
 
 			// 构建 转换矩阵
 			float3x3 worldNormalMatrix = float3x3(i.TtoW0.xyz, i.TtoW1.xyz, i.TtoW2.xyz);
-			fixed3 worldNormal = normalize(mul(worldNormalMatrix, tangentNormal));
+			float3 worldNormal = normalize(mul(worldNormalMatrix, tangentNormal));
 
 			float NdotL = dot(worldNormal, worldLightDir);
 			float rampVal = NdotL * 0.5 + 0.5;
 
 			// diffuse term
-			fixed4 rampCol = tex2D(_RampTex, float2(rampVal, 0.3));
-			fixed3 diffuse = _LightColor0.rgb * _Color.rgb * albedo * rampCol.rgb; // * max(0,dot(worldLightDir,worldNormal));
+			float4 rampCol = tex2D(_RampTex, float2(rampVal, 0.3));
+			float3 diffuse = _LightColor0.rgb * _Color.rgb * albedo.rgb * rampCol.rgb; // * max(0,dot(worldLightDir,worldNormal));
 
 			// specular term
-			fixed3 halfDir = normalize(worldLightDir + worldViewDir);
-			fixed3 specularColor = _LightColor0.rgb * _SpecularColor.rgb * pow(saturate(dot(halfDir,worldNormal)),_Gloss) * _SpecIntensity;
+			float3 halfVector = normalize(worldLightDir + worldViewDir);
+			float3 specBase = pow(saturate(dot(halfVector, worldNormal)), _Gloss) * _SpecIntensity;
+
+			// fresnel
+			float fresnel = pow(1.0 - dot(worldViewDir, halfVector), 5.0);
+			fresnel = _FresnelScale + (1.0 - _FresnelScale) * fresnel;
+
+			float3 finalSpec = specBase * fresnel * _LightColor0.rgb * _SpecularColor.rgb;
 
 			// shadow term
-			fixed shadow = SHADOW_ATTENUATION(i);
-			shadow = shadow < 100 ? shadow * _ShadowIntensity : shadow;
+			float shadow = 1;
+			#if _SHADOW_ON
+				shadow = SHADOW_ATTENUATION(i);
+				shadow = shadow < 100 ? shadow * _ShadowIntensity : shadow;
+			#endif
 
 			// reflect term
 			#if _CUBEMAP_ON
@@ -111,10 +124,14 @@ Shader "test/NPR07_Test" {
 			#endif
 
 			// UNITY_LIGHT_ATTENUATION(atten,i,i.worldPos); // unity提供的光照衰减
-			fixed atten = 1.0;
+			float atten = 1.0;
+			
+			//rim light term
+			half rim = 1.0 - saturate(dot(worldViewDir, worldNormal));
+			rim = pow(rim, _RimPower) * 0.5;
 
-			fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
-			return fixed4(ambient + (diffuse + specularColor) * atten * shadow, 1.0); // 有阴影时的计算方式
+			float3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
+			return fixed4(ambient + (diffuse + finalSpec + rim) * atten * shadow, 1.0); // 有阴影时的计算方式
 			// return fixed4(rampCol.rbg, 1);
 		}
 
@@ -141,55 +158,47 @@ Shader "test/NPR07_Test" {
 			// 	return o;
 		// }
 
-		// fixed4 frag_add(v2f_add i) : SV_Target {
-			// 	fixed4 albedo  =  tex2D(_MainTex, i.uv);
-
-			// 	#ifdef USING_DIRECTIONAL_LIGHT
-			// 		fixed3 worldLightDir = normalize(_WorldSpaceLightPos0.xyz);
-			// 		fixed atten = 1.0;
-			// 	#else
-			// 		fixed3 worldLightDir = normalize(_WorldSpaceLightPos0.xyz-i.worldPos.xyz);
-			// 		float3 lightCoord = mul(unity_WorldToLight,float4(i.worldPos,1.0)).xyz;
-			// 		fixed atten = tex2D(_LightTexture0,dot(lightCoord,lightCoord).rr).UNITY_ATTEN_CHANNEL;
-			// 	#endif
-
-			// 	float3 worldNormal = normalize(i.worldNormal);
-			// 	float3 worldViewDir = normalize(UnityWorldSpaceViewDir(i.worldPos));
-
-			// 	fixed3 diffuse = _LightColor0.rgb*_Color.rgb*max(0,dot(worldLightDir,worldNormal));
-			// 	fixed3 halfDir = normalize(worldLightDir+worldViewDir);
-			// 	fixed3 specularColor = _LightColor0.rgb*_SpecularColor.rgb*pow(saturate(dot(halfDir,worldNormal)),_Gloss);
-
-			// 	return fixed4((diffuse*albedo+specularColor)*atten,1.0);
-		// }
-
-		
 		fixed4 frag_add(v2f i) : SV_Target {
 			fixed4 albedo = tex2D(_MainTex, i.uv);
 
 			float3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
 			float3 worldViewDir = normalize(UnityWorldSpaceViewDir(i.worldPos));
 
-			fixed3 tangentNormal = UnpackNormal(tex2D(_NormalTex, i.uv));
+			float3 tangentNormal = UnpackNormal(tex2D(_NormalTex, i.uv));
 
 			// 构建 转换矩阵
 			float3x3 worldNormalMatrix = float3x3(i.TtoW0.xyz, i.TtoW1.xyz, i.TtoW2.xyz);
-			fixed3 worldNormal = normalize(mul(worldNormalMatrix, tangentNormal));
+			float3 worldNormal = normalize(mul(worldNormalMatrix, tangentNormal));
 
 			float NdotL = dot(worldNormal, worldLightDir);
 			float rampVal = NdotL * 0.5 + 0.5;
 
-			fixed4 rampCol = tex2D(_RampTex, float2(rampVal, 0.3));
+			// diffuse term
+			fixed3 lambert = max(0, dot(worldLightDir,worldNormal)); // 兰伯特
+			float3 diffuse = _LightColor0.rgb * _Color.rgb * albedo.rgb * lambert;
 
+			// specular term
+			float3 halfVector = normalize(worldLightDir + worldViewDir);
+			float3 specBase = pow(saturate(dot(halfVector, worldNormal)), _Gloss) * _SpecIntensity;
 
-			fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
-			fixed3 diffuse = _LightColor0.rgb * _Color.rgb * albedo * max(0,dot(worldLightDir,worldNormal));
-			fixed3 halfDir = normalize(worldLightDir + worldViewDir);
-			fixed3 specularColor = _LightColor0.rgb * _SpecularColor.rgb * pow(saturate(dot(halfDir,worldNormal)),_Gloss) * _SpecIntensity;
+			// fresnel
+			float fresnel = pow(1.0 - dot(worldViewDir, halfVector), 5.0);
+			fresnel = _FresnelScale + (1.0 - _FresnelScale) * fresnel;
+
+			float3 finalSpec = specBase * fresnel * _LightColor0.rgb * _SpecularColor.rgb;
+
+			// reflect term
+			#if _CUBEMAP_ON
+				float3 worldRef = reflect(-worldViewDir, normalize(worldNormal));
+				fixed4 colCube = texCUBE(_Cubemap, worldRef) * _CubeAmount;
+				diffuse *= colCube;
+			#endif
 
 			// UNITY_LIGHT_ATTENUATION(atten,i,i.worldPos); // unity提供的光照衰减
-			fixed atten = 1;
-			return fixed4((diffuse + specularColor) * atten, 1.0); // 有阴影时的计算方式
+			float atten = 1.0;
+
+			float3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
+			return fixed4((diffuse + finalSpec) * atten, 1.0); // 有阴影时的计算方式
 		}
 
 		ENDCG

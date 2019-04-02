@@ -5,10 +5,11 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: hxb_body
   m_Shader: {fileID: 4800000, guid: 49a1d73644f6bb64999229fe93cdcae5, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: _SHADOW_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -68,9 +69,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
+    - _CubeAmount: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _FresnelScale: 1
     - _Gloss: 19
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -79,14 +82,15 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _RimPower: 10
     - _ShadowIntensity: 1
     - _SmoothnessTextureChannel: 0
-    - _SpecIntensity: 0.1
+    - _SpecIntensity: 0.15
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 0.9, b: 0.9774194, a: 1}
+    - _Color: {r: 1, g: 0.93, b: 0.9832, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
