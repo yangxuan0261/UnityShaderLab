@@ -1,79 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using UnityEditor;
 using UnityEngine;
+using System.Collections;
+using UnityEditor;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
-public class CubeSplitter : EditorWindow {
-    Cubemap splitCube;
-    Color[] CubeMapColors;
-    int splitSize;
+public class FindReferences {
 
-    [MenuItem("Tools/CubeSplitter", false, 500)]
-    public static void OpenCubeSplitter() {
-        var win = GetWindow<CubeSplitter>("CubeSplitter");
-        win.Show();
-    }
+    [MenuItem("Assets/Find References", false, 10)]
+    static private void Find() {
+        EditorSettings.serializationMode = SerializationMode.ForceText;
+        string path = AssetDatabase.GetAssetPath(Selection.activeObject);
+        if (!string.IsNullOrEmpty(path)) {
+            string guid = AssetDatabase.AssetPathToGUID(path);
+            Debug.LogFormat("--- check guid:{0}", guid);
+            List<string> withExts = new List<string>() { ".prefab", ".unity", ".mat", ".asset" };
+            string[] files = Directory.GetFiles(Application.dataPath, "*.*", SearchOption.AllDirectories)
+                .Where(s => withExts.Contains(Path.GetExtension(s).ToLower())).ToArray();
+            int startIndex = 0;
 
-    void OnGUI () {
+            EditorApplication.update = delegate () {
+                string file = files[startIndex];
 
-        GUILayout.Label ("Choose the Cube Map you want to save as 6 images and click EXPORT!", EditorStyles.boldLabel);
-        splitCube = EditorGUILayout.ObjectField ("My Cubemap:", splitCube, typeof (Cubemap), false) as Cubemap;
-        GUILayout.Label ("Make sure to set the Size to the same as the Cubemap you are using", EditorStyles.boldLabel);
-        splitSize = EditorGUILayout.IntField ("CubeMap Size: ", splitSize);
+                bool isCancel = EditorUtility.DisplayCancelableProgressBar("匹配资源中", file, (float)startIndex / (float)files.Length);
 
-        if (GUILayout.Button ("EXPORT!")) {
-            if (splitCube) {
-                Export ();
-            }
+                if (Regex.IsMatch(File.ReadAllText(file), guid)) {
+                    Debug.Log(file, AssetDatabase.LoadAssetAtPath<Object>(GetRelativeAssetsPath(file)));
+                }
 
-            if (!splitCube) {
-                Debug.Log ("Forget Something?");
-            }
+                startIndex++;
+                if (isCancel || startIndex >= files.Length) {
+                    EditorUtility.ClearProgressBar();
+                    EditorApplication.update = null;
+                    startIndex = 0;
+                    Debug.Log("匹配结束");
+                }
+            };
         }
     }
 
-    void Export () {
-        var filePath = AssetDatabase.GetAssetPath (splitCube);
+    [MenuItem("Assets/Find References", true)]
+    static private bool VFind() {
+        string path = AssetDatabase.GetAssetPath(Selection.activeObject);
+        return (!string.IsNullOrEmpty(path));
+    }
 
-        Texture2D tex = new Texture2D (splitSize, splitSize, TextureFormat.RGB24, false);
-
-        CubeMapColors = splitCube.GetPixels (CubemapFace.PositiveY);
-        tex.SetPixels (CubeMapColors, 0);
-        tex.Apply ();
-        byte[] bytes = tex.EncodeToPNG ();
-        File.WriteAllBytes (filePath + "_top.png", bytes);
-
-        CubeMapColors = splitCube.GetPixels (CubemapFace.NegativeY);
-        tex.SetPixels (CubeMapColors, 0);
-        tex.Apply ();
-        bytes = tex.EncodeToPNG ();
-        File.WriteAllBytes (filePath + "_bottom.png", bytes);
-
-        CubeMapColors = splitCube.GetPixels (CubemapFace.PositiveX);
-        tex.SetPixels (CubeMapColors, 0);
-        tex.Apply ();
-        bytes = tex.EncodeToPNG ();
-        File.WriteAllBytes (filePath + "_right.png", bytes);
-
-        CubeMapColors = splitCube.GetPixels (CubemapFace.NegativeX);
-        tex.SetPixels (CubeMapColors, 0);
-        tex.Apply ();
-        bytes = tex.EncodeToPNG ();
-        File.WriteAllBytes (filePath + "_left.png", bytes);
-
-        CubeMapColors = splitCube.GetPixels (CubemapFace.PositiveZ);
-        tex.SetPixels (CubeMapColors, 0);
-        tex.Apply ();
-        bytes = tex.EncodeToPNG ();
-        File.WriteAllBytes (filePath + "_front.png", bytes);
-
-        CubeMapColors = splitCube.GetPixels (CubemapFace.NegativeZ);
-        tex.SetPixels (CubeMapColors, 0);
-        tex.Apply ();
-        bytes = tex.EncodeToPNG ();
-        File.WriteAllBytes (filePath + "_back.png", bytes);
-
-        this.Close ();
+    static private string GetRelativeAssetsPath(string path) {
+        return "Assets" + Path.GetFullPath(path).Replace(Path.GetFullPath(Application.dataPath), "").Replace('\\', '/');
     }
 }
