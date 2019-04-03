@@ -84,7 +84,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RimPower: 10
+    - _RimPower: 5
     - _Saturation: 1
     - _ShadowIntensity: 1.13
     - _ShadowThd: 0.37

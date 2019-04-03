@@ -14,7 +14,7 @@ Shader "test/NPR07_Test" {
 		_FresnelScale("FresnelScale", Range(0, 1)) = 1
 		_RimPower("RimPower", Range(0, 10)) = 1
 
-		_ShadowIntensity("ShadowIntensity", Range(0, 5)) = 1
+		_ShadowIntensity("ShadowIntensity", Range(0, 10)) = 1
 
 		_Cubemap("CubeMap", Cube) = ""{}
 		_CubeAmount("CubeAmount", Range(0, 5)) = 1
@@ -122,6 +122,7 @@ Shader "test/NPR07_Test" {
 			float3x3 worldNormalMatrix = float3x3(i.TtoW0.xyz, i.TtoW1.xyz, i.TtoW2.xyz);
 			float3 worldNormal = normalize(mul(worldNormalMatrix, tangentNormal));
 
+			float3 halfVector = normalize(worldLightDir + worldViewDir);
 			float NdotL = dot(worldNormal, worldLightDir);
 			float rampVal = NdotL * 0.5 + 0.5;
 
@@ -129,8 +130,7 @@ Shader "test/NPR07_Test" {
 			float4 rampCol = tex2D(_RampTex, float2(rampVal, 0.3));
 			float3 diffuse = _LightColor0.rgb * _Color.rgb * albedo.rgb * rampCol.rgb; // * max(0,dot(worldLightDir,worldNormal));
 
-			// specular term
-			float3 halfVector = normalize(worldLightDir + worldViewDir);
+			// specular term 
 			float3 specBase = pow(saturate(dot(halfVector, worldNormal)), _Gloss) * _SpecIntensity;
 
 			// fresnel
@@ -139,14 +139,19 @@ Shader "test/NPR07_Test" {
 
 			float3 finalSpec = specBase * fresnel * _LightColor0.rgb * _SpecularColor.rgb;
 
+			// float atten = 1.0;
+			UNITY_LIGHT_ATTENUATION(atten, i, i.worldPos); // unity提供的光照衰减
+
 			// shadow term
 			float shadow2 = 1;
 			#if _SHADOW_ON
-				shadow2 = UNITY_SHADOW_ATTENUATION(i, i.worldPos);
-				// shadow2 = shadow2 < _ShadowThd ? shadow2 * _ShadowIntensity : 1;
-				// float3 shdClr = float3(shadow2, shadow2, shadow2);
-				// shdClr = ContrastSaturationBrightness(shdClr, _BrightnessAmount, _satAmount, _conAmount);
-				// shadow2 = shdClr.r;
+				shadow2 = SHADOW_ATTENUATION(i);
+				// shadow2 = smoothstep(0, 1, shadow2);
+				// step(a, b) //如果 a>b ，返回 0 ；否则，返回 1 。
+				// if (NdotL < 0) {
+				// 	shadow2 *= _ShadowIntensity;
+				// }
+				// shadow2 = shadow2 < 1 ? shadow2 * _ShadowIntensity : 1; // 试试lerp or smoothstep
 			#endif
 
 			// reflect term
@@ -156,15 +161,13 @@ Shader "test/NPR07_Test" {
 				diffuse *= colCube;
 			#endif
 
-			// UNITY_LIGHT_ATTENUATION(atten, i, i.worldPos); // unity提供的光照衰减
-			float atten = 1.0;
 			
 			//rim light term
 			half rim = 1.0 - saturate(dot(worldViewDir, worldNormal));
 			rim = pow(rim, _RimPower) * 0.5;
 
 			float3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
-			fixed4 finalClr = fixed4(ambient + (diffuse + finalSpec + rim) * atten * shadow2, 1.0); // 有阴影时的计算方式
+			fixed4 finalClr = fixed4(ambient + (diffuse + finalSpec + rim) * atten, 1.0); // 有阴影时的计算方式
 			finalClr.rgb = ContrastSaturationBrightness(finalClr.rgb, _BrightnessAmount, _satAmount, _conAmount);
 			return finalClr;
 			// return fixed4(rampCol.rbg, 1);
