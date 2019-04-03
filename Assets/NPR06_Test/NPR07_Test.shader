@@ -3,17 +3,26 @@
 Shader "test/NPR07_Test" {
 	Properties {
 		_MainTex("Base (RGB)", 2D) = "white" {}
-		_NormalTex("NormalMap", 2D) = "white" {}
-		_Color("Color", Color) = (1,1,1,1)
-		_SpecularColor("Specular",Color) = (1,1,1,1)
 		_RampTex("Ramp", 2D) = "white" {}
+		_Color("Color", Color) = (1,1,1,1)
+
+		_NormalTex("NormalMap", 2D) = "white" {}
+
+		_SpecularColor("Specular",Color) = (1,1,1,1)
 		_Gloss("Gloss", Range(8.0,256)) = 20
 		_SpecIntensity("SpecIntensity", Range(0, 1)) = 1
 		_FresnelScale("FresnelScale", Range(0, 1)) = 1
 		_RimPower("RimPower", Range(0, 10)) = 1
+
 		_ShadowIntensity("ShadowIntensity", Range(0, 5)) = 1
+
 		_Cubemap("CubeMap", Cube) = ""{}
 		_CubeAmount("CubeAmount", Range(0, 5)) = 1
+
+		_BrightnessAmount("Brightess Amount",Range(0.0,5)) = 2.0
+		_satAmount("Saturation Amount",Range(0.0,5)) = 1.0
+		_conAmount("Contrast Amount",Range(0.0,5)) = 1.0
+
 	}
 
 	SubShader {
@@ -24,6 +33,7 @@ Shader "test/NPR07_Test" {
 
 		#pragma shader_feature _CUBEMAP_ON
 		#pragma shader_feature _SHADOW_ON
+		#pragma shader_feature _OHTER_LIGHT_OFF
 		
 		sampler2D _MainTex;
 		sampler2D _RampTex;
@@ -34,10 +44,15 @@ Shader "test/NPR07_Test" {
 		fixed4 _SpecularColor;
 		float _Gloss;
 		float _ShadowIntensity;
+		
 		float _SpecIntensity;
 		float _FresnelScale;
 		float _RimPower;
 		float _CubeAmount;
+
+		fixed _BrightnessAmount;
+		fixed _satAmount;
+		fixed _conAmount;
 
 		struct a2v {
 			float4  vertex:POSITION;
@@ -55,10 +70,25 @@ Shader "test/NPR07_Test" {
 			float3 TtoW1 : TEXCOORD3;
 			float3 TtoW2 : TEXCOORD4;
 
-
 			//这个宏的参数是下一个可用的插值寄存器的索引值
 			SHADOW_COORDS(5) 
 		};
+
+
+		float3 ContrastSaturationBrightness(float3 color,float brt,float sat,float con)
+		{
+			float AvgLumR = 0.5;
+			float AvgLumG =0.5;
+			float AvgLumB = 0.5;
+			float3 LuminanceCoeff = float3(0.2125,0.7154,0.0721);
+			float3 AvgLumin = float3(AvgLumR,AvgLumG,AvgLumB);
+			float3 brtColor = color * brt;
+			float intensityf = dot(brtColor,LuminanceCoeff);
+			float3 intensity = float3(intensityf,intensityf,intensityf);
+			float3 satColor = lerp(intensity,brtColor,sat);
+			float3 conColor = lerp(AvgLumin,satColor,con);
+			return conColor;
+		}
 
 		v2f vert_base(a2v v) {
 			v2f o;
@@ -110,10 +140,13 @@ Shader "test/NPR07_Test" {
 			float3 finalSpec = specBase * fresnel * _LightColor0.rgb * _SpecularColor.rgb;
 
 			// shadow term
-			float shadow = 1;
+			float shadow2 = 1;
 			#if _SHADOW_ON
-				shadow = SHADOW_ATTENUATION(i);
-				shadow = shadow < 100 ? shadow * _ShadowIntensity : shadow;
+				shadow2 = UNITY_SHADOW_ATTENUATION(i, i.worldPos);
+				// shadow2 = shadow2 < _ShadowThd ? shadow2 * _ShadowIntensity : 1;
+				// float3 shdClr = float3(shadow2, shadow2, shadow2);
+				// shdClr = ContrastSaturationBrightness(shdClr, _BrightnessAmount, _satAmount, _conAmount);
+				// shadow2 = shdClr.r;
 			#endif
 
 			// reflect term
@@ -123,7 +156,7 @@ Shader "test/NPR07_Test" {
 				diffuse *= colCube;
 			#endif
 
-			// UNITY_LIGHT_ATTENUATION(atten,i,i.worldPos); // unity提供的光照衰减
+			// UNITY_LIGHT_ATTENUATION(atten, i, i.worldPos); // unity提供的光照衰减
 			float atten = 1.0;
 			
 			//rim light term
@@ -131,7 +164,9 @@ Shader "test/NPR07_Test" {
 			rim = pow(rim, _RimPower) * 0.5;
 
 			float3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
-			return fixed4(ambient + (diffuse + finalSpec + rim) * atten * shadow, 1.0); // 有阴影时的计算方式
+			fixed4 finalClr = fixed4(ambient + (diffuse + finalSpec + rim) * atten * shadow2, 1.0); // 有阴影时的计算方式
+			finalClr.rgb = ContrastSaturationBrightness(finalClr.rgb, _BrightnessAmount, _satAmount, _conAmount);
+			return finalClr;
 			// return fixed4(rampCol.rbg, 1);
 		}
 
@@ -159,6 +194,10 @@ Shader "test/NPR07_Test" {
 		// }
 
 		fixed4 frag_add(v2f i) : SV_Target {
+			#if _OHTER_LIGHT_OFF
+			return fixed4(0,0,0,1);
+#endif
+
 			fixed4 albedo = tex2D(_MainTex, i.uv);
 
 			float3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
@@ -224,6 +263,7 @@ Shader "test/NPR07_Test" {
 			ENDCG
 		}
 	}
+
 	FallBack "Specular"
 	CustomEditor "NPRShaderGUI"
 }

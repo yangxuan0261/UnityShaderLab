@@ -29,5 +29,17 @@ public class NPRShaderGUI : ShaderGUI {
 				targetMat.DisableKeyword ("_SHADOW_ON");
 		}
 
+		// receive shadow
+		bool isOtherLightOff = Array.IndexOf (targetMat.shaderKeywords, "_OHTER_LIGHT_OFF") != -1;
+		EditorGUI.BeginChangeCheck ();
+		isOtherLightOff = EditorGUILayout.Toggle ("OtherLightOff", isOtherLightOff);
+
+		if (EditorGUI.EndChangeCheck ()) {
+			if (isOtherLightOff)
+				targetMat.EnableKeyword ("_OHTER_LIGHT_OFF");
+			else
+				targetMat.DisableKeyword ("_OHTER_LIGHT_OFF");
+		}
+
 	}
 }
