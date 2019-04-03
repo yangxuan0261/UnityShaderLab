@@ -149,7 +149,7 @@ Shader "test/NPR07_Test" {
 				// shadow2 = smoothstep(0, 1, shadow2);
 				// step(a, b) //如果 a>b ，返回 0 ；否则，返回 1 。
 				// if (NdotL < 0) {
-				// 	shadow2 *= _ShadowIntensity;
+					// 	shadow2 *= _ShadowIntensity;
 				// }
 				// shadow2 = shadow2 < 1 ? shadow2 * _ShadowIntensity : 1; // 试试lerp or smoothstep
 			#endif
@@ -198,8 +198,8 @@ Shader "test/NPR07_Test" {
 
 		fixed4 frag_add(v2f i) : SV_Target {
 			#if _OHTER_LIGHT_OFF
-			return fixed4(0,0,0,1);
-#endif
+				return fixed4(0,0,0,1);
+			#endif
 
 			fixed4 albedo = tex2D(_MainTex, i.uv);
 
