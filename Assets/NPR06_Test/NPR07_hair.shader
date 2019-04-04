@@ -1,5 +1,3 @@
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
 Shader "test/NPR07_hair"
 {
     Properties
@@ -103,6 +101,7 @@ Shader "test/NPR07_hair"
                 o.worldNormal  = UnityObjectToWorldNormal(v.normal);
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
                 TRANSFER_SHADOW(o);
+
                 //求出沿着发梢到发根方向的切线
                 half4 p_tangent = mul(unity_ObjectToWorld, v.tangent);
                 o.tangent = normalize(p_tangent).xyz;
@@ -121,7 +120,7 @@ Shader "test/NPR07_hair"
                 float3 halfDir = normalize(L + V);
                 float dotTH = dot(T, halfDir);
                 float sinTH = max(0.01,sqrt(1 - pow(dotTH, 2)));
-                float dirAtten = smoothstep(-1,0, dotTH);
+                float dirAtten = smoothstep(-1, 0, dotTH);
                 return dirAtten * pow(sinTH, exponent);
             }
             
@@ -134,7 +133,7 @@ Shader "test/NPR07_hair"
             
             float4 frag(v2f i) : SV_Target { 
                 fixed3 worldNormal = normalize(i.worldNormal);
-                // fixed3 tangentNormal = UnpackNormal(tex2D(_Bump, i.uv_Bump)); // 这个暂时没用
+                // fixed3 tangentNormal = UnpackNormal(tex2D(_Bump, i.uv_Bump)); // 暂时没用 法线图
                 fixed3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
                 fixed3 worldViewDir = normalize(UnityWorldSpaceViewDir(i.worldPos));
                 fixed3 worldHalfDir = normalize(worldLightDir + worldViewDir);
@@ -153,10 +152,8 @@ Shader "test/NPR07_hair"
                 //将光线颜色和环境光颜色以及梯度图采样相乘得到最终的漫反射颜色
                 fixed3 diffuse = _LightColor0.rgb * albedo * tex2D(_Ramp, float2(diff, diff)).rgb;
                 
-                //头发高光图采样
+                //头发高光图采样, 使用一张扰动图沿着物体切线方向扰动法线来达到效果
                 float3 speTex = tex2D(_HairLightRamp, i.hairLightUV);
-
-                // 和 ShiftTangent 偏移相似, 只不过这里采样了 高光贴图
                 //头发 主高光 偏移				
                 float3 Ts = ShiftTangent(i.tangent, worldNormal, _MainSpecularOff * speTex);
                 //头发 副高光 偏移
@@ -180,9 +177,9 @@ Shader "test/NPR07_hair"
                 half rim = 1.0 - saturate(dot(worldViewDir, worldNormal));
                 rim = pow(rim, _RimPower);
                 
-                fixed3 lightMapColor = LightMapColor(worldLightDir, worldNormal,i.uv).rgb;
+                fixed3 ao = LightMapColor(worldLightDir, worldNormal,i.uv).rgb;
                 
-                return fixed4(ambient + diffuse + specular + rim, 1.0 );
+                return fixed4((ambient + diffuse + specular + rim) /* * ao */, 1.0 );
             }
             
             ENDCG
