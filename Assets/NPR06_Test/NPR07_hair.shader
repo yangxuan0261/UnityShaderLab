@@ -1,35 +1,29 @@
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader "Unlit/NPR07_hair"
+Shader "test/NPR07_hair"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-		_Color("Color",Color) = (1,1,1,1)
+        _Color("Color",Color) = (1,1,1,1)
 
         _Ramp ("Ramp", 2D) = "white" {}
-        _Bump ("Bump", 2D) = "white" {}
+        _Bump ("Normal", 2D) = "white" {}
         _HairLightRamp ("HairLightRamp", 2D) = "white" {}
         _LightMapMask ("LightMapMask", 2D) = "white" {}
 
         [Space(10)][Header(xxxxxxxxxxxxxxxx)]
-		_DetailOutLineColor("DetailOutLineColor",Color) = (0,0,0,1)
-		_DetailOutLineSize("DetailOutLineSize", Range(0, 5)) = 0.2
-
-        [Space(10)][Header(xxxxxxxxxxxxxxxx)]
         _Specular("Specular",Color) = (1,1,1,1)
-		_SpecularScale("SpecularScale", Range(0, 20)) = 1
+        _SpecularScale("SpecularScale", Range(0, 5)) = 1
 
         [Space(10)][Header(xxxxxxxxxxxxxxxx)]
-		_MainHairSpecularSmooth("MainHairSpecularSmooth", Range(-10, 100)) = 1
-		_FuHairSpecularSmooth("FuHairSpecularSmooth", Range(-10, 10)) = 1
-		_MainHairSpecularOff("MainHairSpecularOff", Range(-10, 10)) = 1
-		_FuHairSpecularOff("FuHairSpecularOff", Range(-10, 10)) = 1
+        _MainSpecularSmooth("MainHairSpecularSmooth", Range(-10, 100)) = 1
+        _FuSpecularSmooth("FuHairSpecularSmooth", Range(-10, 100)) = 1
+        _MainSpecularOff("MainHairSpecularOff", Range(-10, 10)) = 1
+        _FuSpecularOff("FuHairSpecularOff", Range(-10, 10)) = 1
 
         [Space(10)][Header(xxxxxxxxxxxxxxxx)]
-		_RefractionCount("RefractionCount", Range(1, 5)) = 1
-		_ReflectionCount("ReflectionCount", Range(1, 5)) = 1
-		_edgeLightOff("edgeLightOff", Range(1, 5)) = 1
+        _RimPower("RimPower", Range(0.2, 10)) = 1
     }
     
     SubShader
@@ -63,23 +57,18 @@ Shader "Unlit/NPR07_hair"
 
             sampler2D _Ramp;
 
-            float _DetailOutLineSize;
-            fixed4 _DetailOutLineColor;
-
             fixed4 _Specular;
             fixed _SpecularScale;
 
-            fixed _MainHairSpecularSmooth;
-            fixed _FuHairSpecularSmooth;
-            float _MainHairSpecularOff;
-            float _FuHairSpecularOff;
+            fixed _MainSpecularSmooth;
+            fixed _FuSpecularSmooth;
+            float _MainSpecularOff;
+            float _FuSpecularOff;
 
             sampler2D _HairLightRamp;
             float4 _HairLightRamp_ST;
 
-            float _RefractionCount;
-            float _ReflectionCount;
-            float _edgeLightOff;
+            float _RimPower;
 
             sampler2D _LightMapMask;
             
@@ -121,18 +110,22 @@ Shader "Unlit/NPR07_hair"
                 return o;
             }
             
-            float HairSpecular(fixed3 halfDir, float3 tangent, float specularSmooth)
+            float3 ShiftTangent(float3 T, float3 N, float shift)
             {
-                float dotTH = dot(tangent, halfDir);
-                float sqrTH =max(0.01,sqrt(1 - pow(dotTH, 2)));
-                float atten = smoothstep(-1,0, dotTH);
-                
-                //头发主高光值
-                float specMain = atten * pow(sqrTH, specularSmooth);
-                return specMain;
+                float3 shiftedT = T + (shift * N);
+                return normalize(shiftedT);
+            }
+
+            float StrandSpecular(float3 T, float3 V, float3 L, float exponent)
+            {
+                float3 halfDir = normalize(L + V);
+                float dotTH = dot(T, halfDir);
+                float sinTH = max(0.01,sqrt(1 - pow(dotTH, 2)));
+                float dirAtten = smoothstep(-1,0, dotTH);
+                return dirAtten * pow(sinTH, exponent);
             }
             
-            float3 LightMapColor(fixed3 worldLightDir,fixed3 worldNormalDir,fixed2 uv)
+            float3 LightMapColor(fixed3 worldLightDir,fixed3 worldNormalDir, fixed2 uv)
             {
                 float LdotN = max(0, dot(worldLightDir, worldNormalDir));
                 float3 lightColor = LdotN * tex2D(_LightMapMask, uv);
@@ -141,7 +134,7 @@ Shader "Unlit/NPR07_hair"
             
             float4 frag(v2f i) : SV_Target { 
                 fixed3 worldNormal = normalize(i.worldNormal);
-                fixed3 tangentNormal = UnpackNormal(tex2D(_Bump, i.uv_Bump));
+                // fixed3 tangentNormal = UnpackNormal(tex2D(_Bump, i.uv_Bump)); // 这个暂时没用
                 fixed3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
                 fixed3 worldViewDir = normalize(UnityWorldSpaceViewDir(i.worldPos));
                 fixed3 worldHalfDir = normalize(worldLightDir + worldViewDir);
@@ -152,7 +145,7 @@ Shader "Unlit/NPR07_hair"
                 
                 fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo;
                 
-                UNITY_LIGHT_ATTENUATION(atten, i, i.worldPos);//阴影值计算
+                UNITY_LIGHT_ATTENUATION(atten, i, i.worldPos); //阴影值计算
                 
                 fixed diff =  dot(worldNormal, worldLightDir); //世界空间的法线坐标和光照方向点乘得到漫反射颜色
                 diff = (diff * 0.5 + 0.5) * atten; //暗部提亮  当然这里也可以不提亮
@@ -162,31 +155,34 @@ Shader "Unlit/NPR07_hair"
                 
                 //头发高光图采样
                 float3 speTex = tex2D(_HairLightRamp, i.hairLightUV);
-                //头发主高光偏移				
-                float3 Ts =i.tangent + worldNormal*_MainHairSpecularOff * speTex;
-                //头发副高光偏移
-                float3 Tf = i.tangent + worldNormal*_FuHairSpecularOff * speTex;
+
+                // 和 ShiftTangent 偏移相似, 只不过这里采样了 高光贴图
+                //头发 主高光 偏移				
+                float3 Ts = ShiftTangent(i.tangent, worldNormal, _MainSpecularOff * speTex);
+                //头发 副高光 偏移
+                float3 Tf = ShiftTangent(i.tangent, worldNormal, _FuSpecularOff * speTex);
                 
-                //头发主高光值
-                float specMain = HairSpecular(worldHalfDir,Ts, _MainHairSpecularSmooth);
-                float specFu = HairSpecular(worldHalfDir,Tf, _FuHairSpecularSmooth);
+                //头发 主副 高光值
+                float specMain = StrandSpecular(Ts, worldViewDir, worldLightDir, _MainSpecularSmooth);
+                float specFu = StrandSpecular(Tf, worldViewDir, worldLightDir, _FuSpecularSmooth);
                 
-                float specFinal = specMain * _SpecularScale ;
+                float specFinal = specMain;
+                // 这里可以添加一个副高光
+                // float specMask = tex2D(tSpecMask, uv); 
+                // specFinal +=  specMask * specFu;
+                // specFinal += specFu;
+
+                specFinal *= _SpecularScale ;
                 
                 fixed3 specular = _Specular.rgb * specFinal * atten;
                 
-                half edge =abs(dot(worldNormal, worldViewDir)); //计算边缘光
-                float Fr = pow(1 - edge, _ReflectionCount)* atten;//反射值
-                float Ft = pow(edge, _RefractionCount)* atten;//折射值
+                //rim light term
+                half rim = 1.0 - saturate(dot(worldViewDir, worldNormal));
+                rim = pow(rim, _RimPower);
                 
                 fixed3 lightMapColor = LightMapColor(worldLightDir, worldNormal,i.uv).rgb;
                 
-                //计算法线勾边
-                //half normalEdge = saturate(dot(i.normal, worldViewDir));
-                //normalEdge = normalEdge < _DetailOutLineSize ? normalEdge / 4 : 1;
-                
-                return fixed4(ambient + diffuse + specular, 1.0 )  + Fr;
-                // return fixed4(diffuse, 1);
+                return fixed4(ambient + diffuse + specular + rim, 1.0 );
             }
             
             ENDCG

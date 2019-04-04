@@ -575,7 +575,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1282438373}
   m_LocalRotation: {x: -0.013317821, y: -0.98992515, z: 0.13454299, w: -0.042060196}
-  m_LocalPosition: {x: -0.99646866, y: 17.34, z: 10.4}
+  m_LocalPosition: {x: -0.99646866, y: 17.63, z: 9.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 804342489}
@@ -599,8 +599,8 @@ MonoBehaviour:
   shader: {fileID: 4800000, guid: ae56ad6f6971c304896e29f3f7bedc16, type: 3}
   downSample: 1
   samplerScale: 1
-  colorThreshold: {r: 0.9, g: 0.9, b: 0.9, a: 1}
-  bloomColor: {r: 1, g: 0.6708686, b: 0, a: 1}
+  colorThreshold: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 1}
+  bloomColor: {r: 1, g: 1, b: 1, a: 1}
   bloomFactor: 1
 --- !u!1 &1400908116
 GameObject:
