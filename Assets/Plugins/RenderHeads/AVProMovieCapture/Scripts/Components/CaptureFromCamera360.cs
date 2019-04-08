@@ -449,7 +449,7 @@ namespace RenderHeads.Media.AVProMovieCapture
 						_faceTarget.isPowerOfTwo = true;
 						_faceTarget.wrapMode = TextureWrapMode.Clamp;
 						_faceTarget.filterMode = FilterMode.Bilinear;
-						_faceTarget.generateMips = false;
+						_faceTarget.autoGenerateMips = false;
 						_faceTarget.antiAliasing = aaLevel;
 					}
 
@@ -499,7 +499,7 @@ namespace RenderHeads.Media.AVProMovieCapture
 #endif
 
 					_cubeTarget.useMipMap = false;
-					_cubeTarget.generateMips = false;
+					_cubeTarget.autoGenerateMips = false;
 					_cubeTarget.antiAliasing = cubeAA;
 					_cubeTarget.wrapMode = TextureWrapMode.Clamp;
 					_cubeTarget.filterMode = FilterMode.Bilinear;

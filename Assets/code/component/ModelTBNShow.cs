@@ -8,7 +8,6 @@ public class ModelTBNShow : MonoBehaviour {
     [Range (0, 1000)]
     public int maxShowNum = 100;
 
-    [Header("Luces")]
     public bool showNormal = true;
     public bool showTangent = true;
     public bool showBiTangent = true;
