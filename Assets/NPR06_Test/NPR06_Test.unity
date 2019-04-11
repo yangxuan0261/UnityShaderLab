@@ -290,6 +290,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1183112852082472, guid: 526fa9dd8a7945547894e38cea019a42, type: 3}
+      propertyPath: m_Name
+      value: fuhua
+      objectReference: {fileID: 0}
     - target: {fileID: 4351442183644906, guid: 526fa9dd8a7945547894e38cea019a42, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -323,29 +327,17 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4351442183644906, guid: 526fa9dd8a7945547894e38cea019a42, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351442183644906, guid: 526fa9dd8a7945547894e38cea019a42, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 19.14
       objectReference: {fileID: 0}
-    - target: {fileID: 137529881458410514, guid: 526fa9dd8a7945547894e38cea019a42,
-        type: 3}
-      propertyPath: m_Materials.Array.data[2]
-      value: 
-      objectReference: {fileID: 2100000, guid: 4b3841b30920e4543b203e5d927cfb6c, type: 2}
-    - target: {fileID: 137529881458410514, guid: 526fa9dd8a7945547894e38cea019a42,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 793adcaf79afd464daf76eef3b2248c5, type: 2}
-    - target: {fileID: 137529881458410514, guid: 526fa9dd8a7945547894e38cea019a42,
-        type: 3}
-      propertyPath: m_Materials.Array.data[5]
-      value: 
-      objectReference: {fileID: 2100000, guid: e2b09259b395ce54e86139c373621369, type: 2}
-    - target: {fileID: 137529881458410514, guid: 526fa9dd8a7945547894e38cea019a42,
-        type: 3}
-      propertyPath: m_Materials.Array.data[28]
-      value: 
-      objectReference: {fileID: 2100000, guid: 6710b84de330ca54f8308101b2ac009c, type: 2}
+    - target: {fileID: 4351442183644906, guid: 526fa9dd8a7945547894e38cea019a42, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 526fa9dd8a7945547894e38cea019a42, type: 3}
 --- !u!1 &1066307643
