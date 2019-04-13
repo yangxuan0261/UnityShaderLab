@@ -1,0 +1,77 @@
+﻿// csharp 中要找的就这个名字 MyCSMain, 且下面的方法名要和这个一致
+#pragma kernel MyCSMain
+
+//封装计算单个boid时所需要的数据
+struct Boid
+{
+	float3 pos;
+	float3 rot;
+	float3 flockPos;
+	float speed;
+	float nearbyDis;
+	float boidsCount;
+};
+
+RWStructuredBuffer<Boid> boidBuffer;
+float deltaTime;
+
+//Compute Shader执行的线程组，每个线程组又包含多个线程 ，默认创建的[numthreads(8,8,1)]
+//[numthreads(8,8,1)] 的意思就是在这个线程组中分配了8*8*1=64个线程，当然也可以用[numthreads(64,1,1)] 表示
+//这里自己改下
+[numthreads(128,1,1)]
+void MyCSMain (uint3 id : SV_DispatchThreadID)
+{
+	Boid boid = boidBuffer[id.x];
+
+	float3 pos = boid.pos;
+	float3 rot = boid.rot;
+
+	//separation
+	float3 separation = float3(0.0, 0.0, 0.0);
+
+	//alignment
+	float3 alignment = float3(0.0, 0.0, 0.0);
+
+	//cohesion
+	float3 cohesion = boid.flockPos;
+	float3 tempCohesion = float3(0.0, 0.0, 0.0);
+
+    float tempSpeed = 0;
+	uint nearbyCount = 0;
+
+
+	[loop]
+	for (int i = 0; i < int(boid.boidsCount); i++)
+	{
+		if (i != int(id.x))
+		{
+			Boid tempBoid = boidBuffer[i];
+			if (length(boid.pos - tempBoid.pos) < boid.nearbyDis)
+			{
+				separation += boid.pos - tempBoid.pos;
+
+				alignment += tempBoid.rot;
+
+				tempCohesion += tempBoid.pos;
+
+				nearbyCount++;
+			}
+		}
+	}
+
+	if (nearbyCount > 0)
+	{
+		alignment *= 1 / nearbyCount;
+		tempCohesion *= 1 / nearbyCount;
+	}
+
+    cohesion += tempCohesion;
+
+	float3 direction = alignment + separation + normalize(cohesion - boid.pos);
+
+	boid.rot = lerp(boid.rot, normalize(direction), deltaTime * 4);
+
+	boid.pos += boid.rot * boid.speed * deltaTime;
+
+	boidBuffer[id.x] = boid;
+}
