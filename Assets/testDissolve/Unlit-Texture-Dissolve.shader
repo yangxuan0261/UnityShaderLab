@@ -53,21 +53,20 @@ Shader "test/Unlit-Texture-Dissolve" {
 			
 			fixed4 frag (v2f i) : SV_Target
 			{
-				fixed4 val = tex2D(_Noise, i.uvNoise);
+				fixed val = tex2D(_Noise, i.uvNoise).r;
 
-				fixed diff = val.r - _BurnAmout;
-				fixed4 clr = fixed4(1, 1, 0, 1);
+				fixed diff = val - _BurnAmout;
 	
-				// clip(val.r - _BurnAmout); // 
+				clip(diff);
 
-				fixed4 col = tex2D(_MainTex, i.texcoord);
-				if (diff < 0) {
-					discard;
-				} else if (diff < 0.05 ) { // 消失边缘加个颜色
-					col = clr;
-				} 
-			
-				col *= _MainColor;
+				fixed4 col = tex2D(_MainTex, i.texcoord) * _MainColor;
+				fixed4 edgeClr = fixed4(1, 1, 0, 1);
+
+				// edgeClr = lerp(edgeClr, col, diff);
+
+				fixed dtVal = saturate(sign(0.05 - diff));
+				col = dtVal * edgeClr + (1 - dtVal)*col;
+
 				UNITY_APPLY_FOG(i.fogCoord, col);
 				UNITY_OPAQUE_ALPHA(col.a);
 				return col;

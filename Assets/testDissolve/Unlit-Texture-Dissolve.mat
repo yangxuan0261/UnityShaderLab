@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Unlit-Texture-Dissolve
   m_Shader: {fileID: 4800000, guid: 6d6f57d532c55cb4288841977fa71061, type: 3}
   m_ShaderKeywords: 
@@ -64,7 +65,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
-    - _BurnAmout: 0.397
+    - _BurnAmout: 0.567
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0

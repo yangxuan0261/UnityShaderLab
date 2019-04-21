@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: ChannelCopy
   m_Shader: {fileID: 4800000, guid: 6fb9f29f4f44dc84e9d85755ef0ae8e6, type: 3}
   m_ShaderKeywords: 

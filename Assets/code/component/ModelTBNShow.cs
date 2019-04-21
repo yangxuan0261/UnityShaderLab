@@ -5,12 +5,12 @@ using UnityEngine;
 public class ModelTBNShow : MonoBehaviour {
     [Range (0f, 10f)]
     public float tbnLen = 0.1f;
-    [Range (0, 1000)]
+    [Range (0, 10000)]
     public int maxShowNum = 100;
 
-    public bool showNormal = true;
-    public bool showTangent = true;
-    public bool showBiTangent = true;
+    public bool showNormal_r = true;
+    public bool showTangent_g = true;
+    public bool showBiTangent_b = true;
 
     MeshFilter meshFilter;
     Mesh sharedMesh;
@@ -53,9 +53,9 @@ public class ModelTBNShow : MonoBehaviour {
          *      则有 n'*G'*M*t = n'*I*t = n'*t = 0 成立
          *      可得 G'*M = I => G = (inverse(M))'
          */
-        if (showNormal) DrawVectors (vertices, normals, ref localToWorld, ref localToWorldInverseTranspose, Color.red, tbnLen);
-        if (showTangent) DrawVectors (vertices, tangentsData, ref localToWorld, ref localToWorld, Color.green, tbnLen);
-        if (showBiTangent) DrawVectors (vertices, biTangents, ref localToWorld, ref localToWorld, Color.blue, tbnLen);
+        if (showNormal_r) DrawVectors (vertices, normals, ref localToWorld, ref localToWorldInverseTranspose, Color.red, tbnLen);
+        if (showTangent_g) DrawVectors (vertices, tangentsData, ref localToWorld, ref localToWorld, Color.green, tbnLen);
+        if (showBiTangent_b) DrawVectors (vertices, biTangents, ref localToWorld, ref localToWorld, Color.blue, tbnLen);
     }
 
     /*显示向量

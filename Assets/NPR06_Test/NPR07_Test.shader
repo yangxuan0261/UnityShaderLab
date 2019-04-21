@@ -23,6 +23,10 @@ Shader "test/NPR07_Test" {
 		_satAmount("Saturation Amount",Range(0.0,5)) = 1.0
 		_conAmount("Contrast Amount",Range(0.0,5)) = 1.0
 
+		_EmissionTex("EmissionMap", 2D) = "white" {}
+		_EmissionColor("EmissionColor", Color) = (1,1,1,1)
+		_EmissionIntensity("EmissionIntensity", Range(0, 30)) = 1
+
 	}
 
 	SubShader {
@@ -34,14 +38,17 @@ Shader "test/NPR07_Test" {
 		#pragma shader_feature _CUBEMAP_ON
 		#pragma shader_feature _SHADOW_ON
 		#pragma shader_feature _OHTER_LIGHT_OFF
-		
+		#pragma shader_feature _EMISSION_ON
+
 		sampler2D _MainTex;
 		sampler2D _RampTex;
 		sampler2D _NormalTex;
+		sampler2D _EmissionTex;
 		samplerCUBE _Cubemap;
 
 		fixed4 _Color;
 		fixed4 _SpecularColor;
+		fixed4 _EmissionColor;
 		float _Gloss;
 		float _ShadowIntensity;
 		
@@ -49,10 +56,12 @@ Shader "test/NPR07_Test" {
 		float _FresnelScale;
 		float _RimPower;
 		float _CubeAmount;
+		float _EmissionIntensity;
 
 		fixed _BrightnessAmount;
 		fixed _satAmount;
 		fixed _conAmount;
+		
 
 		struct a2v {
 			float4  vertex:POSITION;
@@ -169,6 +178,12 @@ Shader "test/NPR07_Test" {
 			float3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
 			fixed4 finalClr = fixed4(ambient + (diffuse + finalSpec + rim) * atten, 1.0); // 有阴影时的计算方式
 			finalClr.rgb = ContrastSaturationBrightness(finalClr.rgb, _BrightnessAmount, _satAmount, _conAmount);
+
+			#if _EMISSION_ON
+			fixed4 emClr = tex2D(_EmissionTex, i.uv).r * _EmissionColor;
+			finalClr += emClr * _EmissionIntensity;
+			#endif
+
 			return finalClr;
 			// return fixed4(rampCol.rbg, 1);
 		}

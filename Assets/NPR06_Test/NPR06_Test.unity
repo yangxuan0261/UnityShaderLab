@@ -304,7 +304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4351442183644906, guid: 526fa9dd8a7945547894e38cea019a42, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -5.63
       objectReference: {fileID: 0}
     - target: {fileID: 4351442183644906, guid: 526fa9dd8a7945547894e38cea019a42, type: 3}
       propertyPath: m_LocalRotation.x
@@ -619,9 +619,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tbnLen: 0.3
   maxShowNum: 1000
-  showNormal: 1
-  showTangent: 1
-  showBiTangent: 1
+  showNormal_r: 1
+  showTangent_g: 1
+  showBiTangent_b: 1
 --- !u!1 &1400908116
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,9 +711,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tbnLen: 0.46
   maxShowNum: 100
-  showNormal: 1
-  showTangent: 1
-  showBiTangent: 1
+  showNormal_r: 1
+  showTangent_g: 1
+  showBiTangent_b: 1
 --- !u!1001 &2121324543
 PrefabInstance:
   m_ObjectHideFlags: 0

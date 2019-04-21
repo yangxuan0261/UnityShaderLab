@@ -8,13 +8,24 @@ public class NPRShaderGUI : ShaderGUI {
 
 		Material targetMat = materialEditor.target as Material;
 
+		bool isEnable = false;
+
 		// cubemap
 		MaterialProperty cubeMap = ShaderGUI.FindProperty ("_Cubemap", properties);
-		bool blendEnabled = cubeMap.textureValue != null;
-		if (blendEnabled) {
+		isEnable = cubeMap.textureValue != null;
+		if (isEnable) {
 			targetMat.EnableKeyword ("_CUBEMAP_ON");
 		} else {
 			targetMat.DisableKeyword ("_CUBEMAP_ON");
+		}
+
+		// emission
+		MaterialProperty emissionMap = ShaderGUI.FindProperty ("_EmissionTex", properties);
+		isEnable = emissionMap.textureValue != null;
+		if (isEnable) {
+			targetMat.EnableKeyword ("_EMISSION_ON");
+		} else {
+			targetMat.DisableKeyword ("_EMISSION_ON");
 		}
 
 		// receive shadow
