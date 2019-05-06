@@ -1,5 +1,3 @@
-
-
 Shader "test/Unlit-Texture-Dissolve" {
 	Properties {
 		_MainTex ("Base (RGB)", 2D) = "white" {}
@@ -56,23 +54,36 @@ Shader "test/Unlit-Texture-Dissolve" {
 				fixed val = tex2D(_Noise, i.uvNoise).r;
 
 				fixed diff = val - _BurnAmout;
-	
+				fixed edgeWidth = 0.05; // 这个是边缘宽度, 可以提取乘一个参数暴露给材质动态控制
+				
 				clip(diff);
 
 				fixed4 col = tex2D(_MainTex, i.texcoord) * _MainColor;
 				fixed4 edgeClr = fixed4(1, 1, 0, 1);
+				fixed4 finalClr;
 
-				// edgeClr = lerp(edgeClr, col, diff);
+				// 方式a
+				// if (diff < edgeWidth) {
+				// 	finalClr = edgeClr;
+				// } else {
+				// 	finalClr = col;
+				// }
 
-				fixed dtVal = saturate(sign(0.05 - diff));
-				col = dtVal * edgeClr + (1 - dtVal)*col;
+				// 方式b
+				// fixed isEdge = saturate(sign(edgeWidth - diff));
+				fixed isEdge = step(diff, edgeWidth); // 与上一行代码等价
+				// finalClr = isEdge * edgeClr + (1 - isEdge)*col;
+				finalClr = lerp(col, edgeClr, isEdge); // 与上一行代码等价
 
-				UNITY_APPLY_FOG(i.fogCoord, col);
-				UNITY_OPAQUE_ALPHA(col.a);
-				return col;
+				// finalClr = isEdge * lerp(col*edgeClr, edgeClr, (diff - edgeWidth) / edgeWidth) + (1 - isEdge)*col; // 做一个差值, 
+				
+
+				// 方式a 与 方式b 等价, 但 方式b 更优于 gpu 计算
+				UNITY_APPLY_FOG(i.fogCoord, finalClr);
+				UNITY_OPAQUE_ALPHA(finalClr.a);
+				return finalClr;
 			}
 			ENDCG
 		}
 	}
-
 }
