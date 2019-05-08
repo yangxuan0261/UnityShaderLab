@@ -10,8 +10,8 @@ Shader "ITS/test/DissolveColor"
 		_Diffuse("Diffuse", Color) = (1,1,1,1)
 		_DissolveColor("Dissolve Color", Color) = (0,0,0,0)
 		_MainTex("Base 2D", 2D) = "white"{}
-		_ColorFactor("ColorFactor", Range(0,1)) = 0.7
 		_DissolveThreshold("DissolveThreshold", Float) = 0  
+		_EdgeWidth("EdgeWidth", Range(-1, 1)) = 0.05  
 	}
 	
 	CGINCLUDE
@@ -20,8 +20,8 @@ Shader "ITS/test/DissolveColor"
 	uniform fixed4 _DissolveColor;
 	uniform sampler2D _MainTex;
 	uniform float4 _MainTex_ST;
-	uniform float _ColorFactor;
 	uniform float _DissolveThreshold;  
+	uniform float _EdgeWidth;  
 	
 	struct v2f
 	{
@@ -43,18 +43,14 @@ Shader "ITS/test/DissolveColor"
 	
 	fixed4 frag(v2f i) : SV_Target
 	{
-		float factor = i.objPos.x - _DissolveThreshold;
-		clip(factor); 
-		fixed3 color = tex2D(_MainTex, i.uv).rgb;
-		//等价于下面注释代码的操作
-		fixed lerpFactor = saturate(sign(_ColorFactor - factor));
-		return lerpFactor * _DissolveColor + (1 - lerpFactor) * fixed4(color, 1);
-		/*
-		if (factor < _ColorFactor)
-		{
-			return _DissolveColor;
-		}
-		return fixed4(color, 1);*/
+		float isShow = step(i.objPos.x, _DissolveThreshold);
+		clip(1 - isShow - 0.0001); // - 0.0001 确保值会小于0, 不然等于0时不会clip
+
+		fixed3 mainClr = tex2D(_MainTex, i.uv).rgb;
+
+		float edgeSmooth = 1 - smoothstep(i.objPos.x, _DissolveThreshold, _DissolveThreshold - _EdgeWidth);
+		_DissolveColor *= edgeSmooth; 
+		return fixed4(mainClr, 1) + _DissolveColor;
 	}
 	ENDCG
 	

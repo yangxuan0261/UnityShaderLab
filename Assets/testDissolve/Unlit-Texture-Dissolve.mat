@@ -65,10 +65,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
-    - _BurnAmout: 0.98
+    - _BurnAmout: 0.48
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _EdgeWidth: -0.02
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1

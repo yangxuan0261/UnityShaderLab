@@ -105,14 +105,12 @@ Shader "test/StandardExt"
 
 				fixed3 burn = tex2D(_NoiseTex, i.tex.xy).rgb;
 				fixed diff = burn.r - _BurnAmout;
-				
-				// clip(burn.r - _BurnAmout);
-				if (diff < 0) {
-					discard;
-				} else if (diff < 0.05 ) { // 消失边缘加个颜色
-					return fixed4(1, 1, 0, 1);
-				}
-				return fragBase(i);
+				fixed4 edgeClr = fixed4(1, 1, 0, 1);
+
+				clip(diff);
+
+				fixed isEdge = step(diff, 0.05);
+				return lerp(fragBase(i), edgeClr, isEdge);
 			}
 
 			ENDCG
