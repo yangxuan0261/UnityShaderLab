@@ -10,7 +10,8 @@ Shader "ITS/test/FlashEffect"
 		_MainTex("MainTex(RGB)", 2D) = "white" {}
 		_FlashTex("FlashTex", 2D) = "black" {}
 		_FlashColor("FlashColor",Color) = (1,1,1,1)
-		_FlashFactor("FlashFactor", Vector) = (0, 1, 0.5, 0.5)
+		_FlashSpeed("FlashSpeed", Vector) = (0, 1,1, 1)
+		_FlashFactor("FlashFactor", Vector) = (0.5, 0.5, 1, 1)
 		_FlashStrength ("FlashStrength", Range(0, 5)) = 1
 	}
 	
@@ -22,6 +23,7 @@ Shader "ITS/test/FlashEffect"
 	uniform fixed4 _FlashColor;
 	//改为一个vector4，减少传参次数消耗
 	uniform fixed4 _FlashFactor;
+	uniform fixed4 _FlashSpeed;
 	uniform fixed _FlashStrength;
 
 	struct v2f 
@@ -52,7 +54,7 @@ Shader "ITS/test/FlashEffect"
 		// fixed diff = max(0, dot(normal, light));
 		fixed4 albedo = tex2D(_MainTex, i.uv);
 		//通过时间偏移模型坐标对flashTex进行采样
-		half2 flashuv = i.worldPos.yx * _FlashFactor.zw - _FlashFactor.xy * _Time.y;
+		half2 flashuv = i.worldPos.yx * _FlashFactor.xy - _FlashSpeed.xy * _Time.y;
 		fixed4 flash = tex2D(_FlashTex, flashuv) * _FlashColor * _FlashStrength;
 		fixed4 c;
 		//将flash图与原图叠加

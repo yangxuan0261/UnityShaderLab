@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: testFlash
+  m_Name: jiefulishi
   m_Shader: {fileID: 4800000, guid: a3b1cb8d26b1a5d44988c47f2e7a3d7f, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 6d4048e092739a945b94475ca8bdcf9e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1d34a9733ee848643a4479f1fb9ddcde, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -64,7 +64,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FlashStrength: 0.34
+    - _FlashStrength: 0.6
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -81,5 +81,4 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FlashColor: {r: 1, g: 1, b: 1, a: 1}
-    - _FlashFactor: {r: 0, g: 1, b: 0.5, a: 0.5}
-    - _FlashSpeed: {r: 0.5, g: 0.5, b: 1, a: 1}
+    - _FlashFactor: {r: 0, g: 0.5, b: 0.5, a: 2.42}
