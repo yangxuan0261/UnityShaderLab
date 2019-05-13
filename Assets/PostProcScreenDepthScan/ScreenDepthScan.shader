@@ -16,22 +16,20 @@ Shader "DepthTexture/ScreenDepthScan"
 	fixed4 _ScanLineColor;
 	float _ScanValue;
 	float _ScanLineWidth;
-	float _ScanLightStrength;
 	
-	float4 frag_depth(v2f_img i) : SV_Target
-	{
-		float depthTextureValue = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv);
-		float linear01EyeDepth = Linear01Depth(depthTextureValue);
+	float4 frag_depth(v2f_img i) : SV_Target {
+		float depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv);
+		float lnr01Depth = Linear01Depth(depth);
 		fixed4 screenTexture = tex2D(_MainTex, i.uv);
+
+		float near = smoothstep(_ScanValue, lnr01Depth, _ScanValue - _ScanLineWidth);
+		float far = smoothstep(_ScanValue, lnr01Depth, _ScanValue + _ScanLineWidth);
+		fixed4 emissionClr = _ScanLineColor * (near + far);
 		
-		if (linear01EyeDepth > _ScanValue && linear01EyeDepth < _ScanValue + _ScanLineWidth)
-		{
-			return screenTexture * _ScanLightStrength * _ScanLineColor;
-		}
-		return screenTexture;
+		return screenTexture + emissionClr;
 	}
 	ENDCG
- 
+	
 	SubShader
 	{
 		Pass
@@ -40,7 +38,7 @@ Shader "DepthTexture/ScreenDepthScan"
 			Cull Off
 			ZWrite Off
 			Fog{ Mode Off }
- 
+			
 			CGPROGRAM
 			#pragma vertex vert_img
 			#pragma fragment frag_depth

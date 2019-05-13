@@ -74,8 +74,11 @@ Shader "chenjd/ForceField"
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.grabPos = ComputeGrabScreenPos(o.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _NoiseTex);
-				o.screenPos = ComputeScreenPos(o.vertex);
-				COMPUTE_EYEDEPTH(o.screenPos.z);
+				o.screenPos = ComputeScreenPos(o.vertex); // ComputeScreenPos 
+				COMPUTE_EYEDEPTH(o.screenPos.z); // 计算出模型顶点位置的 视空间 z 值, 保存到 o.screenPos.z 中, 等下需要用来与 场景视空间的 z 值比较
+				// #	define COMPUTE_EYEDEPTH(o) o = -UnityObjectToViewPos( v.vertex ).z
+				// 注意, 这个宏使用到了 v.vertex, 所以结构体 appdata 对象空间的顶点 位置 的命名一定要是 vertex
+
 				o.normal = UnityObjectToWorldNormal(v.normal);
 				o.viewDir = normalize(UnityWorldSpaceViewDir(mul(unity_ObjectToWorld, v.vertex)));
 				return o;
@@ -86,9 +89,14 @@ Shader "chenjd/ForceField"
 
 			fixed4 frag(v2f i) : SV_Target
 			{
-				//获取已有的深度信息,此时的深度图里没有力场的信息
 				//判断相交
-				float sceneZ = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.screenPos)));
+				// #   	define SAMPLE_DEPTH_TEXTURE_PROJ(sampler, uv) (tex2Dproj(sampler, uv).r)
+				// #	define UNITY_PROJ_COORD(a) a
+				float depth = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.screenPos)); // 用模型的 屏幕坐标([0, 1]区间) 去 采样 场景深度图 获取场景 深度值
+				// float depth = tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.screenPos)).r; // 等价于上一行代码
+
+				float sceneZ = LinearEyeDepth(depth); // 转换到 视空间 的值
+
 				float partZ = i.screenPos.z;
 
 				float diff = sceneZ - partZ;

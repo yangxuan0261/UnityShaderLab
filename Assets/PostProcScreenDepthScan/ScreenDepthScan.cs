@@ -19,10 +19,9 @@ public class ScreenDepthScan : MonoBehaviour
 
     [Range(0.0f, 1.0f)]
     public float scanValue = 0.05f;
-    [Range(0.0f, 0.5f)]
+    [Range(0.0f, 0.05f)]
     public float scanLineWidth = 0.02f;
     [Range(0.0f, 10.0f)]
-    public float scanLightStrength = 10.0f;
     public Color scanLineColor = Color.white;
  
     void Awake()
@@ -58,7 +57,6 @@ public class ScreenDepthScan : MonoBehaviour
             //此处可以一个vec4传进去优化
             postEffectMat.SetFloat("_ScanValue", lerpValue);
             postEffectMat.SetFloat("_ScanLineWidth", scanLineWidth);
-            postEffectMat.SetFloat("_ScanLightStrength", scanLightStrength);
             postEffectMat.SetColor("_ScanLineColor", scanLineColor);
             Graphics.Blit(source, destination, postEffectMat);
         }

@@ -1,46 +1,38 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 [ExecuteInEditMode]
 public class DepthOfFiled : PostEffectBase {
 
-    [Range(0.0f, 100.0f)]
-    public float focalDistance = 10.0f;
-    [Range(0.0f, 100.0f)]
-    public float nearBlurScale = 0.0f;
-    [Range(0.0f, 1000.0f)]
-    public float farBlurScale = 50.0f;
+    [Range(0.0f, 1.0f)]
+    public float focalDistance = 1.0f;
+    [Range(0.0f, 0.5f)]
+    public float focalWidth = 0.02f;
     //分辨率
     public int downSample = 1;
     //采样率
     public int samplerScale = 1;
 
     private Camera _mainCam = null;
-    public Camera MainCam
-    {
-        get
-        {
+    public Camera MainCam {
+        get {
             if (_mainCam == null)
                 _mainCam = GetComponent<Camera>();
             return _mainCam;
         }
     }
 
-    void OnEnable()
-    {
+    void OnEnable() {
         //maincam的depthTextureMode是通过位运算开启与关闭的
         MainCam.depthTextureMode |= DepthTextureMode.Depth;
     }
 
-    void OnDisable()
-    {
+    void OnDisable() {
         MainCam.depthTextureMode &= ~DepthTextureMode.Depth;
     }
 
-    void OnRenderImage(RenderTexture source, RenderTexture destination)
-    {
-        if (_Material)
-        {
+    void OnRenderImage(RenderTexture source, RenderTexture destination) {
+        if (_Material) {
             //首先将我们设置的焦点限制在远近裁剪面之间
             Mathf.Clamp(focalDistance, MainCam.nearClipPlane, MainCam.farClipPlane);
 
@@ -60,9 +52,8 @@ public class DepthOfFiled : PostEffectBase {
             //景深操作，景深需要两的模糊效果图我们通过_BlurTex变量传入shader
             _Material.SetTexture("_BlurTex", temp1);
             //设置shader的参数，主要是焦点和远近模糊的权重，权重可以控制插值时使用模糊图片的权重
-            _Material.SetFloat("_focalDistance", FocalDistance01(focalDistance));
-            _Material.SetFloat("_nearBlurScale", nearBlurScale);
-            _Material.SetFloat("_farBlurScale", farBlurScale);
+            _Material.SetFloat("_focalDistance", focalDistance);
+            _Material.SetFloat("_focalWidth", focalWidth);
 
             //使用pass1进行景深效果计算，清晰场景图直接从source输入到shader的_MainTex中
             Graphics.Blit(source, destination, _Material, 1);
@@ -74,10 +65,8 @@ public class DepthOfFiled : PostEffectBase {
     }
 
     //计算设置的焦点被转换到01空间中的距离，以便shader中通过这个01空间的焦点距离与depth比较
-    private float FocalDistance01(float distance)
-    {
-        return MainCam.WorldToViewportPoint((distance - MainCam.nearClipPlane) * MainCam.transform.forward + MainCam.transform.position).z / (MainCam.farClipPlane - MainCam.nearClipPlane);
-    }
-
+    // private float FocalDistance01(float distance) {
+    //     return MainCam.WorldToViewportPoint((distance - MainCam.nearClipPlane) * MainCam.transform.forward + MainCam.transform.position).z / (MainCam.farClipPlane - MainCam.nearClipPlane);
+    // }
 
 }

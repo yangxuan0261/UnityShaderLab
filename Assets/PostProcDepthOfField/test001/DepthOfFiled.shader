@@ -30,10 +30,10 @@ Shader "ITS/test/DepthOfField" {
 	float4 _MainTex_TexelSize;
 	sampler2D _BlurTex;
 	sampler2D_float _CameraDepthTexture;
+	
 	float4 _offsets;
 	float _focalDistance;
-	float _nearBlurScale;
-	float _farBlurScale;
+	float _focalWidth;
 
 	//高斯模糊 vert shader（上一篇文章有详细注释）
 	v2f_blur vert_blur(appdata_img v)
@@ -90,18 +90,13 @@ Shader "ITS/test/DepthOfField" {
 		//取当位置对应的深度值
 		float depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv);
 		//将深度值转化到01线性空间
-		depth = Linear01Depth(depth);
+		float lnr01Depth = Linear01Depth(depth);
 		
-		//如果depth小于焦点的物体，那么使用原始清晰图像，否则使用模糊的图像与清晰图像的差值，通过差值避免模糊和清晰之间明显的边界，结果为远景模糊效果
-		fixed4 final = (depth <= _focalDistance) ? ori : lerp(ori, blur, clamp((depth - _focalDistance) * _farBlurScale, 0, 1));
-		//上面的结果，再进行一次计算，如果depth大于焦点的物体，使用上面的结果和模糊图像差值，得到近景模糊效果
-		final = (depth > _focalDistance) ? final : lerp(ori, blur, clamp((_focalDistance - depth) * _nearBlurScale, 0, 1));
-		//焦点位置是清晰的图像，两边分别用当前像素深度距离焦点的距离进行差值，这样就达到原理焦点位置模糊的效果
 
-		//上面的？在编译时会被编译成if语句，GPU并不擅长分支计算，而且如果有分支，两个分支都要跑。这里给了一个更优化一些的计算方式，不过语法比较晦涩
-		//float focalTest = clamp(sign(depth - _focalDistance),0,1);
-		//fixed4 final = (1 - focalTest) * ori + focalTest * lerp(ori, blur, clamp((depth - _focalDistance) * _farBlurScale, 0, 1));
-		//final = (focalTest)* final + (1 - focalTest) * lerp(ori, blur, clamp((_focalDistance - depth) * _nearBlurScale, 0, 1));
+		float near = smoothstep(_focalDistance, lnr01Depth, _focalDistance - _focalWidth);
+		float far = smoothstep(_focalDistance, lnr01Depth, _focalDistance + _focalWidth);
+		float finalMask = near + far;
+		fixed4 final = lerp(blur, ori, finalMask);
 		return final;
 	}
 
