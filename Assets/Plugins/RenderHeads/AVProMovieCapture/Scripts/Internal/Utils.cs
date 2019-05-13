@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.IO;
 using System.Diagnostics;
 using System.Runtime.InteropServices;

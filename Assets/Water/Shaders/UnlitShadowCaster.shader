@@ -1,4 +1,4 @@
-﻿Shader "Roystan/Unlit/Shadow Caster"
+Shader "Roystan/Unlit/Shadow Caster"
 {
     Properties
     {

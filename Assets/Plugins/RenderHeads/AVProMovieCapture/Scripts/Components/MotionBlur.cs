@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 //-----------------------------------------------------------------------------
 // Copyright 2012-2017 RenderHeads Ltd.  All rights reserved.

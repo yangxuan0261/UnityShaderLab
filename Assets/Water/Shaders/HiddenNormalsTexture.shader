@@ -1,4 +1,4 @@
-﻿Shader "Hidden/Roystan/Normals Texture"
+Shader "Hidden/Roystan/Normals Texture"
 {
     Properties
     {
