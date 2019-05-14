@@ -8,7 +8,7 @@ Shader "test/PostProcDepth"  {
 	sampler2D _CameraDepthTexture;
 	
 	float4 frag_depth(v2f_img i) : SV_Target {
-		float depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv);
+		float depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv); // 深度图里存放了[0,1]范围的非线性分布的深度值，这些深度值来自NDC坐标。
 		float lnr01Depth = Linear01Depth(depth);
 		
 		return fixed4(lnr01Depth, lnr01Depth, lnr01Depth, 1);

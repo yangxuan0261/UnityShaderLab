@@ -92,7 +92,7 @@ Shader "chenjd/ForceField"
 				//判断相交
 				// #   	define SAMPLE_DEPTH_TEXTURE_PROJ(sampler, uv) (tex2Dproj(sampler, uv).r)
 				// #	define UNITY_PROJ_COORD(a) a
-				float depth = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.screenPos)); // 用模型的 屏幕坐标([0, 1]区间) 去 采样 场景深度图 获取场景 深度值
+				float depth = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.screenPos)); // 用模型的 屏幕坐标([0, 1]区间) 去 采样 场景深度图 获取场景 深度值 (非线性的 [0, 1] 区间)
 				// float depth = tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.screenPos)).r; // 等价于上一行代码
 
 				float sceneZ = LinearEyeDepth(depth); // 转换到 视空间 的值
