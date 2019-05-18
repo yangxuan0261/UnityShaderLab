@@ -39,15 +39,13 @@
     }
 
     // unity 官方 Voronoi 节点: https://docs.unity3d.com/Packages/com.unity.shadergraph@6.5/manual/Voronoi-Node.html
-    inline float2 unity_voronoi_noise_randomVector (float2 UV, float offset)
-    {
+    inline float2 unity_voronoi_noise_randomVector (float2 UV, float offset) {
         float2x2 m = float2x2(15.27, 47.63, 99.41, 89.98);
         UV = frac(sin(mul(UV, m)) * 46839.32);
         return float2(sin(UV.y*+offset)*0.5+0.5, cos(UV.x*offset)*0.5+0.5);
     }
 
-    void Unity_Voronoi_float(float2 UV, float AngleOffset, float CellDensity, out float Out, out float Cells)
-    {
+    void Unity_Voronoi_float(float2 UV, float AngleOffset, float CellDensity, out float Out, out float Cells) {
         float2 g = floor(UV * CellDensity);
         float2 f = frac(UV * CellDensity);
         float t = 8.0;
@@ -71,18 +69,15 @@
     }
 
     // unity 官方 SimpleNoise 节点: https://docs.unity3d.com/Packages/com.unity.shadergraph@6.5/manual/Voronoi-Node.html
-    inline float unity_noise_randomValue (float2 uv)
-    {
+    inline float unity_noise_randomValue (float2 uv) {
         return frac(sin(dot(uv, float2(12.9898, 78.233)))*43758.5453);
     }
 
-    inline float unity_noise_interpolate (float a, float b, float t)
-    {
+    inline float unity_noise_interpolate (float a, float b, float t) {
         return (1.0-t)*a + (t*b);
     }
 
-    inline float unity_valueNoise (float2 uv)
-    {
+    inline float unity_valueNoise (float2 uv) {
         float2 i = floor(uv);
         float2 f = frac(uv);
         f = f * f * (3.0 - 2.0 * f);
@@ -103,8 +98,7 @@
         return t;
     }
 
-    void Unity_SimpleNoise_float(float2 UV, float Scale, out float Out)
-    {
+    void Unity_SimpleNoise_float(float2 UV, float Scale, out float Out) {
         float t = 0.0;
 
         float freq = pow(2.0, float(0));
