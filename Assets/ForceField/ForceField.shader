@@ -2,7 +2,7 @@
 Created by chenjd
 http://www.cnblogs.com/murongxiaopifu/
 */
-Shader "chenjd/ForceField"
+Shader "test/ForceField"
 {
 	Properties
 	{

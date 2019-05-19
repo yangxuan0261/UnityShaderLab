@@ -42,8 +42,7 @@ Shader "test/FrostedGlass"
 			sampler2D _GrabBlurTexture_2;
 			sampler2D _GrabBlurTexture_3;
 			
-			v2f vert (appdata v)
-			{
+			v2f vert (appdata v) {
 				v2f o;
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uvfrost = TRANSFORM_TEX(v.uv, _FrostTex);
@@ -51,8 +50,7 @@ Shader "test/FrostedGlass"
 				return o;
 			}
 			
-			fixed4 frag (v2f i) : SV_Target
-			{
+			fixed4 frag (v2f i) : SV_Target {
 				float surfSmooth = 1-tex2D(_FrostTex, i.uvfrost) * _FrostIntensity; // 模型顶点的 uv 采样 遮罩图
 				
 				surfSmooth = clamp(0, 1, surfSmooth);

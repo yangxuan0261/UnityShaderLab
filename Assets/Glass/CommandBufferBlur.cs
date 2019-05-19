@@ -97,7 +97,10 @@ public class CommandBufferBlur : MonoBehaviour {
         _ScreenResolution = new Vector2(Screen.width, Screen.height);
     }
 
+    // OnPreRender is called before a camera starts rendering the Scene.
+    // This function is called only if the script is attached to the camera and is enabled.
     void OnPreRender() {
+        Debug.LogFormat("--- OnPreRender");
         if (_ScreenResolution != new Vector2(Screen.width, Screen.height))
             Cleanup();
 
