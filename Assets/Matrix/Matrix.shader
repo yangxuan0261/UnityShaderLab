@@ -1,4 +1,4 @@
-Shader "Unlit/Matrix"
+Shader "test/Matrix"
 {
     Properties
     {

@@ -723,4 +723,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44c06efef85bd8e40927bd45058ec884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shader: {fileID: 4800000, guid: 8fcec832c4daeee4abd305e00e57aff8, type: 3}
+  shader: {fileID: 4800000, guid: c5a266c9b9841494cb0aff45c70511e0, type: 3}

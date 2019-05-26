@@ -6,12 +6,13 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class DepthTextureTest : PostEffectBase {
     void OnEnable() {
-        Debug.Log("--- OnEnable");
-        GetComponent<Camera>().depthTextureMode |= DepthTextureMode.Depth;
+        // GetComponent<Camera>().depthTextureMode |= DepthTextureMode.Depth;
+        GetComponent<Camera>().depthTextureMode |= DepthTextureMode.DepthNormals;
     }
 
     void OnDisable() {
-        GetComponent<Camera>().depthTextureMode &= ~DepthTextureMode.Depth;
+        // GetComponent<Camera>().depthTextureMode &= ~DepthTextureMode.Depth;
+        GetComponent<Camera>().depthTextureMode &= ~DepthTextureMode.DepthNormals;
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination) {
