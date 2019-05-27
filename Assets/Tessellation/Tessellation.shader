@@ -28,10 +28,9 @@ Shader "test/Tessellation" {
         sampler2D _DispTex;
         float _Displacement;
 
-        void disp (inout appdata v)
-        {
-            float d = tex2Dlod(_DispTex, float4(v.texcoord.xy,0,0)).r * _Displacement;
-            v.vertex.xyz += v.normal * d;
+        void disp (inout appdata v) {
+            float d = tex2Dlod(_DispTex, float4(v.texcoord.xy,0,0)).r * _Displacement; // 采样高度值
+            v.vertex.xyz += v.normal * d; // 往法线偏移
         }
 
         struct Input {
