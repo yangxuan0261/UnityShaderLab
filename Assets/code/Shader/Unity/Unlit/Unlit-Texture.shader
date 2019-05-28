@@ -5,19 +5,19 @@
 // - no lightmap support
 // - no per-material color
 
-Shader "Qtz/Unity/Unlit/Unlit-Texture" {
-Properties {
-	_MainTex ("Base (RGB)", 2D) = "white" {}
-	_MainColor ("Color", Color) = (1, 1, 1, 1)
-}
+Shader "ITS/Unity/Unlit/Unlit-Texture" {
+	Properties {
+		_MainTex ("Base (RGB)", 2D) = "white" {}
+		_MainColor ("Color", Color) = (1, 1, 1, 1)
+	}
 
-SubShader {
-	Tags { "Queue"="Geometry" "RenderType"="Opaque" }
-	LOD 100
-	ZWrite On ZTest LEqual
-	
-	Pass {  
-		CGPROGRAM
+	SubShader {
+		Tags { "Queue"="Geometry" "RenderType"="Opaque" }
+		LOD 100
+		ZWrite On ZTest LEqual
+		
+		Pass {  
+			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
 			#pragma multi_compile_fog
@@ -56,10 +56,8 @@ SubShader {
 				UNITY_OPAQUE_ALPHA(col.a);
 				return col;
 			}
-		ENDCG
+			ENDCG
+		}
 	}
-}
-    FallBack "Diffuse"  
-
-
+	FallBack "Diffuse"  
 }
