@@ -6,20 +6,20 @@ using System;
 using System.IO;
 using System.Linq;
 
-public class TexUtilMerge : TexUtilBase {
+public class SceUtilListAll : UtilBase<ESceneUtil> {
 
-    public TexUtilMerge() {
-        mMod = ETexUtil.Merge;
-        mDescr = "TexUtilMerge";
+    public SceUtilListAll() {
+        mMod = ESceneUtil.AllScene;
+        mDescr = "SceUtilListAll";
     }
 
     public override void Draw() {
         EditorGUILayout.BeginHorizontal();
 		GUILayout.Space(10);
-		if (GUILayout.Button("TexUtilMerge", GUILayout.Width(100))) {
+		if (GUILayout.Button("SceUtilListAll", GUILayout.Width(100))) {
 
 		}
-		EditorGUILayout.LabelField("TexUtilMergeccccccccccc");
+		EditorGUILayout.LabelField("SceUtilListAllccccccccccc");
 		EditorGUILayout.EndHorizontal();
     }
 

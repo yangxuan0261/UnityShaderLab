@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using System.Linq;
 
-public class TexUtilSplit : TexUtilBase {
+public class TexUtilSplit : UtilBase<ETexUtil> {
 
     public TexUtilSplit() {
         mMod = ETexUtil.Split;

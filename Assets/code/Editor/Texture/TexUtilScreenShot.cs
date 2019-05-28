@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-public class TexUtilScreenShot : TexUtilBase {
+public class TexUtilScreenShot : UtilBase<ETexUtil> {
 
     public TexUtilScreenShot() {
         mMod = ETexUtil.ScreenShot;

@@ -1,11 +1,11 @@
-using UnityEngine;
 using System.Collections;
-using UnityEditor;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
 
 public class FindReferences {
 
@@ -21,10 +21,10 @@ public class FindReferences {
                 .Where(s => withExts.Contains(Path.GetExtension(s).ToLower())).ToArray();
             int startIndex = 0;
 
-            EditorApplication.update = delegate () {
+            EditorApplication.update = delegate() {
                 string file = files[startIndex];
 
-                bool isCancel = EditorUtility.DisplayCancelableProgressBar("匹配资源中", file, (float)startIndex / (float)files.Length);
+                bool isCancel = EditorUtility.DisplayCancelableProgressBar("匹配资源中", file, (float) startIndex / (float) files.Length);
 
                 if (Regex.IsMatch(File.ReadAllText(file), guid)) {
                     Debug.Log(file, AssetDatabase.LoadAssetAtPath<Object>(GetRelativeAssetsPath(file)));
