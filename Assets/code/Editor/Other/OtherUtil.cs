@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum EOtherUtil {
-	One = 0,
+	ScriptableObject = 0,
 }
 
 public class OtherUtil : UtilTemplate<EOtherUtil, UtilBase<EOtherUtil>> {
@@ -22,12 +22,12 @@ public class OtherUtil : UtilTemplate<EOtherUtil, UtilBase<EOtherUtil>> {
 	}
 
 	public OtherUtil() {
-		mNewMod = EOtherUtil.One;
-		mUtilMap.Add(EOtherUtil.One, new OtherOne());
+		mNewMod = EOtherUtil.ScriptableObject;
+		mUtilMap.Add(EOtherUtil.ScriptableObject, new OtherScriptableObject());
 
 	}
 
-	protected override void OnGUI() {
+	// protected override void OnGUI() {
 
-	}
+	// }
 }

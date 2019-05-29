@@ -37,11 +37,10 @@ public class UtilTemplate<E, B> : EditorWindow where E : Enum where B : UtilBase
 
 		if (!mNewMod.Equals(mOldMod)) {
 			mOldMod = mNewMod;
-			Debug.LogFormat("--- change");
 			if (currIns != null) {
-				currIns.OnUtilExit();
+				currIns.OnExit();
 			}
-			ins.OnUtilEnter();
+			ins.OnEnter();
 			currIns = ins;
 		}
 

@@ -12,7 +12,7 @@ public abstract class UtilBase<E> {
     public string mDescr = "UtilBase";
 
     public virtual void Draw() { }
-    public virtual void OnUtilEnter() { }
-    public virtual void OnUtilExit() { }
+    public virtual void OnEnter() { }
+    public virtual void OnExit() { }
 
 }
