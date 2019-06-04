@@ -29,7 +29,8 @@ public class HelperGUI : EditorWindow {
 		_assetLstProperty = _serializedObject.FindProperty ("_assetList");
 	}
 
-	void RegSceneBtn (string btnName, string msg, Action fn, int tab = 1) {
+	void RegSceneBtn (string btnName, string msg, Action fn, int tab = 1)
+	 {
 		EditorGUILayout.BeginHorizontal ();
 		GUILayout.Space (10 * tab);
 		if (GUILayout.Button (btnName, GUILayout.Width (100))) {
