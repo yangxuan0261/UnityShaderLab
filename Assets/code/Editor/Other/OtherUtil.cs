@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 
 public enum EOtherUtil {
 	ScriptableObject = 0,
+	Wrap,
 }
 
 public class OtherUtil : UtilTemplate<EOtherUtil, UtilBase<EOtherUtil>> {
@@ -24,7 +25,7 @@ public class OtherUtil : UtilTemplate<EOtherUtil, UtilBase<EOtherUtil>> {
 	public OtherUtil() {
 		mNewMod = EOtherUtil.ScriptableObject;
 		mUtilMap.Add(EOtherUtil.ScriptableObject, new OtherScriptableObject());
-
+		mUtilMap.Add(EOtherUtil.Wrap, new OtherTestWrap());
 	}
 
 	// protected override void OnGUI() {
