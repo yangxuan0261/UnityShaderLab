@@ -5,7 +5,7 @@
 // - no lightmap support
 // - no per-material color
 
-Shader "ITS/Unity/Unlit/Unlit-Transparent" {
+Shader "ITS/Unity/Unlit/Unlit-Transparent_ZWriteOn" {
 	Properties {
 		_TintColor("Tint Color", Color) = (1, 1, 1, 1)
 		_MainTex ("Base (RGB) Trans (A)", 2D) = "white" {}
@@ -15,7 +15,7 @@ Shader "ITS/Unity/Unlit/Unlit-Transparent" {
 		Tags {"Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"}
 		LOD 100
 		
-		ZWrite Off
+		ZWrite On
 		Blend SrcAlpha OneMinusSrcAlpha 
 		
 		Pass {  
