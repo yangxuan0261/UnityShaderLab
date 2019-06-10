@@ -14,6 +14,14 @@ Shader "test/testSpecularTex"
 	}
 	SubShader {
 		pass{
+			ZWrite On
+			ColorMask 0
+		}
+		pass{
+			ZWrite On
+			ColorMask 0
+		}
+		pass{
 			Tags { "LightMode"="ForwardBase" }
 			
 			CGPROGRAM

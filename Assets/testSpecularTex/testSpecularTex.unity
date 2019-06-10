@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4485398, g: 0.4947875, b: 0.5552389, a: 1}
+  m_IndirectSpecularColor: {r: 0.44853967, g: 0.49478698, b: 0.5552382, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -50,7 +50,6 @@ LightmapSettings:
     m_BounceScale: 1
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
-    m_TemporalCoherenceThreshold: 1
     m_EnvironmentLightingMode: 0
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
@@ -114,57 +113,61 @@ NavMeshSettings:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1001 &387904980
-Prefab:
+PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4532522072179026, guid: 6566cb9466045da468eb4c0dc42b747b, type: 2}
+    - target: {fileID: 1091492119716420, guid: 6566cb9466045da468eb4c0dc42b747b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532522072179026, guid: 6566cb9466045da468eb4c0dc42b747b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.812
       objectReference: {fileID: 0}
-    - target: {fileID: 4532522072179026, guid: 6566cb9466045da468eb4c0dc42b747b, type: 2}
+    - target: {fileID: 4532522072179026, guid: 6566cb9466045da468eb4c0dc42b747b, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4532522072179026, guid: 6566cb9466045da468eb4c0dc42b747b, type: 2}
+    - target: {fileID: 4532522072179026, guid: 6566cb9466045da468eb4c0dc42b747b, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.118
       objectReference: {fileID: 0}
-    - target: {fileID: 4532522072179026, guid: 6566cb9466045da468eb4c0dc42b747b, type: 2}
+    - target: {fileID: 4532522072179026, guid: 6566cb9466045da468eb4c0dc42b747b, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4532522072179026, guid: 6566cb9466045da468eb4c0dc42b747b, type: 2}
+    - target: {fileID: 4532522072179026, guid: 6566cb9466045da468eb4c0dc42b747b, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0.9914353
       objectReference: {fileID: 0}
-    - target: {fileID: 4532522072179026, guid: 6566cb9466045da468eb4c0dc42b747b, type: 2}
+    - target: {fileID: 4532522072179026, guid: 6566cb9466045da468eb4c0dc42b747b, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4532522072179026, guid: 6566cb9466045da468eb4c0dc42b747b, type: 2}
+    - target: {fileID: 4532522072179026, guid: 6566cb9466045da468eb4c0dc42b747b, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.13059944
       objectReference: {fileID: 0}
-    - target: {fileID: 4532522072179026, guid: 6566cb9466045da468eb4c0dc42b747b, type: 2}
+    - target: {fileID: 4532522072179026, guid: 6566cb9466045da468eb4c0dc42b747b, type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 137880037241204516, guid: 6566cb9466045da468eb4c0dc42b747b,
-        type: 2}
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5601341e59c84d04c8a54c00bcbc6f1b, type: 2}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6566cb9466045da468eb4c0dc42b747b, type: 2}
-  m_IsPrefabAsset: 0
+  m_SourcePrefab: {fileID: 100100000, guid: 6566cb9466045da468eb4c0dc42b747b, type: 3}
 --- !u!1 &1851752758
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1851752760}
@@ -180,7 +183,8 @@ GameObject:
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1851752758}
   m_Enabled: 1
   serializedVersion: 8
@@ -217,7 +221,8 @@ Light:
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1851752758}
   m_LocalRotation: {x: 0.15865874, y: 0.13399456, z: -0.021736268, w: 0.9779573}
   m_LocalPosition: {x: -0.06118965, y: 1.1793795, z: -1.5367703}
@@ -230,7 +235,8 @@ Transform:
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1965796065}
@@ -247,14 +253,16 @@ GameObject:
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965796062}
   m_Enabled: 1
 --- !u!20 &1965796064
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965796062}
   m_Enabled: 1
   serializedVersion: 2
@@ -263,6 +271,7 @@ Camera:
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
+  m_GateFitMode: 2
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -294,10 +303,11 @@ Camera:
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965796062}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0.21060255, y: 0.14223662, z: -0.030989235, w: -0.9666722}
+  m_LocalPosition: {x: 2.4803052, y: 3.2037597, z: -3.8053703}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
