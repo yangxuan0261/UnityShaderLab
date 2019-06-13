@@ -303,7 +303,6 @@ GameObject:
   m_Component:
   - component: {fileID: 208341500}
   - component: {fileID: 208341502}
-  - component: {fileID: 208341501}
   m_Layer: 0
   m_Name: char_model
   m_TagString: Untagged
@@ -330,19 +329,6 @@ Transform:
   m_Father: {fileID: 1189001688}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &208341501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114987598174740598, guid: 36b3b329b05fb444694ce304971887dc,
-    type: 3}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 208341499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &208341502
 Animator:
   serializedVersion: 3
@@ -1279,7 +1265,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 858884227}
-  - component: {fileID: 858884226}
   m_Layer: 0
   m_Name: boy_02
   m_TagString: Untagged
@@ -1287,19 +1272,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &858884226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114250477175661776, guid: 36b3b329b05fb444694ce304971887dc,
-    type: 3}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 858884225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &858884227
 Transform:
   m_ObjectHideFlags: 0
