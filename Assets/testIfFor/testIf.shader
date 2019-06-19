@@ -38,7 +38,7 @@
 
             float _Height;
 
-            static const float _ConstHeight = -1;
+            static const float _ConstHeight = 0.2;
 
             v2f vert (appdata v)
             {
@@ -61,14 +61,17 @@
                 // }
 
                 float a = 2.0;
-                // if (i.uv.y < _ConstHeight) {
-                if (a < _ConstHeight) {
+                // if (a < _ConstHeight) {
+                if (i.uv.y < _ConstHeight) {
                     col *= fixed4(1, 0, 0, 1);
                 } else {
                     col *= fixed4(0, 1, 0, 1);
                 }
-                
-                
+
+                /* 
+                float isLt = step(i.uv.y, _ConstHeight);
+                col *= isLt * fixed4(1, 0, 0, 1) + (1-isLt) * fixed4(0, 1, 0, 1);
+                */     
 
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);

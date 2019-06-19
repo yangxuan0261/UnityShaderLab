@@ -38,16 +38,23 @@
 			}
 			
 			sampler2D _MainTex;
-			uniform sampler2D _CameraGBufferTexture1, _SSR;
+			uniform sampler2D _CameraGBufferTexture1;
+			uniform sampler2D _SSR;
 
 			fixed4 frag (v2f i) : SV_Target
 			{
 				//different blend modes can be applied here
 				float4 ssr = tex2D(_SSR,i.uv);
+
+				// 取出 gbuffer 的 光滑度
 				float smoothness = tex2D(_CameraGBufferTexture1,i.uv).a;
 				float4 col = tex2D(_MainTex, i.uv);
+
+				// ssr.a 是 碰撞的 步进, 越大表示
+
 				return col * lerp(1, ssr, ssr.a);
-				return lerp(col,ssr,smoothness*ssr.a);
+				// return col * lerp(1, ssr, smoothness * ssr.a); //
+				// return lerp(col, ssr, smoothness*ssr.a);
 			}
 			ENDCG
 		}

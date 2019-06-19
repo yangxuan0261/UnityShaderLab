@@ -40,7 +40,7 @@ namespace BodhiDonselaar
 			//Create temporary buffers
 			downSample = Mathf.Clamp(downSample, 1, 8);
 			RenderTexture tempWorldPos = RenderTexture.GetTemporary(src.width, src.height, 0, RenderTextureFormat.ARGBFloat);
-			RenderTexture tempA = RenderTexture.GetTemporary(src.width / downSample, src.height / downSample, 0, format);
+			RenderTexture tempA = RenderTexture.GetTemporary(src.width / downSample, src.height / downSample, 0, format); // 降低方便了, 提高性能, 同时也有模糊效果
 			RenderTexture tempB = RenderTexture.GetTemporary(src.width / downSample, src.height / downSample, 0, format);
 
 			//Calculate per-pixel world position
