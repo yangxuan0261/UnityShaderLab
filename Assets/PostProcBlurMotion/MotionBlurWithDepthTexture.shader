@@ -53,7 +53,7 @@ Shader "Unity Shaders Book/Chapter 13/MotionBlurWithDepthTexture"
 			//使用宏和纹理坐标对深度纹理进行采样，得到深度值
 			float d = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv_depth);
  
-			//构建当前像素的NDC坐标,xy坐标由像素的纹理坐标映射而来，z坐标由深度值d映射而来
+			//构建当前像素的NDC坐标,xy坐标由像素的纹理坐标映射而来，z坐标由深度值d映射而来, z 值应该做平台区分, dx (0~1) 和 opengl(-1~1) 不一样
 			float4 H = float4(i.uv.x * 2 - 1, i.uv.y * 2 - 1, d * 2 - 1, 1); // 将屏幕坐标(0, 1) 转到ndc坐标(-1, 1)
 			//使用 当前帧的视角 * 投影矩阵 的逆矩阵 对H进行变换
 			float4 D = mul(_CurrentViewProjectionInverseMartix, H);

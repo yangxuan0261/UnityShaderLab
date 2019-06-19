@@ -97,7 +97,7 @@ Shader "Hidden/Bodhi Donselaar/ScreenSpaceReflections"
                 break; //out of screen 
             }
 
-            // 碰撞到 物体
+            // 碰撞到 物体像素点
             if(result.z<0&&result.z>-(sampleDistance*2))
             { 
                 collision = tex2Dlod(_ssrMask, float4(result.xy, 0, 0)).r;

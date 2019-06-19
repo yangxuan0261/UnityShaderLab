@@ -52,8 +52,8 @@
 
 				// ssr.a 是 碰撞的 步进, 越大表示
 
-				return col * lerp(1, ssr, ssr.a);
-				// return col * lerp(1, ssr, smoothness * ssr.a); //
+				// return col * lerp(1, ssr, ssr.a);
+				return col * lerp(1, ssr, smoothness * ssr.a); //
 				// return lerp(col, ssr, smoothness*ssr.a);
 			}
 			ENDCG
