@@ -9,5 +9,6 @@
 		Tags { "RenderType"="Opaque" "IgnoreProjector"="True"}
 		LOD 100
 		UsePass "test/PassNameBase/PassNameBase01"
+		// UsePass "test/PassNameBase/PassNameBase02" // 支持多 UsePass
 	}
 }
