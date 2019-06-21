@@ -65,7 +65,7 @@ Shader "Hidden/Bodhi Donselaar/ScreenSpaceReflections"
     
     float4 FragmentCalculate (VertexDataCalculate i) : SV_Target
     {
-        float4 SSRValue = 0;
+        float4 SSRValue = float4(0,0,0,0);
         float3 worldPosition = tex2D(_WPOS, i.uv).rgb;
         float distanceToCamera = distance(worldPosition,_WorldSpaceCameraPos);
 
@@ -90,7 +90,7 @@ Shader "Hidden/Bodhi Donselaar/ScreenSpaceReflections"
             result = ray(pos);
 
             // 超出屏幕部分
-            if (any(floor(result.xy) != float2(0,0)))
+            if (any( floor(result.xy) != float2(0,0) ))
             {
                 collision = 0;
                 SSRValue = float4(0,0,0,0);
@@ -98,10 +98,10 @@ Shader "Hidden/Bodhi Donselaar/ScreenSpaceReflections"
             }
 
             // 碰撞到 物体像素点
-            if(result.z<0&&result.z>-(sampleDistance*2))
+            if(result.z<0 && result.z>-(sampleDistance*2))
             { 
                 collision = tex2Dlod(_ssrMask, float4(result.xy, 0, 0)).r;
-                SSRValue = float4(tex2Dlod(_MainTex, float4(result.xy, 0, 0)).rgb*1, 1);
+                SSRValue = float4( tex2Dlod(_MainTex, float4(result.xy, 0, 0)).rgb*1, 1);
                 break;
             }
             pos += dir;

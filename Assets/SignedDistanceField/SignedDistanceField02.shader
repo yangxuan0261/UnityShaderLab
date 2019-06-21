@@ -51,7 +51,7 @@
             fixed4 frag (v2f IN) : COLOR {
                 float smoothValue = 0;
                 //fwidth 必须dx11. 因为是UI，可以用CPU算好一个像素的_Delta,用uniform传给GPU;
-                float delta = _Width * fwidth(IN.uv.x);//fwidth(IN.uv.x);
+                float delta = _Width * fwidth(IN.uv.x); // 与 临近像素是否有 u 值差异
                 float v = IN.uv.x + delta;
                 //if(v >= 1.0f){
                     // smoothValue = (v -1) / delta;
