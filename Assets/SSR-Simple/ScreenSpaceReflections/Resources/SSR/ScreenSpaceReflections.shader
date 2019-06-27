@@ -79,7 +79,7 @@ Shader "Hidden/Bodhi Donselaar/ScreenSpaceReflections"
 
         // 从 gbuffer 中获取 世界空间下的 法线值, 并转到 [-1, 1] 区间下
         float3 worldNormal = tex2D(_CameraGBufferTexture2, i.uv).rgb * 2.0 - 1.0;
-
+    
         // dir 是 观察方向的 反射方向, 且有 步进
         dir = reflect(viewDir, worldNormal) * sampleDistance;//sample dis
         pos = dir*tex2Dlod(_Noise, i.noiseUV).r*4 + worldPosition;
