@@ -41,7 +41,7 @@ Shader "ITS/test/Bumped_Textured_Multiply2"
 				
 				uniform float4 _MainTex_ST;
 				
-				uniform float4x4 _o2wIT;
+				uniform float4x4 _o2w;
 
 				v2f vert (appdata_base v)
 				{
@@ -55,7 +55,7 @@ Shader "ITS/test/Bumped_Textured_Multiply2"
 
 					// 方式三
 					float4 worldPos = mul(unity_ObjectToWorld, v.vertex);
-					// float4 worldPos = mul(_o2wIT, v.vertex);
+					// float4 worldPos = mul(_o2w, v.vertex);
 					o.pos.x = mul(UNITY_MATRIX_VP[0], worldPos);
 					o.pos.y = mul(UNITY_MATRIX_VP[1], worldPos);
 					o.pos.z = mul(UNITY_MATRIX_VP[2], worldPos);
@@ -69,7 +69,6 @@ Shader "ITS/test/Bumped_Textured_Multiply2"
 					// 变换 法线 从 模型空间 -> 观察空间
 					// 方式一
 					float3 worldNorm = UnityObjectToWorldNormal(v.normal).xyz;
-					// float3 worldNorm = mul(v.normal, (float3x3)_o2wIT).xyz;
 					float3 viewNormal = mul((float3x3)UNITY_MATRIX_V, worldNorm); // 将法线转到观察空间下, 因为matcap贴图是摄像机看到的贴图
 					o.uv.zw = viewNormal.xy; // 转换法线值为贴图值
 

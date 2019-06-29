@@ -11,11 +11,12 @@ public class testMatCap2 : MonoBehaviour {
         mMat = GetComponent<Renderer>().sharedMaterial;
     }
 
-    void Update() {
+
+    void LateUpdate() {
         if (mMat != null) {
             // Debug.LogFormat("--- aaa");
-            Matrix4x4 _o2wIT = transform.localToWorldMatrix;
-            mMat.SetMatrix("_o2wIT", _o2wIT);
+            Matrix4x4 _o2w = transform.localToWorldMatrix;
+            mMat.SetMatrix("_o2w", _o2w);
         }
     }
 }
