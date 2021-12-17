@@ -6,6 +6,375 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Demo/Batch/DynamicBatch/DynamicBatch.unity
+    guid: d680083e968d9c942a07c19aaeef1b3a
+  - enabled: 1
+    path: Assets/Demo/Batch/GpuInstancing/GpuInstancing.unity
+    guid: f813526ae475fe24dad846e4afdb604c
+  - enabled: 1
+    path: Assets/Demo/Batch/GpuInstancing/GpuInstancing2.unity
+    guid: aeabc828e6c551c4ca9a85b455fabfc2
+  - enabled: 1
+    path: Assets/Demo/Batch/StaticBatch/StaticBatch.unity
+    guid: 70055bfdfd8e2204f9eefccbeea85af2
+  - enabled: 1
+    path: Assets/Demo/ColorCorrect/ColorCorrect.unity
+    guid: e7cc8cfab310164449d6d187fa046d24
+  - enabled: 1
+    path: Assets/Demo/CommandBuffer/CommandBuffer.unity
+    guid: 4ed460147052c734fa566505effb066e
+  - enabled: 1
+    path: Assets/Demo/CommandBuffer/OutlinePostEffectCmdBuffer.unity
+    guid: 49b1daf719634494eaf5216aa04b14a0
+  - enabled: 1
+    path: Assets/Demo/CommandBuffer/RenderAfterPostEffect.unity
+    guid: 581ef33357abe8e42a2764dca0302cf9
+  - enabled: 1
+    path: Assets/Demo/ComputeScreenPos/ComputeScreenPos.unity
+    guid: 617ec1f48a4195948bfc69f3e4e46b1b
+  - enabled: 1
+    path: Assets/Demo/ComputeShader/ComputeShader.unity
+    guid: 49b0adb6ae0b1bc49a855c8551b886a2
+  - enabled: 1
+    path: Assets/Demo/Cubemap/Cubemap.unity
+    guid: 4b5e5191fcd24af47ab6380ce5d4d30d
+  - enabled: 1
+    path: Assets/Demo/ddxddy/ddxddy.unity
+    guid: 1c5346e47d32401438c5696e1bf51636
+  - enabled: 1
+    path: Assets/Demo/DeferredRendering/DeferredRendering.unity
+    guid: 1751ed55535440c44b932a1008c6009f
+  - enabled: 1
+    path: Assets/Demo/DeferredRendering/filling-the-g-buffers/filling-the-g-buffers.unity
+    guid: eff671c081349438a9b21da58af38faf
+  - enabled: 1
+    path: Assets/Demo/DeferredRendering/pbr/pbr.unity
+    guid: d9ad9eaa61bdb42b4a84b34f2dfeff2c
+  - enabled: 1
+    path: Assets/Demo/ForceField/ForceFieldScene.unity
+    guid: 53709fc0edc0fdf4da9102afb9b1c9d1
+  - enabled: 1
+    path: Assets/Demo/Geometry/Geometry02.unity
+    guid: 173dc0edab7cb8642ae3e9dc5cc55224
+  - enabled: 1
+    path: Assets/Demo/Glass/Glass.unity
+    guid: fba6eb22d3c4d224683d0d1a42bcf3a1
+  - enabled: 1
+    path: Assets/Demo/GrabPass/GrabPass.unity
+    guid: b6606d7563b4fd9439470574b7f3e7fa
+  - enabled: 1
+    path: Assets/Demo/Grass/Grass.unity
+    guid: bc58ece27f7998e439912a63b8244868
+  - enabled: 1
+    path: Assets/Demo/Hair/DEMO/HairDemo.unity
+    guid: b1eb85ff000108d4197ad34367364af7
+  - enabled: 1
+    path: Assets/Demo/HDR/HDR.unity
+    guid: a6253d67030c9a44593d18b3aa28b37a
+  - enabled: 1
+    path: Assets/Demo/Lightmap/Lightmap.unity
+    guid: c1ec287c9a1a4f344a930c3a91e7d21d
+  - enabled: 1
+    path: Assets/Demo/LightModel/LightModel.unity
+    guid: 00be49d633328fb49b0e62f8e8ed0386
+  - enabled: 1
+    path: Assets/Demo/LightProbe/LightProbe.unity
+    guid: 7d0fefc5b03ddff4891a7b9a1ea76943
+  - enabled: 1
+    path: Assets/Demo/LodGroup/LodGroup.unity
+    guid: c9cb8ba3a36633b47aa2cf7808b65c8d
+  - enabled: 1
+    path: Assets/Demo/MatCap/MatCap.unity
+    guid: da1e260fe24a2d64d96a39f8d0460838
+  - enabled: 1
+    path: Assets/Demo/Matrix/Matrix.unity
+    guid: f00deaa81e10a124ca2c7d83c8eb60c1
+  - enabled: 1
+    path: Assets/Demo/MultiUVSets/MultiUVSets.unity
+    guid: ed75fe9ba0f5da947b7979f568dfbd4e
+  - enabled: 1
+    path: Assets/Demo/NPR01/NPR.unity
+    guid: 23881d9e0086a2e4b8f72e973b2522a9
+  - enabled: 1
+    path: Assets/Demo/NPR02_CelShading/NPR02_CelShading.unity
+    guid: 371b469296bef3f48b151d813b775e72
+  - enabled: 1
+    path: Assets/Demo/NPR03_PencilSketch/PencilSketchScene.unity
+    guid: ed1e7226afa1144d2ab083eacd22ed27
+  - enabled: 1
+    path: Assets/Demo/NPR04_StylizedHighlights/StylizedHighlightsScene.unity
+    guid: 720b7595ff8a54ccaa3cb46566658613
+  - enabled: 1
+    path: Assets/Demo/NPR05_ToneBasedShading/ToneBasedShadingScene.unity
+    guid: ac4967ae4d1a5461f86f87c6d27477e8
+  - enabled: 1
+    path: Assets/Demo/NPR06_Test/NPR06_Test.unity
+    guid: 888d38a886e998f4fa763e84645568f0
+  - enabled: 1
+    path: Assets/Demo/OcclusionCulling/OcclusionCulling.unity
+    guid: 4fb58cc8cb52ecc448edbfd443aca702
+  - enabled: 1
+    path: Assets/Demo/Oil/Oil.unity
+    guid: 8b89a0f0a8c2aaf4aa8e0ffef4c6b102
+  - enabled: 1
+    path: Assets/Demo/OtherTest/ShadowTest.unity
+    guid: c3397d9f84fe47d48891afd6dcfa8f9b
+  - enabled: 1
+    path: Assets/Demo/Outline and ScreenSpace texture/Outline and ScreenSpace texture.unity
+    guid: 480afb82818eb9d42be223f0c739792c
+  - enabled: 1
+    path: Assets/Demo/PassName/PassName.unity
+    guid: 2529efaf2ed5d31438dc0a6d23998405
+  - enabled: 1
+    path: Assets/Demo/PassTest/passtest.unity
+    guid: 608c4cb0d60c06747b9c2cb62b8c5614
+  - enabled: 1
+    path: Assets/Demo/PBR01/PBR01.unity
+    guid: b2eda96fde7e0df4c93c51c735d580b9
+  - enabled: 1
+    path: Assets/Demo/PBR_Custom/PBR_Custom.unity
+    guid: 52dbf7cc696fb474bb46ac0e9bb42e61
+  - enabled: 1
+    path: Assets/Demo/PBR_Fake/PBR_Fake.unity
+    guid: 307762b5700a65e49a7eb6bc6854bac6
+  - enabled: 1
+    path: Assets/Demo/PhotoShop/ChannelCopy/ChannelCopy.unity
+    guid: 522d23dff891c5940bb84d3e50574dd3
+  - enabled: 1
+    path: Assets/Demo/PhotoshopBlend/PhotoshopBlend.unity
+    guid: 8c3e5f8df553b0b46a2eb6154a2a775a
+  - enabled: 1
+    path: Assets/Demo/PlanarShadow/PlanarShadow.unity
+    guid: bb033ead2d3c5b4469996f49bc2e71a2
+  - enabled: 1
+    path: Assets/Demo/Plugins/RenderHeads/AVProMovieCapture/DemoScenes/AlphaCaptureDemo.unity
+    guid: d9796adb67791004f8de331385c2ebe5
+  - enabled: 1
+    path: Assets/Demo/Plugins/RenderHeads/AVProMovieCapture/DemoScenes/Camera360CaptureDemo.unity
+    guid: 12b616342e078604a85b24def8314313
+  - enabled: 1
+    path: Assets/Demo/Plugins/RenderHeads/AVProMovieCapture/DemoScenes/Camera360StereoCaptureDemo.unity
+    guid: a59b6804fb7f20947abe5bbece9bb4f1
+  - enabled: 1
+    path: Assets/Demo/Plugins/RenderHeads/AVProMovieCapture/DemoScenes/CameraCaptureDemo.unity
+    guid: 092608d1cce5b7a4c961385358838689
+  - enabled: 1
+    path: Assets/Demo/Plugins/RenderHeads/AVProMovieCapture/DemoScenes/ScreenCaptureDemo.unity
+    guid: aac421df044c8404b9bd40c84487a589
+  - enabled: 1
+    path: Assets/Demo/Plugins/RenderHeads/AVProMovieCapture/DemoScenes/TextureCaptureDemo.unity
+    guid: 4c41bfde9dbb0a3449f96fdffb67a8e2
+  - enabled: 1
+    path: Assets/Demo/Plugins/RenderHeads/AVProMovieCapture/DemoScenes/WebcamCaptureDemo.unity
+    guid: 6ba0f3c85855c684db1ca2bfaa26058a
+  - enabled: 1
+    path: Assets/Demo/PostProc/PostProc.unity
+    guid: 19c14acc8de19f043a2c709f84cfb9aa
+  - enabled: 1
+    path: Assets/Demo/PostProcBloom/PostProcBloomtest.unity
+    guid: 120982b733e4d154bbf662d079839d1d
+  - enabled: 1
+    path: Assets/Demo/PostProcBlurGaosi/PostProcBlurGaosi.unity
+    guid: 21cc24a4fa47f3d488b211a85c81fb72
+  - enabled: 1
+    path: Assets/Demo/PostProcBlurJingxiang/PostProcBlurJingxiang.unity
+    guid: f4f4882de5b4f1e4c949e7ce6f664b79
+  - enabled: 1
+    path: Assets/Demo/PostProcBlurJingxiang2/PostProcBlurJingxiang2.unity
+    guid: 3d86b5a638622e147afc2d44db65ca66
+  - enabled: 1
+    path: Assets/Demo/PostProcBlurJunzhi/PostProcBlurJunzhi.unity
+    guid: 45893b294102fa54f810a02edccbfd1c
+  - enabled: 1
+    path: Assets/Demo/PostProcBlurMotion/PostProcBlurMotion.unity
+    guid: 9f52fa8efe4fe904ab3bff1f2ab4ee42
+  - enabled: 1
+    path: Assets/Demo/PostProcCircle/PostProcCircle.unity
+    guid: 19aba64bb8e92904097d13cde7f77a55
+  - enabled: 1
+    path: Assets/Demo/PostProcDepth/PostProcDepth.unity
+    guid: 0c2d4a971274a594f90e1e1a178d0e2a
+  - enabled: 1
+    path: Assets/Demo/PostProcDepth/PostProcNormal.unity
+    guid: b1a50da4d42c3e54bb1a7633f2183fdc
+  - enabled: 1
+    path: Assets/Demo/PostProcDepthOfField/test001/PostProcDepthOfField.unity
+    guid: 98b9325768953c24d97a36d93eb999ef
+  - enabled: 1
+    path: Assets/Demo/PostProcDepthOfField/test002/PostProcDepthBuffer.unity
+    guid: 2cb974ee795d34144ae7336d5f333af3
+  - enabled: 1
+    path: Assets/Demo/PostProcDistort/PostProcDistort01.unity
+    guid: 60b52bd4d60c7ee438ef17bfc0fa24d4
+  - enabled: 1
+    path: Assets/Demo/PostProcDistort/PostProcDistort02.unity
+    guid: a89ebecd7893eb440b8fc95dfe5bbfdb
+  - enabled: 1
+    path: Assets/Demo/PostProcDistort/RotationDistortEffect.unity
+    guid: 2f66e91c5eaa5ca4f87679d9c632e8c2
+  - enabled: 1
+    path: Assets/Demo/PostProcEdgeEffect/PostProcEdgeEffect.unity
+    guid: f19853207f2c8bb4085b129d3e77657b
+  - enabled: 1
+    path: Assets/Demo/PostProcEdgeEffect/PostProcEdgeEffectDepthNormal.unity
+    guid: 257fa2f013d4f60498e39775b568b09e
+  - enabled: 1
+    path: Assets/Demo/PostProcessing/PostProcessing.unity
+    guid: 20187183bad002245ae84c07bbe743df
+  - enabled: 1
+    path: Assets/Demo/PostProcScreenDepthScan/PostProcScreenDepthScan.unity
+    guid: 1af80c8a1650c054ebea9e53dcecfb50
+  - enabled: 1
+    path: Assets/Demo/PostProcWaterWaveEffect/PostProcWaterWaveEffect.unity
+    guid: 0a64a01ce91ff084f879b87894a49d1b
+  - enabled: 1
+    path: Assets/Demo/PostRenderFire/DistortEffect.unity
+    guid: 461fe38cc5a0e58449093d54a998da40
+  - enabled: 1
+    path: Assets/Demo/PostRenderFire/PostRenderFire.unity
+    guid: e84077ef3f72b904e89998c185e78e9e
+  - enabled: 1
+    path: Assets/Demo/PostRenderingCheckerboard/PostRenderingCheckerboard.unity
+    guid: e3e3071a05ea38b4392569815dcc8b16
+  - enabled: 1
+    path: Assets/Demo/PostRenderNoise/PostRenderNoise.unity
+    guid: 704eb3caf1e6a324e9785efe8c7014e2
+  - enabled: 1
+    path: Assets/Demo/ProceduralNoise/keijiro/NoiseTest.unity
+    guid: 6e62515b3ec8e4fa3b58cbcb4f8cc2bf
+  - enabled: 1
+    path: Assets/Demo/ProceduralNoise/ProceduralNoise.unity
+    guid: 61658e200e82ea245aa85e6386e6dc1f
+  - enabled: 1
+    path: Assets/Demo/Projector/Projector.unity
+    guid: 9d50b350c5cbbd246b3b3c881ba14800
+  - enabled: 1
+    path: Assets/Demo/ReflectionProbe/ReflectionProbe.unity
+    guid: 265ee9d3055e7724b924c0a8951bf7c9
+  - enabled: 1
+    path: Assets/Demo/RenderOrderOpaque/RenderOrderOpaque.unity
+    guid: b8b9cf881ce8c4742a497d3f0ff03d2a
+  - enabled: 1
+    path: Assets/Demo/RenderOrderTransparent/RenderOrderTransparent.unity
+    guid: 543ed83c134910f41a2ae05aeb73d961
+  - enabled: 1
+    path: Assets/Demo/RGBToHSV/RGBToHSV.unity
+    guid: d7af5ea1aa14dca439e59e936c85a0fd
+  - enabled: 1
+    path: Assets/Demo/RippleEffect/RippleEffect.unity
+    guid: 8e245a72ea8254a97bd9932af5f6fc74
+  - enabled: 1
+    path: Assets/Demo/SamplerState/SamplerState.unity
+    guid: d49d2b7ea9245de4e8d2290a68cf25ca
+  - enabled: 1
+    path: Assets/Demo/Scenes/start.unity
+    guid: 4a4a4ee475d802f43b593567d775ce57
+  - enabled: 1
+    path: Assets/Demo/ScreenPos/ScreenPos.unity
+    guid: 55fe5ee0686350043ae6343fb2cc3bd1
+  - enabled: 1
+    path: Assets/Demo/ShaderGUI/ShaderGUI.unity
+    guid: b7adc4c6b085dd641ac5ad33132df8b1
+  - enabled: 1
+    path: Assets/Demo/ShadersLaboratory/Geometry/Geometry.unity
+    guid: 921921437787f7a4787eafcb07df2fbc
+  - enabled: 1
+    path: Assets/Demo/SignedDistanceField/SignedDistanceField01.unity
+    guid: 8eb2d173d2920254e8fcee1a6437be05
+  - enabled: 1
+    path: Assets/Demo/Simple/Simple.unity
+    guid: 263f927e464586b47bba90e5312965c1
+  - enabled: 1
+    path: Assets/Demo/SSR-Simple/SSR-Simple.unity
+    guid: a3fbd2b4ca7532b4487520a828dac8c4
+  - enabled: 1
+    path: Assets/Demo/StencilBuffer/StencilBuffer.unity
+    guid: aef007fbd5093f54c9ba3b842a0bb29b
+  - enabled: 1
+    path: Assets/Demo/StencilByMask/StencilByMask.unity
+    guid: 5a21d0d54c261d44fbda305cf554c8f2
+  - enabled: 1
+    path: Assets/Demo/Tessellation/Tessellation.unity
+    guid: aff2a8b3a01693e4c8ac63254c679687
+  - enabled: 1
+    path: Assets/Demo/testAlphaBlendZWrite/testAlphaBlendZWrite.unity
+    guid: 5cfd5cc732e865b4ab30567a8865bf26
+  - enabled: 1
+    path: Assets/Demo/testBlend/testBlend.unity
+    guid: 24e473a1ee8a8fb45abe8aac41bcf58b
+  - enabled: 1
+    path: Assets/Demo/testDissolve/testDissolve.unity
+    guid: eb49c591ecb448b40a4169cde9c5cef4
+  - enabled: 1
+    path: Assets/Demo/testDistort/testDistort.unity
+    guid: fbb65de7f7666934ba87bdd2dd9dc47d
+  - enabled: 1
+    path: Assets/Demo/testFlash/testFlash.unity
+    guid: c364212704715364ab765d990588c71e
+  - enabled: 1
+    path: Assets/Demo/testFlashLight/testFlashLight.unity
+    guid: e0ca5e73a477e29459f73c57629628bf
+  - enabled: 1
+    path: Assets/Demo/testFlipBook/testFlipBook.unity
+    guid: dcabfab3efa8ff043b12dcefd7be5a0e
+  - enabled: 1
+    path: Assets/Demo/testGrayTex/testGrayTex.unity
+    guid: 0a26fd15a2fa7b549b9572d5817c16bb
+  - enabled: 1
+    path: Assets/Demo/testIfFor/testIfFor.unity
+    guid: 03da814dc07ccf04bb5617982af91125
+  - enabled: 1
+    path: Assets/Demo/testNormal/testNormal.unity
+    guid: d491bc11b2eac044692dcae3a0a1364d
+  - enabled: 1
+    path: Assets/Demo/testOutlineXRay/testOutlineXRay.unity
+    guid: 3af51adefb8c28a4ab35745db6f0b9d2
+  - enabled: 1
+    path: Assets/Demo/testShadow/testShadow.unity
+    guid: 59c3cf691c63e6949850326723a25bc4
+  - enabled: 1
+    path: Assets/Demo/testSpecularTex/testSpecularTex.unity
+    guid: 7c53ae848122aee4c918324c143e5b7a
+  - enabled: 1
+    path: Assets/Demo/testTransform/testTransform.unity
+    guid: 181127f6f3053e244b9f82c76077b4ba
+  - enabled: 1
+    path: Assets/Demo/TextureFilter/TextureFilter.unity
+    guid: e6c521351f5d0ac4abbe68b7791d035f
+  - enabled: 1
+    path: Assets/Demo/Transparent/Transparent.unity
+    guid: 1d1f2e1b83fda2547a7166779b23dabc
+  - enabled: 1
+    path: Assets/Demo/Unlit-Texture-Occlusion-Outline2/testOutline.unity
+    guid: 01568b54bcd64674fb181f4ac15f5e57
+  - enabled: 1
+    path: Assets/Demo/VertexAnim/VertexAnim.unity
+    guid: c2284e14bf5ab3847b583a4cedb7d8d8
+  - enabled: 1
+    path: Assets/Demo/VolumeLight/VL-ExtrudeVertex/VL-ExtrudeVertex.unity
+    guid: ef10d18dfaaf0f544bc9910c6e370064
+  - enabled: 1
+    path: Assets/Demo/VolumeLight/VL-Postprocessing/VL-Postprocessing.unity
+    guid: de0fb2a79debfe44ebe3ff45fcbf5742
+  - enabled: 1
+    path: Assets/Demo/VolumeLight/VL-RayMarching/VL-RayMarching.unity
+    guid: 73fcb6f578ab2e64fafdf551fc59bc35
+  - enabled: 1
+    path: Assets/Demo/WaterSimple/WaterSimple_reflect_off.unity
+    guid: ea47cc8d232b83b4f89d002c95e1fd2c
+  - enabled: 1
+    path: Assets/Demo/WaterSimple/WaterSimple_reflect_on.unity
+    guid: 5d24df09adb7775498c33c4a82142d45
+  - enabled: 1
+    path: Assets/Demo/WaterToon/WaterToon.unity
+    guid: f8d23ecabaa135f4cb12fb0061cca2f3
+  - enabled: 1
+    path: Assets/Demo/z_test/z_test.unity
+    guid: 3337f81d5f40cf445b5cf0f91d8f4ab5
+  - enabled: 1
     path: Assets/Main/main.unity
     guid: 16a81b43f458a274681b7a665abb3351
+  - enabled: 1
+    path: Assets/Thirdparty/Best HTTP (Pro)/Examples/SampleSelector.unity
+    guid: 5ed13563a809f06489c3e97e4da02176
   m_configObjects: {}
