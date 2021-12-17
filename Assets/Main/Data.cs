@@ -6,7 +6,7 @@ namespace Demo {
 
     public class Data {
         public string title;
-        public string path;
+        public string name;
     }
 
 }

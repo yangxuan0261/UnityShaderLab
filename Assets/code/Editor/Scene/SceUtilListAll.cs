@@ -14,21 +14,29 @@ public class SceUtilListAll : UtilBase<ESceneUtil> {
     }
 
     public override void Draw() {
-        EditorGUILayout.BeginHorizontal();
-        GUILayout.Space(10);
-        if (GUILayout.Button("SceUtilListAll", GUILayout.Width(100))) {
+
+        EditorUI.DrawBtn("添加所有场景", "", () => {
+            HashSet<string> nameSet = new HashSet<string>();
 
             string txt = "";
             string[] resFiles = AssetDatabase.FindAssets("t:Scene", new string[] { "Assets" });
-            for (int i = 0; i < resFiles.Length; i++) {
-                resFiles[i] = AssetDatabase.GUIDToAssetPath(resFiles[i]);
-                Debug.LogFormat(resFiles[i]);
-                txt += resFiles[i] + "\n";
+            EditorBuildSettingsScene[] scenes = new EditorBuildSettingsScene[resFiles.Length]; // 加入 Build In Scene
+            for (int i = 0; i < resFiles.Length; ++i) {
+                string path = AssetDatabase.GUIDToAssetPath(resFiles[i]);
+                Debug.LogFormat("--- path: {0}", path);
+                scenes[i] = new EditorBuildSettingsScene(path, true);
+
+                // 写入名字
+                string fileName = Path.GetFileNameWithoutExtension(path);
+                EditorUtils.Assert(!nameSet.Contains(fileName), "--- 包含重复场景名: {0}", fileName);
+                nameSet.Add(fileName);
+                txt += fileName + "\n";
             }
-            Utils.WriteFileUTF8(EditorUtils.GetDesktop("adasdasd.txt"), txt);
-        }
-        EditorGUILayout.LabelField("SceUtilListAllccccccccccc");
-        EditorGUILayout.EndHorizontal();
+            EditorBuildSettings.scenes = scenes;
+            Utils.WriteFileUTF8(EditorUtils.GetDesktop("all_scene.txt"), txt);
+
+            Debug.LogFormat("--- EditorBuildSettings ok");
+        }, 35, 100);
     }
 
     // private static void ChangeShader(bool useSRP) {
