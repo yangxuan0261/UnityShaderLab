@@ -18,6 +18,14 @@ public class SceUtilListAll : UtilBase<ESceneUtil> {
         GUILayout.Space(10);
         if (GUILayout.Button("SceUtilListAll", GUILayout.Width(100))) {
 
+            string txt = "";
+            string[] resFiles = AssetDatabase.FindAssets("t:Scene", new string[] { "Assets" });
+            for (int i = 0; i < resFiles.Length; i++) {
+                resFiles[i] = AssetDatabase.GUIDToAssetPath(resFiles[i]);
+                Debug.LogFormat(resFiles[i]);
+                txt += resFiles[i] + "\n";
+            }
+            Utils.WriteFileUTF8(EditorUtils.GetDesktop("adasdasd.txt"), txt);
         }
         EditorGUILayout.LabelField("SceUtilListAllccccccccccc");
         EditorGUILayout.EndHorizontal();
