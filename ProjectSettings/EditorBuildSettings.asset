@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/PostProcessing/PostProcessing.unity
-    guid: 20187183bad002245ae84c07bbe743df
+    path: Assets/Main/main.unity
+    guid: 16a81b43f458a274681b7a665abb3351
   m_configObjects: {}
