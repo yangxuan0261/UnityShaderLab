@@ -156,7 +156,6 @@ public class EditorUtils {
         }).Start();
     }
 
-
     public static string Join(params string[] paths) {
         return Path.GetFullPath(Path.Combine(paths)).Replace("\\", "/");
     }
@@ -252,9 +251,6 @@ public class EditorUtils {
         return reg.Replace(txt, delegate(Match m) { return ((char) Convert.ToInt32(m.Groups[1].Value, 16)).ToString(); });
     }
 
-
-
-
     public static string[] GetFiles(string dstDir, string pattern) {
         Regex reg = new Regex(pattern);
         var fileArr = Directory.GetFiles(dstDir, "*", SearchOption.AllDirectories).Where(path => reg.IsMatch(path)).ToList();
@@ -266,6 +262,19 @@ public class EditorUtils {
         return retArr;
     }
 
+    private const string RND_NUM = "0123456789";
+    private const string RND_CHAR_UP = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private const string RND_CHAR_LOW = "abcdefghijklmnopqrstuvwxyz";
+    private const string RND_SPEC = "~!@#$%^&*()+=?";
+    public static string RandomStr(int dstLen = 15, bool hasNum = true, bool hasCharUp = true, bool hasCharLow = true, bool hasSpec = true) {
+        string combine = "";
+        if (hasNum) combine += RND_NUM;
+        if (hasCharUp) combine += RND_CHAR_UP;
+        if (hasCharLow) combine += RND_CHAR_LOW;
+        if (hasSpec) combine += RND_SPEC;
+        string rdnStr = combine.Shuffle();
+        return rdnStr.Substring(0, Math.Min(dstLen, rdnStr.Length));
+    }
 
     public static string Now(string fmt = "yyyyMMddTHHmmss") {
         return System.DateTime.Now.ToString(fmt);

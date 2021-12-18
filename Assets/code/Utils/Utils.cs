@@ -863,29 +863,48 @@ public class Utils {
         return scaledTex;
     }
 
+    public static Texture2D TextureToTexture2D(Texture texture, TextureFormat fmt = TextureFormat.RGB24) {
+        RenderTexture currentRT = RenderTexture.active;
+        RenderTexture renderTexture = RenderTexture.GetTemporary(
+            texture.width,
+            texture.height,
+            0,
+            RenderTextureFormat.Default,
+            RenderTextureReadWrite.Linear);
+        Graphics.Blit(texture, renderTexture);
+        RenderTexture.active = renderTexture;
+
+        Texture2D texture2D = new Texture2D(texture.width, texture.height, fmt, false);
+        texture2D.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+        texture2D.Apply();
+
+        RenderTexture.active = currentRT;
+        RenderTexture.ReleaseTemporary(renderTexture);
+        return texture2D;
+    }
+
+    public static bool SaveTexToPng(Texture source, String filePath, int targetWidth, int targHeight) {
+        if (source == null) return false;
+        try {
+            Texture2D readableText = Utils.TextureToTexture2D(source);
+            if (readableText.width != targetWidth || readableText.height != targHeight) {
+                readableText = ScaleTexture(readableText, targetWidth, targHeight);
+            }
+            return SaveTex2DAsPng(readableText, filePath);;
+        } catch (Exception e) {
+            LogUtil.E("write texture2d to file fail:" + e.Message);
+            return false;
+        }
+    }
+
     public static bool SaveTex2DToPng(Texture2D source, String filePath, int targetWidth, int targHeight) {
         if (source == null) return false;
         try {
-            int sourceW = source.width;
-            int sourceH = source.height;
-            RenderTexture renderTex = RenderTexture.GetTemporary(
-                sourceW,
-                sourceH,
-                0,
-                RenderTextureFormat.Default,
-                RenderTextureReadWrite.Linear);
-
-            Graphics.Blit(source, renderTex);
-            RenderTexture.active = renderTex;
-            Texture2D readableText = new Texture2D(sourceW, sourceH);
-            readableText.ReadPixels(new Rect(0, 0, renderTex.width, renderTex.height), 0, 0);
-            readableText.Apply();
-            if (sourceW != targetWidth || sourceH != targHeight) {
+            Texture2D readableText = Utils.TextureToTexture2D(source, source.format);
+            if (readableText.width != targetWidth || readableText.height != targHeight) {
                 readableText = ScaleTexture(readableText, targetWidth, targHeight);
             }
-            bool isOk = SaveTex2DAsPng(readableText, filePath);
-            renderTex.Release();
-            return isOk;
+            return SaveTex2DAsPng(readableText, filePath);;
         } catch (Exception e) {
             LogUtil.E("write texture2d to file fail:" + e.Message);
             return false;
@@ -919,7 +938,6 @@ public class Utils {
         SaveTex2DAsPng(screenShot, path);
         yield return null;
     }
-
 
     // 震动
     public static void Vibrate() {

@@ -21,7 +21,7 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - _AngleOffset: 37.8
-    - _CellDensity: 2.86
-    - _Power: 4.2
-    - _Speed: 4
+    - _CellDensity: 3.23
+    - _Power: 3
+    - _Speed: 2.5
     m_Colors: []

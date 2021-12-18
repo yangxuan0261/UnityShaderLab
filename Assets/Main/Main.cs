@@ -139,7 +139,7 @@ namespace Demo {
             mDataLst.Add(new Data { title = "PostRenderingCheckerboard", name = "PostRenderingCheckerboard" });
             mDataLst.Add(new Data { title = "PostRenderNoise", name = "PostRenderNoise" });
             mDataLst.Add(new Data { title = "NoiseTest", name = "NoiseTest" });
-            mDataLst.Add(new Data { title = "ProceduralNoise", name = "ProceduralNoise" });
+            mDataLst.Add(new Data { title = "生成噪点图", name = "ProceduralNoise" });
             mDataLst.Add(new Data { title = "Projector", name = "Projector" });
             mDataLst.Add(new Data { title = "ReflectionProbe", name = "ReflectionProbe" });
             mDataLst.Add(new Data { title = "RenderOrderOpaque", name = "RenderOrderOpaque" });

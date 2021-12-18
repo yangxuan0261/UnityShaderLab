@@ -20,6 +20,6 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - _Speed: 0.59
-    - _TileNum: 1
+    - _Speed: 0.16
+    - _TileNum: 0.7
     m_Colors: []
