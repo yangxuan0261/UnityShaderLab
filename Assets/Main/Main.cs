@@ -60,38 +60,38 @@ namespace Demo {
 
         // 场景配置
         void InitData() {
-            mDataLst.Add(new Data { title = "DynamicBatch", name = "DynamicBatch" });
+            mDataLst.Add(new Data { title = "动态合批", name = "DynamicBatch" });
+            mDataLst.Add(new Data { title = "静态合批", name = "StaticBatch" });
             mDataLst.Add(new Data { title = "GpuInstancing", name = "GpuInstancing" });
             mDataLst.Add(new Data { title = "GpuInstancing2", name = "GpuInstancing2" });
-            mDataLst.Add(new Data { title = "StaticBatch", name = "StaticBatch" });
-            mDataLst.Add(new Data { title = "ColorCorrect", name = "ColorCorrect" });
+            mDataLst.Add(new Data { title = "颜色校正", name = "ColorCorrect" });
             mDataLst.Add(new Data { title = "CommandBuffer", name = "CommandBuffer" });
-            mDataLst.Add(new Data { title = "OutlinePostEffectCmdBuffer", name = "OutlinePostEffectCmdBuffer" });
-            mDataLst.Add(new Data { title = "RenderAfterPostEffect", name = "RenderAfterPostEffect" });
-            mDataLst.Add(new Data { title = "ComputeScreenPos", name = "ComputeScreenPos" });
+            mDataLst.Add(new Data { title = "CommandBuffer 后处理描边", name = "OutlinePostEffectCmdBuffer" });
+            mDataLst.Add(new Data { title = "后处理渲染", name = "RenderAfterPostEffect" });
+            mDataLst.Add(new Data { title = "计算屏幕坐标", name = "ComputeScreenPos" });
             mDataLst.Add(new Data { title = "ComputeShader", name = "ComputeShader" });
             mDataLst.Add(new Data { title = "Cubemap", name = "Cubemap" });
-            mDataLst.Add(new Data { title = "ddxddy", name = "ddxddy" });
-            mDataLst.Add(new Data { title = "DeferredRendering", name = "DeferredRendering" });
-            mDataLst.Add(new Data { title = "filling-the-g-buffers", name = "filling" });
+            mDataLst.Add(new Data { title = "ddxddy 偏导数, 求法线", name = "ddxddy" });
+            mDataLst.Add(new Data { title = "延迟渲染", name = "DeferredRendering" });
+            mDataLst.Add(new Data { title = "x - filling-the-g-buffers", name = "filling-the-g-buffers" });
             mDataLst.Add(new Data { title = "pbr", name = "pbr" });
-            mDataLst.Add(new Data { title = "ForceFieldScene", name = "ForceFieldScene" });
-            mDataLst.Add(new Data { title = "Geometry02", name = "Geometry02" });
-            mDataLst.Add(new Data { title = "Glass", name = "Glass" });
-            mDataLst.Add(new Data { title = "GrabPass", name = "GrabPass" });
-            mDataLst.Add(new Data { title = "Grass", name = "Grass" });
-            mDataLst.Add(new Data { title = "HairDemo", name = "HairDemo" });
+            mDataLst.Add(new Data { title = "能量罩", name = "ForceFieldScene" });
+            mDataLst.Add(new Data { title = "几何着色器", name = "Geometry02" });
+            mDataLst.Add(new Data { title = "玻璃模糊效果", name = "Glass" });
+            mDataLst.Add(new Data { title = "抓取显存内容-GrabPass", name = "GrabPass" });
+            mDataLst.Add(new Data { title = "草", name = "Grass" });
+            mDataLst.Add(new Data { title = "头发, 各向异性", name = "HairDemo" });
             mDataLst.Add(new Data { title = "HDR", name = "HDR" });
-            mDataLst.Add(new Data { title = "Lightmap", name = "Lightmap" });
-            mDataLst.Add(new Data { title = "LightModel", name = "LightModel" });
-            mDataLst.Add(new Data { title = "LightProbe", name = "LightProbe" });
+            mDataLst.Add(new Data { title = "光照图", name = "Lightmap" });
+            mDataLst.Add(new Data { title = "光照模型", name = "LightModel" });
+            mDataLst.Add(new Data { title = "光照探针-LightProbe", name = "LightProbe" });
             mDataLst.Add(new Data { title = "LodGroup", name = "LodGroup" });
             mDataLst.Add(new Data { title = "MatCap", name = "MatCap" });
             mDataLst.Add(new Data { title = "Matrix", name = "Matrix" });
-            mDataLst.Add(new Data { title = "MultiUVSets", name = "MultiUVSets" });
-            mDataLst.Add(new Data { title = "NPR", name = "NPR" });
-            mDataLst.Add(new Data { title = "NPR02_CelShading", name = "NPR02_CelShading" });
-            mDataLst.Add(new Data { title = "PencilSketchScene", name = "PencilSketchScene" });
+            mDataLst.Add(new Data { title = "顶点中的多套 uv 设置", name = "MultiUVSets" });
+            mDataLst.Add(new Data { title = "卡通渲染-NPR", name = "NPR" });
+            mDataLst.Add(new Data { title = "卡通渲染-CelShading", name = "NPR02_CelShading" });
+            mDataLst.Add(new Data { title = "素描效果-PencilSketchScene", name = "PencilSketchScene" });
             mDataLst.Add(new Data { title = "StylizedHighlightsScene", name = "StylizedHighlightsScene" });
             mDataLst.Add(new Data { title = "ToneBasedShadingScene", name = "ToneBasedShadingScene" });
             mDataLst.Add(new Data { title = "NPR06_Test", name = "NPR06_Test" });
@@ -177,13 +177,12 @@ namespace Demo {
             mDataLst.Add(new Data { title = "VertexAnim", name = "VertexAnim" });
             mDataLst.Add(new Data { title = "VL-ExtrudeVertex", name = "VL" });
             mDataLst.Add(new Data { title = "VL-Postprocessing", name = "VL" });
-            mDataLst.Add(new Data { title = "VL-RayMarching", name = "VL" });
-            mDataLst.Add(new Data { title = "WaterSimple_reflect_off", name = "WaterSimple_reflect_off" });
-            mDataLst.Add(new Data { title = "WaterSimple_reflect_on", name = "WaterSimple_reflect_on" });
-            mDataLst.Add(new Data { title = "WaterToon", name = "WaterToon" });
-            mDataLst.Add(new Data { title = "z_test", name = "z_test" });
-            mDataLst.Add(new Data { title = "main", name = "main" });
-            mDataLst.Add(new Data { title = "SampleSelector", name = "SampleSelector" });
+            mDataLst.Add(new Data { title = "x - VL-RayMarching", name = "VL" });
+            mDataLst.Add(new Data { title = "无反射的水", name = "WaterSimple_reflect_off" });
+            mDataLst.Add(new Data { title = "有反射的水", name = "WaterSimple_reflect_on" });
+            mDataLst.Add(new Data { title = "卡通水", name = "WaterToon" });
+            mDataLst.Add(new Data { title = "x - z buff 测试", name = "z_test" });
+            mDataLst.Add(new Data { title = "Best HTTP (Pro)", name = "SampleSelector" });
         }
     }
 }
