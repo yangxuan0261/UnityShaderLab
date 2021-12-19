@@ -98,7 +98,7 @@ namespace Demo {
             mDataLst.Add(new Data { title = "OcclusionCulling", name = "OcclusionCulling" });
             mDataLst.Add(new Data { title = "Oil", name = "Oil" });
             mDataLst.Add(new Data { title = "ShadowTest", name = "ShadowTest" });
-            mDataLst.Add(new Data { title = "Outline and ScreenSpace texture", name = "Outline" });
+            mDataLst.Add(new Data { title = "Outline and ScreenSpace texture", name = "Outline and ScreenSpace texture" });
             mDataLst.Add(new Data { title = "PassName", name = "PassName" });
             mDataLst.Add(new Data { title = "passtest", name = "passtest" });
             mDataLst.Add(new Data { title = "PBR01", name = "PBR01" });

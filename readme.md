@@ -1,6 +1,11 @@
-> unity version ： 2018.4.1f1
-> GitHub 不错的仓库
+> unity version ： 2018.4.36f1
 
 ---
 
 日常练习.
+
+
+
+---
+
+### 噪点图导出
