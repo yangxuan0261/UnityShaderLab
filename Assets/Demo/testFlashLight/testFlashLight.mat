@@ -4,13 +4,15 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: testFlashLight
   m_Shader: {fileID: 4800000, guid: 4425c5aec169f084b914aea273c881f3, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2000
   stringTagMap: {}
   disabledShaderPasses: []
@@ -69,7 +71,7 @@ Material:
     - _Gloss: 8
     - _Glossiness: 0.5
     - _Mode: 0
-    - _MoveDir: 0
+    - _MoveDir: 0.31
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RimPower: 1
