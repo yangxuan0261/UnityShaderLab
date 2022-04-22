@@ -266,9 +266,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Demo/SamplerState/SamplerState.unity
     guid: d49d2b7ea9245de4e8d2290a68cf25ca
-  - enabled: 1
-    path: Assets/Demo/Scenes/start.unity
-    guid: 4a4a4ee475d802f43b593567d775ce57
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Demo/ScreenPos/ScreenPos.unity
     guid: 55fe5ee0686350043ae6343fb2cc3bd1
@@ -377,4 +377,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Thirdparty/Best HTTP (Pro)/Examples/SampleSelector.unity
     guid: 5ed13563a809f06489c3e97e4da02176
+  - enabled: 1
+    path: Assets/Demo/UIEffect/UIEffect.unity
+    guid: 63c5a7bf034c62a43a76e1529683675e
   m_configObjects: {}

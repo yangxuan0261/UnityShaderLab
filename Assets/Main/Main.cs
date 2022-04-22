@@ -60,6 +60,7 @@ namespace Demo {
 
         // 场景配置
         void InitData() {
+            mDataLst.Add(new Data { title = "UI 效果", name = "UIEffect" });
             mDataLst.Add(new Data { title = "动态合批", name = "DynamicBatch" });
             mDataLst.Add(new Data { title = "静态合批", name = "StaticBatch" });
             mDataLst.Add(new Data { title = "GpuInstancing", name = "GpuInstancing" });
