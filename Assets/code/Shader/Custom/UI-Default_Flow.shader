@@ -10,6 +10,7 @@ Shader "Custom/UI/Default Flow"
         _FlowTex ("Flow Texture", 2D) = "white" {}
         _FlowSpeed("Flow Speed", Vector) = (1,0,0, 0)
         _FlowColor ("Flow Color", Color) = (1,1,1,1)
+        _BurnAmout ("Burn Amount", Range(0.0, 10.0)) = 1
 
         _StencilComp ("Stencil Comparison", Float) = 8
         _Stencil ("Stencil ID", Float) = 0
@@ -91,6 +92,7 @@ Shader "Custom/UI/Default Flow"
             sampler2D _FlowTex;
             float4 _FlowTex_ST;
             fixed4 _FlowSpeed;
+            float _BurnAmout;
 
             v2f vert(appdata_t v)
             {
@@ -113,7 +115,7 @@ Shader "Custom/UI/Default Flow"
 
                 // 流光叠加
                 half2 flashuv = IN.texcoord2 + _FlowSpeed.xy * _Time.y + _FlowSpeed.zw;
-                half4 flowClr = tex2D(_FlowTex, flashuv) * _FlowColor;
+                half4 flowClr = tex2D(_FlowTex, flashuv) * _FlowColor * _BurnAmout;
                 color.rgb += flowClr.rgb;
 
                 #ifdef UNITY_UI_CLIP_RECT
